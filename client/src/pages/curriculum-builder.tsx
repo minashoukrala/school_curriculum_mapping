@@ -166,60 +166,50 @@ export default function CurriculumBuilder() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Header */}
-      <header className="bg-[#1e2a5e] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-2">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-4">
-              <span className="flex items-center">
-                <Phone className="inline w-4 h-4 mr-1" /> 425.641.5570
-              </span>
-              <span>Contact Us</span>
-              <span>Schedule A Tour</span>
-              <span>Calendar</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span>Facebook</span>
-              <span>Instagram</span>
-              <span>YouTube</span>
-              <span>Twitter</span>
-              <span>Email</span>
-              <span>Yelp</span>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Main Navigation */}
       <nav className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-3">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <EastsideLogo size={70} className="mr-6" />
-              <div className="flex items-center space-x-8 text-[#1e2a5e] font-medium text-sm uppercase tracking-wide">
-                <span>ABOUT US</span>
-                <span>ADMISSIONS</span>
-                <span>SPIRITUAL LIFE</span>
-                <span>ACADEMICS</span>
-                <span>COMMUNITY</span>
-                <span>SUPPORT</span>
+              <EastsideLogo size={40} className="mr-4" />
+              <div className="flex items-center space-x-8">
+                {grades.map((grade) => (
+                  <div key={grade} className="relative group">
+                    <button
+                      onClick={() => setSelectedGrade(grade)}
+                      className={`text-[#1e2a5e] font-medium text-sm uppercase tracking-wide hover:text-blue-600 transition-colors ${
+                        selectedGrade === grade ? 'text-blue-600 border-b-2 border-blue-600 pb-1' : ''
+                      }`}
+                    >
+                      {grade}
+                    </button>
+                    {selectedGrade === grade && (
+                      <div className="absolute top-full left-0 mt-2 bg-white shadow-lg border rounded-lg z-50 min-w-[200px]">
+                        <div className="py-2">
+                          {subjects.map((subject) => (
+                            <button
+                              key={subject}
+                              onClick={() => setSelectedSubject(subject)}
+                              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
+                                selectedSubject === subject ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-700'
+                              }`}
+                            >
+                              {subject}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-            <GradeNavigation 
-              grades={grades}
-              selectedGrade={selectedGrade}
-              onGradeSelect={setSelectedGrade}
-            />
+            <div className="text-sm text-gray-600">
+              Current: <span className="font-medium text-[#1e2a5e]">{selectedGrade} - {selectedSubject}</span>
+            </div>
           </div>
         </div>
       </nav>
-
-      {/* Subject Navigation */}
-      <SubjectNavigation 
-        subjects={subjects}
-        selectedSubject={selectedSubject}
-        onSubjectSelect={setSelectedSubject}
-      />
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-6">
