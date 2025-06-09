@@ -5,12 +5,15 @@ interface EastsideLogoProps {
   size?: number;
 }
 
-export default function EastsideLogo({ className = "", size = 40 }: EastsideLogoProps) {
+export default function EastsideLogo({
+  className = "",
+  size = 40,
+}: EastsideLogoProps) {
   return (
-    <img 
+    <img
       src={logoImage}
       alt="Eastside Christian School Logo"
-      height={size} 
+      height={size}
       className={`${className}`}
     />
   );
