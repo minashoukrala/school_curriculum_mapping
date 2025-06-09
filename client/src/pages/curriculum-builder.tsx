@@ -193,29 +193,29 @@ export default function CurriculumBuilder() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-12">
-              <EastsideLogo size={70} />
-              <div className="flex items-center space-x-8">
+      <nav className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-20">
+            <div className="flex items-center">
+              <EastsideLogo size={60} className="mr-8" />
+              <div className="flex items-center space-x-10">
                 {grades.map((grade) => (
                   <div 
                     key={grade} 
-                    className="relative"
+                    className="relative group"
                     onMouseEnter={() => setHoveredGrade(grade)}
                     onMouseLeave={() => setHoveredGrade(null)}
                   >
                     <button
                       onClick={() => setSelectedGrade(grade)}
-                      className={`text-[#2d4a7b] font-semibold text-sm uppercase tracking-wider hover:text-blue-600 transition-colors py-2 ${
-                        selectedGrade === grade ? 'text-blue-600 border-b-2 border-blue-600' : ''
+                      className={`text-[#2d4a7b] font-medium text-sm uppercase tracking-wide hover:text-[#1e3a8a] transition-all duration-200 py-6 ${
+                        selectedGrade === grade ? 'text-[#1e3a8a] border-b-3 border-[#1e3a8a]' : ''
                       }`}
                     >
                       {grade}
                     </button>
                     {hoveredGrade === grade && (
-                      <div className="absolute top-full left-0 mt-1 bg-white shadow-xl border border-gray-200 rounded-md z-50 min-w-[160px]">
+                      <div className="absolute top-full left-0 bg-white shadow-lg border border-gray-200 z-50 min-w-[180px] rounded-sm">
                         <div className="py-2">
                           {subjects.map((subject) => (
                             <button
@@ -225,10 +225,10 @@ export default function CurriculumBuilder() {
                                 setSelectedSubject(subject);
                                 setHoveredGrade(null);
                               }}
-                              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                              className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 transition-colors ${
                                 selectedSubject === subject && selectedGrade === grade
-                                  ? 'bg-blue-50 text-blue-600 font-medium' 
-                                  : 'text-gray-700'
+                                  ? 'bg-blue-50 text-[#1e3a8a] border-l-3 border-[#1e3a8a]' 
+                                  : 'text-gray-700 hover:text-[#2d4a7b]'
                               }`}
                             >
                               {subject}
@@ -241,9 +241,9 @@ export default function CurriculumBuilder() {
                 ))}
               </div>
             </div>
-            <div className="text-sm">
-              <span className="text-gray-600">Current:</span>
-              <span className="ml-2 font-semibold text-[#2d4a7b]">{selectedGrade} - {selectedSubject}</span>
+            <div className="bg-gray-50 px-4 py-2 rounded-full">
+              <span className="text-sm text-gray-600">Current:</span>
+              <span className="ml-2 font-semibold text-[#2d4a7b]">{selectedGrade} • {selectedSubject}</span>
             </div>
           </div>
         </div>

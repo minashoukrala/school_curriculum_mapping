@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .border-b-3 {
+    border-bottom-width: 3px;
+  }
+  .border-l-3 {
+    border-left-width: 3px;
+  }
+}
+
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(210, 40%, 10%);
