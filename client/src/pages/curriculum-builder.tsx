@@ -10,7 +10,7 @@ import SubjectNavigation from "@/components/subject-navigation";
 import CurriculumTable from "@/components/curriculum-table";
 import StandardsModal from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
-import EastsideLogo from "@/components/eastside-logo";
+
 
 const grades = [
   "KG",
@@ -257,59 +257,56 @@ export default function CurriculumBuilder() {
 
       {/* Main Navigation */}
       <nav className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center">
-              <EastsideLogo size={60} className="mr-8" />
-              <div className="flex items-center space-x-10">
-                {grades.map((grade) => (
-                  <div
-                    key={grade}
-                    className="relative group"
-                    onMouseEnter={() => setHoveredGrade(grade)}
-                    onMouseLeave={() => setHoveredGrade(null)}
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-14">
+            <div className="flex items-center space-x-4 flex-1">
+              {grades.map((grade) => (
+                <div
+                  key={grade}
+                  className="relative group"
+                  onMouseEnter={() => setHoveredGrade(grade)}
+                  onMouseLeave={() => setHoveredGrade(null)}
+                >
+                  <button
+                    onClick={() => setSelectedGrade(grade)}
+                    className={`text-[#2d4a7b] font-medium text-xs uppercase tracking-wide hover:text-[#1e3a8a] transition-all duration-200 py-3 px-2 whitespace-nowrap ${
+                      selectedGrade === grade
+                        ? "text-[#1e3a8a] border-b-2 border-[#1e3a8a]"
+                        : ""
+                    }`}
                   >
-                    <button
-                      onClick={() => setSelectedGrade(grade)}
-                      className={`text-[#2d4a7b] font-medium text-sm uppercase tracking-wide hover:text-[#1e3a8a] transition-all duration-200 py-6 ${
-                        selectedGrade === grade
-                          ? "text-[#1e3a8a] border-b-3 border-[#1e3a8a]"
-                          : ""
-                      }`}
-                    >
-                      {grade}
-                    </button>
-                    {hoveredGrade === grade && (
-                      <div className="absolute top-full left-0 bg-white shadow-lg border border-gray-200 z-50 min-w-[180px] rounded-sm">
-                        <div className="py-2">
-                          {subjects.map((subject) => (
-                            <button
-                              key={subject}
-                              onClick={() => {
-                                setSelectedGrade(grade);
-                                setSelectedSubject(subject);
-                                setHoveredGrade(null);
-                              }}
-                              className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 transition-colors ${
-                                selectedSubject === subject &&
-                                selectedGrade === grade
-                                  ? "bg-blue-50 text-[#1e3a8a] border-l-3 border-[#1e3a8a]"
-                                  : "text-gray-700 hover:text-[#2d4a7b]"
-                              }`}
-                            >
-                              {subject}
-                            </button>
-                          ))}
-                        </div>
+                    {grade}
+                  </button>
+                  {hoveredGrade === grade && (
+                    <div className="absolute top-full left-0 bg-white shadow-lg border border-gray-200 z-50 min-w-[180px] rounded-sm">
+                      <div className="py-2">
+                        {subjects.map((subject) => (
+                          <button
+                            key={subject}
+                            onClick={() => {
+                              setSelectedGrade(grade);
+                              setSelectedSubject(subject);
+                              setHoveredGrade(null);
+                            }}
+                            className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 transition-colors ${
+                              selectedSubject === subject &&
+                              selectedGrade === grade
+                                ? "bg-blue-50 text-[#1e3a8a] border-l-3 border-[#1e3a8a]"
+                                : "text-gray-700 hover:text-[#2d4a7b]"
+                            }`}
+                          >
+                            {subject}
+                          </button>
+                        ))}
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
-            <div className="bg-gray-50 px-4 py-2 rounded-full">
-              <span className="text-sm text-gray-600">Current:</span>
-              <span className="ml-2 font-semibold text-[#2d4a7b]">
+            <div className="bg-gray-50 px-3 py-1 rounded-full text-xs">
+              <span className="text-gray-600">Current:</span>
+              <span className="ml-1 font-semibold text-[#2d4a7b]">
                 {selectedGrade} • {selectedSubject}
               </span>
             </div>

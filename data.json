@@ -11,6 +11,24 @@
         "RF.K.1",
         "RF.K.2"
       ]
+    },
+    {
+      "id": 2,
+      "grade": "KG",
+      "subject": "English",
+      "objectives": "Mina was here",
+      "unitPacing": "",
+      "learningTargets": "",
+      "standards": []
+    },
+    {
+      "id": 3,
+      "grade": "Grade 4",
+      "subject": "Math",
+      "objectives": "Hey there",
+      "unitPacing": "",
+      "learningTargets": "",
+      "standards": []
     }
   ],
   "standards": [
@@ -63,6 +81,6 @@
       "category": "Speaking and Listening"
     }
   ],
-  "nextCurriculumId": 2,
+  "nextCurriculumId": 4,
   "nextStandardId": 9
 }
