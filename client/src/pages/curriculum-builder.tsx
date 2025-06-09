@@ -232,18 +232,18 @@ export default function CurriculumBuilder() {
     <div className="min-h-screen bg-white">
       {/* Top Header Bar */}
       <div className="bg-[#2d4a7b] text-white">
-        <div className="max-w-7xl mx-auto px-6 py-2">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-2">
+          <div className="flex items-center justify-between text-xs sm:text-sm">
+            <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
               <span className="flex items-center">
-                <Phone className="w-4 h-4 mr-1" />
-                425.641.5570
+                <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                <span className="hidden sm:inline">425.641.5570</span>
               </span>
-              <span>Contact Us</span>
-              <span>Schedule A Tour</span>
-              <span>Calendar</span>
+              <span className="hidden md:inline">Contact Us</span>
+              <span className="hidden lg:inline">Schedule A Tour</span>
+              <span className="hidden lg:inline">Calendar</span>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <span>f</span>
               <span>@</span>
               <span>▶</span>
@@ -257,9 +257,10 @@ export default function CurriculumBuilder() {
 
       {/* Main Navigation */}
       <nav className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-14">
-            <div className="flex items-center space-x-4 flex-1">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <div className="flex items-center justify-between h-12 sm:h-14">
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-4 flex-1">
               {grades.map((grade) => (
                 <div
                   key={grade}
@@ -304,39 +305,81 @@ export default function CurriculumBuilder() {
                 </div>
               ))}
             </div>
-            <div className="bg-gray-50 px-3 py-1 rounded-full text-xs">
-              <span className="text-gray-600">Current:</span>
-              <span className="ml-1 font-semibold text-[#2d4a7b]">
-                {selectedGrade} • {selectedSubject}
+
+            {/* Mobile/Tablet Navigation */}
+            <div className="flex lg:hidden items-center justify-between w-full">
+              <div className="flex items-center space-x-1 overflow-x-auto scrollbar-hide">
+                {grades.map((grade) => (
+                  <button
+                    key={grade}
+                    onClick={() => setSelectedGrade(grade)}
+                    className={`text-[#2d4a7b] font-medium text-xs uppercase tracking-wide hover:text-[#1e3a8a] transition-all duration-200 py-2 px-1.5 whitespace-nowrap flex-shrink-0 ${
+                      selectedGrade === grade
+                        ? "text-[#1e3a8a] border-b-2 border-[#1e3a8a]"
+                        : ""
+                    }`}
+                  >
+                    {grade}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Current Selection Indicator */}
+            <div className="bg-gray-50 px-2 sm:px-3 py-1 rounded-full text-xs ml-2">
+              <span className="text-gray-600 hidden sm:inline">Current:</span>
+              <span className="ml-0 sm:ml-1 font-semibold text-[#2d4a7b]">
+                <span className="sm:hidden">{selectedGrade}</span>
+                <span className="hidden sm:inline">{selectedGrade} • {selectedSubject}</span>
               </span>
             </div>
           </div>
         </div>
       </nav>
 
+      {/* Mobile Subject Selection */}
+      <div className="lg:hidden bg-gray-50 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <div className="flex items-center space-x-2 py-2 overflow-x-auto scrollbar-hide">
+            {subjects.map((subject) => (
+              <button
+                key={subject}
+                onClick={() => setSelectedSubject(subject)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0 transition-colors ${
+                  selectedSubject === subject
+                    ? "bg-[#2d4a7b] text-white"
+                    : "bg-white text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                {subject}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6">
         {/* Page Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-medium text-gray-900">
-                {selectedSubject.toUpperCase()} {selectedGrade} Curriculum
-                Builder
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-medium text-gray-900">
+                {selectedSubject.toUpperCase()} {selectedGrade} Curriculum Builder
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-sm sm:text-base text-gray-600 mt-1">
                 School Year: <span>2023-2024</span>
               </p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
               <Button
                 onClick={handleAddRow}
-                className="edu-button-accent"
+                className="edu-button-accent text-sm px-4 py-2"
                 disabled={createRowMutation.isPending}
               >
                 Add Curriculum Row
               </Button>
-              <Button onClick={handleExportData} variant="outline">
+              <Button onClick={handleExportData} variant="outline" className="text-sm px-4 py-2">
                 Export JSON
               </Button>
             </div>
