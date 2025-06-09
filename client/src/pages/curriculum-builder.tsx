@@ -166,38 +166,43 @@ export default function CurriculumBuilder() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="edu-header text-white">
-        <div className="flex items-center justify-between px-6 py-2 text-sm">
-          <div className="flex items-center space-x-4">
-            <span><Phone className="inline w-4 h-4 mr-1" /> 425.641.5570</span>
-            <span>Contact Us</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <span>Admissions</span>
-            <span>Donations</span>
-            <span>Athletics</span>
-            <span>Portal Login</span>
-            <span>A-M Calendar</span>
-            <span>Lunch Menu</span>
-            <span>Teacher Resources</span>
-            <span>A-Ray Coupons</span>
-            <span>PTF Coupons</span>
+      {/* Top Header */}
+      <header className="bg-[#1e2a5e] text-white">
+        <div className="max-w-7xl mx-auto px-6 py-2">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-4">
+              <span className="flex items-center">
+                <Phone className="inline w-4 h-4 mr-1" /> 425.641.5570
+              </span>
+              <span>Contact Us</span>
+              <span>Schedule A Tour</span>
+              <span>Calendar</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span>Facebook</span>
+              <span>Instagram</span>
+              <span>YouTube</span>
+              <span>Twitter</span>
+              <span>Email</span>
+              <span>Yelp</span>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* School Navigation */}
+      {/* Main Navigation */}
       <nav className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
-                <EastsideLogo size={48} />
-                <div>
-                  <h2 className="font-medium text-lg text-gray-900">Eastside Christian School</h2>
-                  <p className="text-sm text-gray-600">Excellence in Education</p>
-                </div>
+            <div className="flex items-center">
+              <EastsideLogo size={70} className="mr-6" />
+              <div className="flex items-center space-x-8 text-[#1e2a5e] font-medium text-sm uppercase tracking-wide">
+                <span>ABOUT US</span>
+                <span>ADMISSIONS</span>
+                <span>SPIRITUAL LIFE</span>
+                <span>ACADEMICS</span>
+                <span>COMMUNITY</span>
+                <span>SUPPORT</span>
               </div>
             </div>
             <GradeNavigation 

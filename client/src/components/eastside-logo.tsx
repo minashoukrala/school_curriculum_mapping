@@ -1,4 +1,4 @@
-import logoImage from "@assets/images_1749436918417.png";
+import logoImage from "@assets/eastside-christian-school-logo-RETINA_1749437012381.png";
 
 interface EastsideLogoProps {
   className?: string;
@@ -10,9 +10,8 @@ export default function EastsideLogo({ className = "", size = 40 }: EastsideLogo
     <img 
       src={logoImage}
       alt="Eastside Christian School Logo"
-      width={size} 
       height={size} 
-      className={`${className} rounded-full`}
+      className={`${className}`}
     />
   );
 }
