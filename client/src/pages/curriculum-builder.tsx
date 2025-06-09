@@ -10,6 +10,7 @@ import SubjectNavigation from "@/components/subject-navigation";
 import CurriculumTable from "@/components/curriculum-table";
 import StandardsModal from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
+import EastsideLogo from "@/components/eastside-logo";
 
 const grades = ["KG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8"];
 const subjects = ["English", "Math", "Science", "History", "Technology", "Art", "PE"];
@@ -191,12 +192,11 @@ export default function CurriculumBuilder() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">ECS</span>
-                </div>
+              <div className="flex items-center space-x-3">
+                <EastsideLogo size={48} />
                 <div>
-                  <h2 className="font-medium text-lg">Eastside Christian School</h2>
+                  <h2 className="font-medium text-lg text-gray-900">Eastside Christian School</h2>
+                  <p className="text-sm text-gray-600">Excellence in Education</p>
                 </div>
               </div>
             </div>
