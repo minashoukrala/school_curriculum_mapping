@@ -1,0 +1,68 @@
+{
+  "curriculumRows": [
+    {
+      "id": 1,
+      "grade": "KG",
+      "subject": "English",
+      "objectives": "Students will identify letters and sounds",
+      "unitPacing": "Week 1-2",
+      "learningTargets": "I can identify uppercase and lowercase letters",
+      "standards": [
+        "RF.K.1",
+        "RF.K.2"
+      ]
+    }
+  ],
+  "standards": [
+    {
+      "id": 1,
+      "code": "VA:Cr2.1.Ka",
+      "description": "Through experimentation, build skills in various media and approaches to art-making.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 2,
+      "code": "VA:Re7.1.Ka",
+      "description": "Identify uses of art within one's personal environment.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 3,
+      "code": "VA:Cn10.1.Ka",
+      "description": "Create art that tells a story about a life experience.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 4,
+      "code": "RF.K.1",
+      "description": "Demonstrate understanding of the organization and basic features of print.",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 5,
+      "code": "RF.K.2",
+      "description": "Demonstrate understanding of spoken words, syllables, and sounds (phonemes).",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 6,
+      "code": "RF.K.3",
+      "description": "Know and apply grade-level phonics and word analysis skills in decoding words.",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 7,
+      "code": "SL.K.1",
+      "description": "Participate in collaborative conversations with diverse partners about kindergarten topics and texts.",
+      "category": "Speaking and Listening"
+    },
+    {
+      "id": 8,
+      "code": "SL.K.2",
+      "description": "Confirm understanding of a text read aloud or information presented orally or through other media.",
+      "category": "Speaking and Listening"
+    }
+  ],
+  "nextCurriculumId": 2,
+  "nextStandardId": 9
+}

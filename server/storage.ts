@@ -1,13 +1,11 @@
 import { 
-  curriculumRows, 
-  standards,
   type CurriculumRow, 
   type InsertCurriculumRow,
   type Standard,
   type InsertStandard
 } from "@shared/schema";
-import { db } from "./db";
-import { eq, and } from "drizzle-orm";
+import * as fs from 'fs/promises';
+import * as path from 'path';
 
 export interface IStorage {
   // Curriculum rows
@@ -22,80 +20,148 @@ export interface IStorage {
   createStandard(standard: InsertStandard): Promise<Standard>;
 }
 
-export class DatabaseStorage implements IStorage {
+interface DatabaseData {
+  curriculumRows: CurriculumRow[];
+  standards: Standard[];
+  nextCurriculumId: number;
+  nextStandardId: number;
+}
+
+export class JsonStorage implements IStorage {
+  private dataPath: string;
+  
   constructor() {
-    // Initialize with default standards if they don't exist
-    this.initializeStandards();
+    this.dataPath = path.join(process.cwd(), 'data.json');
+    this.initializeData();
   }
 
-  private async initializeStandards() {
+  private async initializeData() {
     try {
-      // Check if standards already exist
-      const existingStandards = await db.select().from(standards).limit(1);
-      if (existingStandards.length > 0) return;
-
-      const defaultStandards: InsertStandard[] = [
-        // Visual Arts Standards
-        { code: "VA:Cr2.1.Ka", description: "Through experimentation, build skills in various media and approaches to art-making.", category: "Visual Arts" },
-        { code: "VA:Re7.1.Ka", description: "Identify uses of art within one's personal environment.", category: "Visual Arts" },
-        { code: "VA:Cn10.1.Ka", description: "Create art that tells a story about a life experience.", category: "Visual Arts" },
+      await fs.access(this.dataPath);
+    } catch {
+      // File doesn't exist, create it with default data
+      const defaultData: DatabaseData = {
+        curriculumRows: [
+          {
+            id: 1,
+            grade: "KG",
+            subject: "English",
+            objectives: "Students will identify letters and sounds",
+            unitPacing: "Week 1-2",
+            learningTargets: "I can identify uppercase and lowercase letters",
+            standards: ["RF.K.1", "RF.K.2"]
+          }
+        ],
+        standards: [
+          // Visual Arts Standards
+          { id: 1, code: "VA:Cr2.1.Ka", description: "Through experimentation, build skills in various media and approaches to art-making.", category: "Visual Arts" },
+          { id: 2, code: "VA:Re7.1.Ka", description: "Identify uses of art within one's personal environment.", category: "Visual Arts" },
+          { id: 3, code: "VA:Cn10.1.Ka", description: "Create art that tells a story about a life experience.", category: "Visual Arts" },
+          
+          // Reading Foundational Skills
+          { id: 4, code: "RF.K.1", description: "Demonstrate understanding of the organization and basic features of print.", category: "Reading Foundational Skills" },
+          { id: 5, code: "RF.K.2", description: "Demonstrate understanding of spoken words, syllables, and sounds (phonemes).", category: "Reading Foundational Skills" },
+          { id: 6, code: "RF.K.3", description: "Know and apply grade-level phonics and word analysis skills in decoding words.", category: "Reading Foundational Skills" },
         
-        // Reading Foundational Skills
-        { code: "RF.K.1", description: "Demonstrate understanding of the organization and basic features of print.", category: "Reading Foundational Skills" },
-        { code: "RF.K.2", description: "Demonstrate understanding of spoken words, syllables, and sounds (phonemes).", category: "Reading Foundational Skills" },
-        { code: "RF.K.3", description: "Know and apply grade-level phonics and word analysis skills in decoding words.", category: "Reading Foundational Skills" },
+          // Speaking and Listening
+          { id: 7, code: "SL.K.1", description: "Participate in collaborative conversations with diverse partners about kindergarten topics and texts.", category: "Speaking and Listening" },
+          { id: 8, code: "SL.K.2", description: "Confirm understanding of a text read aloud or information presented orally or through other media.", category: "Speaking and Listening" },
+        ],
+        nextCurriculumId: 2,
+        nextStandardId: 9
+      };
       
-      // Speaking and Listening
-      { code: "SL.K.1", description: "Participate in collaborative conversations with diverse partners about kindergarten topics and texts.", category: "Speaking and Listening" },
-      { code: "SL.K.2", description: "Confirm understanding of a text read aloud or information presented orally or through other media.", category: "Speaking and Listening" },
-    ];
+      await this.saveData(defaultData);
+    }
+  }
 
-      // Insert standards into database
-      await db.insert(standards).values(defaultStandards);
+  private async loadData(): Promise<DatabaseData> {
+    try {
+      const fileContent = await fs.readFile(this.dataPath, 'utf-8');
+      return JSON.parse(fileContent);
     } catch (error) {
-      console.error('Error initializing standards:', error);
+      console.error('Error loading data:', error);
+      throw new Error('Failed to load data from JSON file');
+    }
+  }
+
+  private async saveData(data: DatabaseData): Promise<void> {
+    try {
+      await fs.writeFile(this.dataPath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+      console.error('Error saving data:', error);
+      throw new Error('Failed to save data to JSON file');
     }
   }
 
   async getCurriculumRows(grade: string, subject: string): Promise<CurriculumRow[]> {
-    return await db.select().from(curriculumRows)
-      .where(and(eq(curriculumRows.grade, grade), eq(curriculumRows.subject, subject)));
+    const data = await this.loadData();
+    return data.curriculumRows.filter(row => row.grade === grade && row.subject === subject);
   }
 
   async createCurriculumRow(insertRow: InsertCurriculumRow): Promise<CurriculumRow> {
-    const [row] = await db.insert(curriculumRows).values(insertRow).returning();
-    return row;
+    const data = await this.loadData();
+    const newRow: CurriculumRow = {
+      id: data.nextCurriculumId,
+      ...insertRow
+    };
+    
+    data.curriculumRows.push(newRow);
+    data.nextCurriculumId++;
+    
+    await this.saveData(data);
+    return newRow;
   }
 
   async updateCurriculumRow(id: number, updates: Partial<InsertCurriculumRow>): Promise<CurriculumRow> {
-    const [row] = await db.update(curriculumRows)
-      .set(updates)
-      .where(eq(curriculumRows.id, id))
-      .returning();
+    const data = await this.loadData();
+    const rowIndex = data.curriculumRows.findIndex(row => row.id === id);
     
-    if (!row) {
+    if (rowIndex === -1) {
       throw new Error(`Curriculum row with id ${id} not found`);
     }
     
-    return row;
+    data.curriculumRows[rowIndex] = { ...data.curriculumRows[rowIndex], ...updates };
+    await this.saveData(data);
+    
+    return data.curriculumRows[rowIndex];
   }
 
   async deleteCurriculumRow(id: number): Promise<void> {
-    await db.delete(curriculumRows).where(eq(curriculumRows.id, id));
+    const data = await this.loadData();
+    const rowIndex = data.curriculumRows.findIndex(row => row.id === id);
+    
+    if (rowIndex === -1) {
+      throw new Error(`Curriculum row with id ${id} not found`);
+    }
+    
+    data.curriculumRows.splice(rowIndex, 1);
+    await this.saveData(data);
   }
 
   async getAllStandards(): Promise<Standard[]> {
-    return await db.select().from(standards);
+    const data = await this.loadData();
+    return data.standards;
   }
 
   async getStandardsByCategory(category: string): Promise<Standard[]> {
-    return await db.select().from(standards).where(eq(standards.category, category));
+    const data = await this.loadData();
+    return data.standards.filter(standard => standard.category === category);
   }
 
   async createStandard(insertStandard: InsertStandard): Promise<Standard> {
-    const [standard] = await db.insert(standards).values(insertStandard).returning();
-    return standard;
+    const data = await this.loadData();
+    const newStandard: Standard = {
+      id: data.nextStandardId,
+      ...insertStandard
+    };
+    
+    data.standards.push(newStandard);
+    data.nextStandardId++;
+    
+    await this.saveData(data);
+    return newStandard;
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new JsonStorage();

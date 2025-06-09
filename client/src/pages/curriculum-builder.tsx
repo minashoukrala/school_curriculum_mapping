@@ -12,8 +12,26 @@ import StandardsModal from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
 import EastsideLogo from "@/components/eastside-logo";
 
-const grades = ["KG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8"];
-const subjects = ["English", "Math", "Science", "History", "Technology", "Art", "PE"];
+const grades = [
+  "KG",
+  "Grade 1",
+  "Grade 2",
+  "Grade 3",
+  "Grade 4",
+  "Grade 5",
+  "Grade 6",
+  "Grade 7",
+  "Grade 8",
+];
+const subjects = [
+  "English",
+  "Math",
+  "Science",
+  "History",
+  "Technology",
+  "Art",
+  "PE",
+];
 
 export default function CurriculumBuilder() {
   const [selectedGrade, setSelectedGrade] = useState("KG");
@@ -24,22 +42,28 @@ export default function CurriculumBuilder() {
   const [editingRow, setEditingRow] = useState<CurriculumRow | null>(null);
   const [editingField, setEditingField] = useState<string>("");
   const [editingRowId, setEditingRowId] = useState<number | null>(null);
-  
+
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   // Fetch curriculum rows
-  const { data: curriculumRows = [], isLoading: isLoadingRows } = useQuery<CurriculumRow[]>({
+  const { data: curriculumRows = [], isLoading: isLoadingRows } = useQuery<
+    CurriculumRow[]
+  >({
     queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
     queryFn: async () => {
-      const response = await fetch(`/api/curriculum/${selectedGrade}/${selectedSubject}`);
+      const response = await fetch(
+        `/api/curriculum/${selectedGrade}/${selectedSubject}`,
+      );
       if (!response.ok) throw new Error("Failed to fetch curriculum rows");
       return response.json();
     },
   });
 
   // Fetch standards
-  const { data: standards = [], isLoading: isLoadingStandards } = useQuery<Standard[]>({
+  const { data: standards = [], isLoading: isLoadingStandards } = useQuery<
+    Standard[]
+  >({
     queryKey: ["/api/standards"],
     queryFn: async () => {
       const response = await fetch("/api/standards");
@@ -55,26 +79,50 @@ export default function CurriculumBuilder() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/curriculum", selectedGrade, selectedSubject] });
-      toast({ title: "Success", description: "Curriculum row created successfully" });
+      queryClient.invalidateQueries({
+        queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
+      });
+      toast({
+        title: "Success",
+        description: "Curriculum row created successfully",
+      });
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to create curriculum row", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to create curriculum row",
+        variant: "destructive",
+      });
     },
   });
 
   // Update curriculum row mutation
   const updateRowMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: number; data: Partial<CurriculumRow> }) => {
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: Partial<CurriculumRow>;
+    }) => {
       const response = await apiRequest("PATCH", `/api/curriculum/${id}`, data);
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/curriculum", selectedGrade, selectedSubject] });
-      toast({ title: "Success", description: "Curriculum row updated successfully" });
+      queryClient.invalidateQueries({
+        queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
+      });
+      toast({
+        title: "Success",
+        description: "Curriculum row updated successfully",
+      });
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to update curriculum row", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to update curriculum row",
+        variant: "destructive",
+      });
     },
   });
 
@@ -84,11 +132,20 @@ export default function CurriculumBuilder() {
       await apiRequest("DELETE", `/api/curriculum/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/curriculum", selectedGrade, selectedSubject] });
-      toast({ title: "Success", description: "Curriculum row deleted successfully" });
+      queryClient.invalidateQueries({
+        queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
+      });
+      toast({
+        title: "Success",
+        description: "Curriculum row deleted successfully",
+      });
     },
     onError: () => {
-      toast({ title: "Error", description: "Failed to delete curriculum row", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to delete curriculum row",
+        variant: "destructive",
+      });
     },
   });
 
@@ -123,7 +180,7 @@ export default function CurriculumBuilder() {
 
   const handleSaveEdit = (value: string) => {
     if (!editingRow) return;
-    
+
     const updateData = { [editingField]: value };
     updateRowMutation.mutate({ id: editingRow.id, data: updateData });
     setIsEditModalOpen(false);
@@ -133,10 +190,10 @@ export default function CurriculumBuilder() {
 
   const handleSaveStandards = (selectedStandards: string[]) => {
     if (editingRowId === null) return;
-    
-    updateRowMutation.mutate({ 
-      id: editingRowId, 
-      data: { standards: selectedStandards } 
+
+    updateRowMutation.mutate({
+      id: editingRowId,
+      data: { standards: selectedStandards },
     });
     setIsStandardsModalOpen(false);
     setEditingRowId(null);
@@ -144,9 +201,11 @@ export default function CurriculumBuilder() {
 
   const handleExportData = async () => {
     try {
-      const response = await fetch(`/api/export/${selectedGrade}/${selectedSubject}`);
+      const response = await fetch(
+        `/api/export/${selectedGrade}/${selectedSubject}`,
+      );
       if (!response.ok) throw new Error("Failed to export data");
-      
+
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -154,15 +213,19 @@ export default function CurriculumBuilder() {
       link.download = `curriculum-${selectedGrade}-${selectedSubject}.json`;
       link.click();
       URL.revokeObjectURL(url);
-      
+
       toast({ title: "Success", description: "Data exported successfully" });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to export data", variant: "destructive" });
+      toast({
+        title: "Error",
+        description: "Failed to export data",
+        variant: "destructive",
+      });
     }
   };
 
-  const currentEditingRowStandards = editingRowId 
-    ? curriculumRows.find(row => row.id === editingRowId)?.standards || []
+  const currentEditingRowStandards = editingRowId
+    ? curriculumRows.find((row) => row.id === editingRowId)?.standards || []
     : [];
 
   return (
@@ -200,8 +263,8 @@ export default function CurriculumBuilder() {
               <EastsideLogo size={60} className="mr-8" />
               <div className="flex items-center space-x-10">
                 {grades.map((grade) => (
-                  <div 
-                    key={grade} 
+                  <div
+                    key={grade}
                     className="relative group"
                     onMouseEnter={() => setHoveredGrade(grade)}
                     onMouseLeave={() => setHoveredGrade(null)}
@@ -209,7 +272,9 @@ export default function CurriculumBuilder() {
                     <button
                       onClick={() => setSelectedGrade(grade)}
                       className={`text-[#2d4a7b] font-medium text-sm uppercase tracking-wide hover:text-[#1e3a8a] transition-all duration-200 py-6 ${
-                        selectedGrade === grade ? 'text-[#1e3a8a] border-b-3 border-[#1e3a8a]' : ''
+                        selectedGrade === grade
+                          ? "text-[#1e3a8a] border-b-3 border-[#1e3a8a]"
+                          : ""
                       }`}
                     >
                       {grade}
@@ -226,9 +291,10 @@ export default function CurriculumBuilder() {
                                 setHoveredGrade(null);
                               }}
                               className={`block w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 transition-colors ${
-                                selectedSubject === subject && selectedGrade === grade
-                                  ? 'bg-blue-50 text-[#1e3a8a] border-l-3 border-[#1e3a8a]' 
-                                  : 'text-gray-700 hover:text-[#2d4a7b]'
+                                selectedSubject === subject &&
+                                selectedGrade === grade
+                                  ? "bg-blue-50 text-[#1e3a8a] border-l-3 border-[#1e3a8a]"
+                                  : "text-gray-700 hover:text-[#2d4a7b]"
                               }`}
                             >
                               {subject}
@@ -243,7 +309,9 @@ export default function CurriculumBuilder() {
             </div>
             <div className="bg-gray-50 px-4 py-2 rounded-full">
               <span className="text-sm text-gray-600">Current:</span>
-              <span className="ml-2 font-semibold text-[#2d4a7b]">{selectedGrade} • {selectedSubject}</span>
+              <span className="ml-2 font-semibold text-[#2d4a7b]">
+                {selectedGrade} • {selectedSubject}
+              </span>
             </div>
           </div>
         </div>
@@ -256,24 +324,22 @@ export default function CurriculumBuilder() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-medium text-gray-900">
-                {selectedSubject.toUpperCase()} {selectedGrade} Curriculum Builder
+                {selectedSubject.toUpperCase()} {selectedGrade} Curriculum
+                Builder
               </h1>
               <p className="text-gray-600 mt-1">
                 School Year: <span>2023-2024</span>
               </p>
             </div>
             <div className="flex items-center space-x-3">
-              <Button 
+              <Button
                 onClick={handleAddRow}
                 className="edu-button-accent"
                 disabled={createRowMutation.isPending}
               >
                 Add Curriculum Row
               </Button>
-              <Button 
-                onClick={handleExportData}
-                variant="outline"
-              >
+              <Button onClick={handleExportData} variant="outline">
                 Export JSON
               </Button>
             </div>
