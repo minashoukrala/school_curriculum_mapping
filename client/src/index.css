@@ -96,15 +96,15 @@
   }
   
   .editable-cell {
-    @apply p-3 rounded border border-transparent hover:border-edu-border transition-colors cursor-pointer;
+    @apply p-3 rounded border border-transparent hover:border-gray-300 transition-colors cursor-pointer;
   }
   
   .editable-cell:hover {
-    border-color: var(--edu-border);
+    border-color: hsl(216, 34%, 88%);
   }
   
   .editable-cell:focus-within {
-    border-color: var(--edu-primary);
+    border-color: hsl(207, 90%, 54%);
   }
   
   .curriculum-table-header {

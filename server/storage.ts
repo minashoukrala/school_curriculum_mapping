@@ -68,7 +68,11 @@ export class MemStorage implements IStorage {
 
   async createCurriculumRow(insertRow: InsertCurriculumRow): Promise<CurriculumRow> {
     const id = this.currentCurriculumId++;
-    const row: CurriculumRow = { ...insertRow, id };
+    const row: CurriculumRow = { 
+      ...insertRow, 
+      id,
+      standards: insertRow.standards || []
+    };
     this.curriculumRows.set(id, row);
     return row;
   }
