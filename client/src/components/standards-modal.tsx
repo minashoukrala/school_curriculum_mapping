@@ -81,9 +81,9 @@ export default function StandardsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+      <DialogContent className="max-w-4xl mx-4 sm:mx-auto max-h-[90vh] sm:max-h-[80vh] overflow-hidden">
         <DialogHeader>
-          <DialogTitle>Select Standards</DialogTitle>
+          <DialogTitle className="text-lg sm:text-xl">Select Standards</DialogTitle>
         </DialogHeader>
 
         {/* Search */}
@@ -93,42 +93,42 @@ export default function StandardsModal({
             placeholder="Search standards by code or description..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 text-base"
           />
         </div>
 
         {/* Standards List */}
-        <ScrollArea className="flex-1 max-h-[50vh]">
-          <div className="space-y-4">
+        <ScrollArea className="flex-1 max-h-[40vh] sm:max-h-[50vh]">
+          <div className="space-y-3 sm:space-y-4">
             {Object.entries(standardsByCategory).map(([category, categoryStandards]) => {
               const allSelected = categoryStandards.every(s => localSelectedStandards.includes(s.code));
               const someSelected = categoryStandards.some(s => localSelectedStandards.includes(s.code));
 
               return (
-                <div key={category} className="border border-gray-200 rounded-lg p-4">
+                <div key={category} className="border border-gray-200 rounded-lg p-3 sm:p-4">
                   <div className="flex items-center space-x-3 mb-3">
                     <Checkbox
                       checked={allSelected}
                       onCheckedChange={() => handleCategoryToggle(category)}
-                      className={someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}
+                      className={`min-w-[20px] min-h-[20px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
                     />
-                    <h4 className="font-medium text-gray-900">{category}</h4>
+                    <h4 className="font-medium text-gray-900 text-sm sm:text-base">{category}</h4>
                   </div>
                   
-                  <div className="pl-6 space-y-2">
+                  <div className="pl-4 sm:pl-6 space-y-2">
                     {categoryStandards.map((standard) => (
                       <label
                         key={standard.code}
-                        className="flex items-start space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                        className="flex items-start space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded touch-manipulation"
                       >
                         <Checkbox
                           checked={localSelectedStandards.includes(standard.code)}
                           onCheckedChange={() => handleStandardToggle(standard.code)}
-                          className="mt-1"
+                          className="mt-1 min-w-[20px] min-h-[20px]"
                         />
                         <div className="flex-1">
                           <div className="font-medium text-sm">{standard.code}</div>
-                          <div className="text-sm text-gray-600">{standard.description}</div>
+                          <div className="text-xs sm:text-sm text-gray-600">{standard.description}</div>
                         </div>
                       </label>
                     ))}
@@ -140,15 +140,15 @@ export default function StandardsModal({
         </ScrollArea>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t">
-          <div className="text-sm text-gray-600">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between space-y-3 sm:space-y-0 pt-4 border-t">
+          <div className="text-sm text-gray-600 text-center sm:text-left">
             {localSelectedStandards.length} standards selected
           </div>
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" onClick={handleCancel}>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+            <Button variant="outline" onClick={handleCancel} className="w-full sm:w-auto">
               Cancel
             </Button>
-            <Button onClick={handleSave} className="edu-button-primary">
+            <Button onClick={handleSave} className="edu-button-primary w-full sm:w-auto">
               Apply Standards
             </Button>
           </div>

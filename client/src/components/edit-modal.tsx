@@ -40,9 +40,9 @@ export default function EditModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-lg sm:text-xl">
             {title.charAt(0).toUpperCase() + title.slice(1).replace(/([A-Z])/g, ' $1')}
           </DialogTitle>
         </DialogHeader>
@@ -58,7 +58,7 @@ export default function EditModal({
                 value={localValue}
                 onChange={(e) => setLocalValue(e.target.value)}
                 rows={6}
-                className="w-full resize-none"
+                className="w-full resize-none text-base"
                 placeholder="Enter content..."
               />
             ) : (
@@ -66,18 +66,18 @@ export default function EditModal({
                 id="editContent"
                 value={localValue}
                 onChange={(e) => setLocalValue(e.target.value)}
-                className="w-full"
+                className="w-full text-base"
                 placeholder="Enter content..."
               />
             )}
           </div>
         </div>
 
-        <div className="flex items-center justify-end space-x-3 pt-4 border-t">
-          <Button variant="outline" onClick={handleCancel}>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t">
+          <Button variant="outline" onClick={handleCancel} className="w-full sm:w-auto">
             Cancel
           </Button>
-          <Button onClick={handleSave} className="edu-button-primary">
+          <Button onClick={handleSave} className="edu-button-primary w-full sm:w-auto">
             Save Changes
           </Button>
         </div>

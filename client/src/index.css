@@ -120,4 +120,25 @@
     background-color: var(--edu-secondary);
     border-color: var(--edu-border);
   }
+
+  /* Mobile responsive utilities */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Touch-friendly mobile interactions */
+  @media (max-width: 1024px) {
+    .editable-cell {
+      @apply min-h-[44px] p-4;
+    }
+    
+    button {
+      @apply min-h-[44px] min-w-[44px];
+    }
+  }
 }
