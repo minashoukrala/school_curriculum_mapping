@@ -169,11 +169,11 @@ export default function CurriculumBuilder() {
     <div className="min-h-screen bg-white">
       {/* Main Navigation */}
       <nav className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <EastsideLogo size={32} className="mr-6" />
-              <div className="flex items-center space-x-6">
+              <EastsideLogo size={24} className="mr-4" />
+              <div className="flex items-center space-x-4">
                 {grades.map((grade) => (
                   <div 
                     key={grade} 
@@ -183,14 +183,14 @@ export default function CurriculumBuilder() {
                   >
                     <button
                       onClick={() => setSelectedGrade(grade)}
-                      className={`text-[#1e2a5e] font-medium text-sm uppercase tracking-wide hover:text-blue-600 transition-colors py-2 ${
-                        selectedGrade === grade ? 'text-blue-600' : ''
+                      className={`text-[#1e2a5e] font-medium text-xs uppercase tracking-wide hover:text-blue-600 transition-colors px-3 py-2 rounded ${
+                        selectedGrade === grade ? 'text-blue-600 bg-blue-50' : ''
                       }`}
                     >
                       {grade}
                     </button>
                     {hoveredGrade === grade && (
-                      <div className="absolute top-full left-0 mt-1 bg-white shadow-lg border rounded-lg z-50 min-w-[160px]">
+                      <div className="absolute top-full left-0 mt-1 bg-white shadow-lg border rounded-lg z-50 min-w-[140px]">
                         <div className="py-1">
                           {subjects.map((subject) => (
                             <button
@@ -200,7 +200,7 @@ export default function CurriculumBuilder() {
                                 setSelectedSubject(subject);
                                 setHoveredGrade(null);
                               }}
-                              className={`block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                              className={`block w-full text-left px-3 py-2 text-xs hover:bg-gray-50 transition-colors ${
                                 selectedSubject === subject && selectedGrade === grade
                                   ? 'bg-blue-50 text-blue-600 font-medium' 
                                   : 'text-gray-700'
@@ -216,8 +216,8 @@ export default function CurriculumBuilder() {
                 ))}
               </div>
             </div>
-            <div className="text-sm text-gray-600">
-              Current: <span className="font-medium text-[#1e2a5e]">{selectedGrade} - {selectedSubject}</span>
+            <div className="text-xs text-gray-600 bg-gray-50 px-3 py-1 rounded">
+              <span className="font-medium text-[#1e2a5e]">{selectedGrade} - {selectedSubject}</span>
             </div>
           </div>
         </div>
