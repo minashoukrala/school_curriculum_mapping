@@ -752,8 +752,8 @@ export default function CurriculumBuilder() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-              {/* Only show buttons for regular subjects, not specialists */}
-              {selectedGrade !== "Specialists" && (
+              {/* Only show buttons for regular subjects, not specialists or admin */}
+              {selectedGrade !== "Specialists" && selectedGrade !== "Admin" && (
                 <Button
                   onClick={handleAddRow}
                   className="edu-button-accent text-sm px-4 py-2"
