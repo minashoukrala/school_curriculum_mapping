@@ -36,13 +36,14 @@ export default function EditModal({
     onClose();
   };
 
-  const isLongText = title.includes("objectives") || title.includes("learningTargets") || title.includes("targets");
+  // Use textarea for long text fields
+  const isLongText = ["objectives", "assessments", "materials", "biblical", "differentiator"].some(f => title.toLowerCase().includes(f));
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-full max-w-sm mx-auto my-4 max-h-[90vh] rounded-lg p-2 sm:max-w-2xl sm:mx-4 sm:my-0 sm:p-6 sm:rounded-lg sm:max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-lg sm:text-xl">
+          <DialogTitle className="text-base sm:text-xl">
             {title.charAt(0).toUpperCase() + title.slice(1).replace(/([A-Z])/g, ' $1')}
           </DialogTitle>
         </DialogHeader>
@@ -58,7 +59,7 @@ export default function EditModal({
                 value={localValue}
                 onChange={(e) => setLocalValue(e.target.value)}
                 rows={6}
-                className="w-full resize-none text-base"
+                className="w-full resize-none text-sm sm:text-base"
                 placeholder="Enter content..."
               />
             ) : (
@@ -66,18 +67,18 @@ export default function EditModal({
                 id="editContent"
                 value={localValue}
                 onChange={(e) => setLocalValue(e.target.value)}
-                className="w-full text-base"
+                className="w-full text-sm sm:text-base"
                 placeholder="Enter content..."
               />
             )}
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4 border-t">
-          <Button variant="outline" onClick={handleCancel} className="w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-3 sm:pt-4 border-t">
+          <Button variant="outline" onClick={handleCancel} className="w-full sm:w-auto text-xs sm:text-sm px-2 sm:px-4 py-2">
             Cancel
           </Button>
-          <Button onClick={handleSave} className="edu-button-primary w-full sm:w-auto">
+          <Button onClick={handleSave} className="edu-button-primary w-full sm:w-auto text-xs sm:text-sm px-2 sm:px-4 py-2">
             Save Changes
           </Button>
         </div>

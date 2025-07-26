@@ -7,7 +7,9 @@ export interface CurriculumRow {
   subject: string;
   objectives: string;
   unitPacing: string;
-  learningTargets: string;
+  assessments: string;
+  materialsAndDifferentiation: string;
+  biblical: string;
   standards: string[];
 }
 
@@ -24,7 +26,9 @@ export const insertCurriculumRowSchema = z.object({
   subject: z.string(),
   objectives: z.string(),
   unitPacing: z.string(),
-  learningTargets: z.string(),
+  assessments: z.string(),
+  materialsAndDifferentiation: z.string(),
+  biblical: z.string(),
   standards: z.array(z.string()).default([]),
 });
 

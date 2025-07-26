@@ -10,9 +10,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { grade, subject } = req.params;
       const rows = await storage.getCurriculumRows(grade, subject);
+      // Add cache control headers to prevent browser caching
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
       res.json(rows);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch curriculum rows" });
+    }
+  });
+
+  // Get all curriculum rows (for admin)
+  app.get("/api/curriculum/all", async (req, res) => {
+    try {
+      const rows = await storage.getAllCurriculumRows();
+      // Add cache control headers to prevent browser caching
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
+      res.json(rows);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch all curriculum rows" });
     }
   });
 
@@ -35,7 +53,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/curriculum/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
+      console.log('PATCH body:', req.body);
       const validatedData = insertCurriculumRowSchema.partial().parse(req.body);
+      console.log('PATCH validatedData:', validatedData);
       const row = await storage.updateCurriculumRow(id, validatedData);
       res.json(row);
     } catch (error) {
@@ -94,28 +114,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Export curriculum data as JSON
-  app.get("/api/export/:grade/:subject", async (req, res) => {
+
+
+  // Export full database as JSON
+  app.get("/api/export/full-database", async (req, res) => {
     try {
-      const { grade, subject } = req.params;
-      const rows = await storage.getCurriculumRows(grade, subject);
+      console.log('Full database export requested');
+      const allRows = await storage.getAllCurriculumRows();
       const standards = await storage.getAllStandards();
       
+      console.log(`Exporting ${allRows.length} curriculum rows and ${standards.length} standards`);
+      
       const exportData = {
-        rows,
+        curriculumRows: allRows,
         standards,
         metadata: {
-          grade,
-          subject,
-          exportDate: new Date().toISOString()
+          totalCurriculumEntries: allRows.length,
+          totalStandards: standards.length,
+          exportDate: new Date().toISOString(),
+          version: "1.0"
         }
       };
       
+      // Set headers for direct download
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', `attachment; filename=curriculum-${grade}-${subject}.json`);
+      res.setHeader('Content-Disposition', `attachment; filename=full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
       res.json(exportData);
+      console.log('Full database export completed successfully');
     } catch (error) {
-      res.status(500).json({ message: "Failed to export curriculum data" });
+      console.error('Full database export error:', error);
+      res.status(500).json({ message: "Failed to export full database" });
     }
   });
 

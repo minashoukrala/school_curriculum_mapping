@@ -65,17 +65,19 @@ export default function CurriculumTable({
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden w-full">
       {/* Desktop Table */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block w-full overflow-x-auto">
         {/* Table Header */}
         <div className="curriculum-table-header">
-          <div className="grid grid-cols-12 gap-4 p-3 text-sm font-medium text-gray-700">
-            <div className="col-span-4">KEY COURSE OBJECTIVES / ENDURING UNDERSTANDINGS</div>
-            <div className="col-span-2">UNIT PACING</div>
-            <div className="col-span-3">ESSENTIAL LEARNING TARGETS</div>
-            <div className="col-span-2">STANDARDS</div>
-            <div className="col-span-1">ACTIONS</div>
+          <div className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 text-sm font-medium text-gray-700 w-full">
+            <div className="text-center">KEY COURSE OBJECTIVES</div>
+            <div className="text-center">UNIT PACING</div>
+            <div className="text-center">ASSESSMENTS</div>
+            <div className="text-center">MATERIALS & DIFFERENTIATION</div>
+            <div className="text-center">BIBLICAL</div>
+            <div className="text-center">STANDARDS</div>
+            <div className="text-center">ACTIONS</div>
           </div>
         </div>
 
@@ -88,86 +90,64 @@ export default function CurriculumTable({
             </div>
           ) : (
             rows.map((row) => (
-              <div key={row.id} className="grid grid-cols-12 gap-4 p-3 hover:bg-gray-50 transition-colors">
-                {/* Objectives */}
-                <div className="col-span-4">
+              <div key={row.id} className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 hover:bg-gray-50 transition-colors w-full">
+                <div>
                   <div 
                     className="editable-cell"
                     onClick={() => onEditCell(row, "objectives")}
                   >
-                    <span className="text-sm">{row.objectives || "Click to add objectives..."}</span>
+                    <div className="text-sm whitespace-pre-wrap">{row.objectives || "Click to add objectives..."}</div>
                   </div>
                 </div>
-
-                {/* Unit Pacing */}
-                <div className="col-span-2">
+                <div>
                   <div 
                     className="editable-cell"
                     onClick={() => onEditCell(row, "unitPacing")}
                   >
-                    <span className="text-sm">{row.unitPacing || "Click to add pacing..."}</span>
+                    <div className="text-sm whitespace-pre-wrap">{row.unitPacing || "Click to add pacing..."}</div>
                   </div>
                 </div>
-
-                {/* Learning Targets */}
-                <div className="col-span-3">
+                <div>
                   <div 
                     className="editable-cell"
-                    onClick={() => onEditCell(row, "learningTargets")}
+                    onClick={() => onEditCell(row, "assessments")}
                   >
-                    <span className="text-sm">{row.learningTargets || "Click to add targets..."}</span>
+                    <div className="text-sm whitespace-pre-wrap">{row.assessments || "Click to add assessments..."}</div>
                   </div>
                 </div>
-
-                {/* Standards */}
-                <div className="col-span-2">
-                  <div className="p-2">
-                    {row.standards && row.standards.length > 0 ? (
-                      <div className="space-y-1">
-                        <div className="text-xs text-gray-600">
-                          {row.standards.join(", ")}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {row.standards.map(code => standardsMap.get(code)).filter(Boolean).join("; ")}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xs text-gray-400">No standards selected</div>
-                    )}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="mt-1 h-6 px-2 text-xs text-blue-600 hover:text-blue-700"
-                      onClick={() => onEditStandards(row.id)}
-                    >
-                      <Edit className="w-3 h-3 mr-1" />
-                      Edit Standards
-                    </Button>
+                <div>
+                  <div 
+                    className="editable-cell"
+                    onClick={() => onEditCell(row, "materialsAndDifferentiation")}
+                  >
+                    <div className="text-sm whitespace-pre-wrap">{row.materialsAndDifferentiation || "Click to add materials & differentiation..."}</div>
                   </div>
                 </div>
-
-                {/* Actions */}
-                <div className="col-span-1">
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 text-gray-500 hover:text-blue-600"
-                      onClick={() => onEditCell(row, "objectives")}
-                      title="Edit Row"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0 text-gray-500 hover:text-red-600"
-                      onClick={() => onDeleteRow(row.id)}
-                      title="Delete Row"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+                <div>
+                  <div 
+                    className="editable-cell"
+                    onClick={() => onEditCell(row, "biblical")}
+                  >
+                    <div className="text-sm whitespace-pre-wrap">{row.biblical || "Click to add biblical..."}</div>
                   </div>
+                </div>
+                <div>
+                  <div className="editable-cell" onClick={() => onEditStandards(row.id)}>
+                    <span className="text-sm">
+                      {row.standards && row.standards.length > 0
+                        ? row.standards.map((code) => (
+                            <div key={code} className="block">
+                              {standardsMap.get(code) ? `${code}: ${standardsMap.get(code)}` : code}
+                            </div>
+                          ))
+                        : "Click to add standards..."}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button size="icon" variant="ghost" onClick={() => onDeleteRow(row.id)}>
+                    <Trash2 className="w-4 h-4 text-red-500" />
+                  </Button>
                 </div>
               </div>
             ))
@@ -220,7 +200,7 @@ export default function CurriculumTable({
                     className="mt-1 p-3 bg-white rounded border border-gray-200 min-h-[60px] cursor-pointer hover:bg-gray-50 transition-colors"
                     onClick={() => onEditCell(row, "objectives")}
                   >
-                    <span className="text-sm text-gray-900">{row.objectives || "Click to add objectives..."}</span>
+                    <div className="text-sm text-gray-900 whitespace-pre-wrap">{row.objectives || "Click to add objectives..."}</div>
                   </div>
                 </div>
 
@@ -233,20 +213,46 @@ export default function CurriculumTable({
                     className="mt-1 p-3 bg-white rounded border border-gray-200 min-h-[40px] cursor-pointer hover:bg-gray-50 transition-colors"
                     onClick={() => onEditCell(row, "unitPacing")}
                   >
-                    <span className="text-sm text-gray-900">{row.unitPacing || "Click to add pacing..."}</span>
+                    <div className="text-sm text-gray-900 whitespace-pre-wrap">{row.unitPacing || "Click to add pacing..."}</div>
                   </div>
                 </div>
 
-                {/* Learning Targets */}
+                {/* Assessments */}
                 <div>
                   <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">
-                    Essential Learning Targets
+                    Assessments
                   </label>
                   <div 
                     className="mt-1 p-3 bg-white rounded border border-gray-200 min-h-[60px] cursor-pointer hover:bg-gray-50 transition-colors"
-                    onClick={() => onEditCell(row, "learningTargets")}
+                    onClick={() => onEditCell(row, "assessments")}
                   >
-                    <span className="text-sm text-gray-900">{row.learningTargets || "Click to add targets..."}</span>
+                    <div className="text-sm text-gray-900 whitespace-pre-wrap">{row.assessments || "Click to add assessments..."}</div>
+                  </div>
+                </div>
+
+                {/* Materials & Differentiation */}
+                <div>
+                  <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">
+                    Materials & Differentiation
+                  </label>
+                  <div 
+                    className="mt-1 p-3 bg-white rounded border border-gray-200 min-h-[60px] cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => onEditCell(row, "materialsAndDifferentiation")}
+                  >
+                    <div className="text-sm text-gray-900 whitespace-pre-wrap">{row.materialsAndDifferentiation || "Click to add materials & differentiation..."}</div>
+                  </div>
+                </div>
+
+                {/* Biblical */}
+                <div>
+                  <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">
+                    Biblical
+                  </label>
+                  <div 
+                    className="mt-1 p-3 bg-white rounded border border-gray-200 min-h-[60px] cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => onEditCell(row, "biblical")}
+                  >
+                    <div className="text-sm text-gray-900 whitespace-pre-wrap">{row.biblical || "Click to add biblical..."}</div>
                   </div>
                 </div>
 
@@ -258,12 +264,16 @@ export default function CurriculumTable({
                   <div className="mt-1 p-3 bg-white rounded border border-gray-200 space-y-2">
                     {row.standards && row.standards.length > 0 ? (
                       <div className="space-y-2">
-                        <div className="text-sm font-medium text-gray-900">
-                          {row.standards.join(", ")}
-                        </div>
-                        <div className="text-xs text-gray-600">
-                          {row.standards.map(code => standardsMap.get(code)).filter(Boolean).join("; ")}
-                        </div>
+                        {row.standards.map(code => (
+                          <div key={code} className="text-sm font-medium text-gray-900">
+                            {code}
+                          </div>
+                        ))}
+                        {row.standards.map(code => (
+                          <div key={code + '-desc'} className="text-xs text-gray-600">
+                            {standardsMap.get(code)}
+                          </div>
+                        ))}
                       </div>
                     ) : (
                       <div className="text-sm text-gray-400">No standards selected</div>
