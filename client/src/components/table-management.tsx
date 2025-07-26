@@ -326,7 +326,12 @@ function NavigationTabItem({
               <div className="flex items-center space-x-2">
                 <Switch
                   checked={tab.isActive}
-                  onCheckedChange={(checked) => onUpdate({ isActive: checked })}
+                  onCheckedChange={(checked) => onUpdate({ 
+                    name: tab.name, 
+                    displayName: tab.displayName, 
+                    order: tab.order, 
+                    isActive: checked 
+                  })}
                 />
                 <span className="text-sm">{tab.isActive ? 'Active' : 'Inactive'}</span>
               </div>
@@ -486,7 +491,12 @@ function DropdownItemComponent({
               <div className="flex items-center space-x-2">
                 <Switch
                   checked={dropdown.isActive}
-                  onCheckedChange={(checked) => onUpdate({ isActive: checked })}
+                  onCheckedChange={(checked) => onUpdate({ 
+                    name: dropdown.name, 
+                    displayName: dropdown.displayName, 
+                    order: dropdown.order, 
+                    isActive: checked 
+                  })}
                 />
                 <span className="text-sm">{dropdown.isActive ? 'Active' : 'Inactive'}</span>
               </div>
@@ -619,7 +629,12 @@ function TableConfigItem({ config, onUpdate, onDelete }: TableConfigItemProps) {
             <div className="flex items-center space-x-1">
               <Switch
                 checked={config.isActive}
-                onCheckedChange={(checked) => onUpdate({ isActive: checked })}
+                onCheckedChange={(checked) => onUpdate({ 
+                  tableName: config.tableName, 
+                  displayName: config.displayName, 
+                  order: config.order, 
+                  isActive: checked 
+                })}
               />
               <span className="text-xs">{config.isActive ? 'Active' : 'Inactive'}</span>
             </div>
