@@ -3,11 +3,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Phone, Mail, Landmark, Calendar, Facebook, Instagram, Youtube, X as XIcon, BookOpen, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
-import { CurriculumRow, Standard, NavigationTab, DropdownItem } from "@shared/schema";
+import { CurriculumRow, Standard, NavigationTab, DropdownItem, TableConfig } from "@shared/schema";
 import GradeNavigation from "@/components/grade-navigation";
 import SubjectNavigation from "@/components/subject-navigation";
 import CurriculumTable from "@/components/curriculum-table";
-import SpecialistGradeTable from "@/components/specialist-grade-table";
+
 import StandardsModal from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
 import TableManagement from "@/components/table-management";
@@ -135,7 +135,7 @@ export default function CurriculumBuilder() {
   });
 
   const { data: dropdownItems = [] } = useQuery<DropdownItem[]>({
-    queryKey: ['dropdown-items'],
+    queryKey: ['dropdown-items', 'all'],
     queryFn: () => apiRequest('GET', '/api/dropdown-items', undefined, true).then(res => res.json()),
     refetchInterval: 1000, // Refetch every 1 second for real-time updates
     staleTime: 0, // Always consider data stale
@@ -186,8 +186,10 @@ export default function CurriculumBuilder() {
       // Force a re-render of the Admin page content
       const availableSubjects = getSubjectsForGrade("Admin");
       if (availableSubjects.length > 0) {
-        // If we're on Admin and subjects changed, refresh the current subject
-        setSelectedSubject(availableSubjects[0]);
+        // Only change subject if current subject is not available
+        if (!availableSubjects.includes(selectedSubject)) {
+          setSelectedSubject(availableSubjects[0]);
+        }
         // Force a complete re-render of Admin content
         setAdminRefreshKey(prev => prev + 1);
       }
@@ -205,10 +207,8 @@ export default function CurriculumBuilder() {
       queryClient.invalidateQueries({
         queryKey: ["/api/curriculum"],
       });
-      console.log("Success: Curriculum row created successfully", newRow);
     },
     onError: () => {
-      console.log("Error: Failed to create curriculum row");
     },
   });
 
@@ -228,10 +228,8 @@ export default function CurriculumBuilder() {
       queryClient.invalidateQueries({
         queryKey: ["/api/curriculum"],
       });
-      console.log("Success: Curriculum row updated successfully");
     },
     onError: () => {
-      console.log("Error: Failed to update curriculum row");
     },
   });
 
@@ -244,10 +242,8 @@ export default function CurriculumBuilder() {
       queryClient.invalidateQueries({
         queryKey: ["/api/curriculum"],
       });
-      console.log("Success: Curriculum row deleted successfully");
     },
     onError: () => {
-      console.log("Error: Failed to delete curriculum row");
     },
   });
 
@@ -261,10 +257,8 @@ export default function CurriculumBuilder() {
       queryClient.invalidateQueries({
         queryKey: ["/api/school-year"],
       });
-      console.log("Success: School year updated successfully");
     },
     onError: () => {
-      console.log("Error: Failed to update school year");
     },
   });
 
@@ -351,8 +345,6 @@ export default function CurriculumBuilder() {
 
   const handleExportFullDatabase = async () => {
     try {
-      console.log('Starting full database export...');
-      
       // Use a direct download approach - no JSON parsing
       const downloadLink = document.createElement("a");
       downloadLink.href = '/api/export/full-database';
@@ -368,12 +360,8 @@ export default function CurriculumBuilder() {
         document.body.removeChild(downloadLink);
       }, 100);
       
-      console.log('Export completed successfully');
-      console.log("Success: Full database exported successfully");
     } catch (error) {
-      console.error('Export error:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.log(`Error: Failed to export full database: ${errorMessage}`);
     }
   };
 
@@ -384,7 +372,6 @@ export default function CurriculumBuilder() {
     try {
       // Validate file type
       if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
-        console.log("Error: Please select a valid JSON file");
         return;
       }
 
@@ -394,14 +381,12 @@ export default function CurriculumBuilder() {
       try {
         data = JSON.parse(text);
       } catch (parseError) {
-        console.log("Error: Invalid JSON format. Please check your file.");
         return;
       }
 
       // Comprehensive validation
       const validationResult = validateImportData(data);
       if (!validationResult.isValid) {
-        console.log("Error: " + validationResult.error);
         return;
       }
 
@@ -442,15 +427,9 @@ export default function CurriculumBuilder() {
       // Invalidate all queries to refresh the data
       queryClient.invalidateQueries();
 
-      console.log("Success: Database imported successfully");
-
-      // Clear the file input
       event.target.value = '';
     } catch (error) {
-      console.error('Import error:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      console.log(`Error: Failed to import database: ${errorMessage}`);
-      event.target.value = '';
     }
   };
 
@@ -471,6 +450,23 @@ export default function CurriculumBuilder() {
 
     if (!data.metadata || typeof data.metadata !== 'object') {
       return { isValid: false, error: "Missing or invalid metadata object" };
+    }
+
+    // Optional navigation data validation (for new format)
+    if (data.navigationTabs && !Array.isArray(data.navigationTabs)) {
+      return { isValid: false, error: "Invalid navigationTabs: must be an array" };
+    }
+
+    if (data.dropdownItems && !Array.isArray(data.dropdownItems)) {
+      return { isValid: false, error: "Invalid dropdownItems: must be an array" };
+    }
+
+    if (data.tableConfigs && !Array.isArray(data.tableConfigs)) {
+      return { isValid: false, error: "Invalid tableConfigs: must be an array" };
+    }
+
+    if (data.schoolYear && typeof data.schoolYear !== 'object') {
+      return { isValid: false, error: "Invalid schoolYear: must be an object" };
     }
 
     // Validate curriculum rows
@@ -580,6 +576,31 @@ export default function CurriculumBuilder() {
       return { isValid: false, error: "Metadata totalStandards doesn't match actual standards count" };
     }
 
+    // Validate optional navigation metadata (for new format)
+    if (data.metadata.totalNavigationTabs !== undefined && typeof data.metadata.totalNavigationTabs !== 'number') {
+      return { isValid: false, error: "Invalid metadata: totalNavigationTabs must be a number" };
+    }
+
+    if (data.metadata.totalDropdownItems !== undefined && typeof data.metadata.totalDropdownItems !== 'number') {
+      return { isValid: false, error: "Invalid metadata: totalDropdownItems must be a number" };
+    }
+
+    if (data.metadata.totalTableConfigs !== undefined && typeof data.metadata.totalTableConfigs !== 'number') {
+      return { isValid: false, error: "Invalid metadata: totalTableConfigs must be a number" };
+    }
+
+    if (data.metadata.totalNavigationTabs !== undefined && data.navigationTabs && data.metadata.totalNavigationTabs !== data.navigationTabs.length) {
+      return { isValid: false, error: "Metadata totalNavigationTabs doesn't match actual navigation tabs count" };
+    }
+
+    if (data.metadata.totalDropdownItems !== undefined && data.dropdownItems && data.metadata.totalDropdownItems !== data.dropdownItems.length) {
+      return { isValid: false, error: "Metadata totalDropdownItems doesn't match actual dropdown items count" };
+    }
+
+    if (data.metadata.totalTableConfigs !== undefined && data.tableConfigs && data.metadata.totalTableConfigs !== data.tableConfigs.length) {
+      return { isValid: false, error: "Metadata totalTableConfigs doesn't match actual table configs count" };
+    }
+
     return { 
       isValid: true, 
       error: null,
@@ -591,6 +612,51 @@ export default function CurriculumBuilder() {
   const currentEditingRowStandards = editingRowId
     ? curriculumRows.find((row) => row.id === editingRowId)?.standards || []
     : [];
+
+  // Manual cache clearing function for debugging
+  const clearTableConfigCache = () => {
+    queryClient.removeQueries({
+      queryKey: ['table-configs'],
+      exact: false
+    });
+    queryClient.removeQueries({
+      queryKey: ['table-configs', 'subject'],
+      exact: false
+    });
+  };
+
+  // Expose cache clearing function globally for debugging
+  useEffect(() => {
+    (window as any).clearTableConfigCache = clearTableConfigCache;
+    return () => {
+      delete (window as any).clearTableConfigCache;
+    };
+  }, []);
+
+  // Fetch table configs for the current subject
+  const { data: tableConfigs = [], isLoading: isLoadingTableConfigs } = useQuery<TableConfig[]>({
+    queryKey: ['table-configs', 'subject', selectedGrade, selectedSubject],
+    queryFn: async () => {
+      // Get the dropdown item ID for the current subject
+      const gradeTab = navigationTabs.find((tab: NavigationTab) => tab.name === selectedGrade);
+      if (!gradeTab) return [];
+
+      const dropdownItem = dropdownItems.find((item: DropdownItem) => 
+        item.tabId === gradeTab.id && item.name === selectedSubject
+      );
+      if (!dropdownItem) return [];
+
+      // Fetch table configs for this dropdown item
+      const response = await apiRequest('GET', `/api/table-configs/dropdown/${dropdownItem.id}`, undefined, true);
+      const configs = await response.json();
+      return configs;
+    },
+    enabled: selectedGrade !== "Admin" && navigationTabs.length > 0 && dropdownItems.length > 0,
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    refetchInterval: 1000, // Refetch every 1 second to catch changes from Admin more quickly
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -830,34 +896,59 @@ export default function CurriculumBuilder() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-              {/* Only show buttons for regular subjects, not specialists or admin */}
-              {selectedGrade !== "Specialists" && selectedGrade !== "Admin" && (
-                <Button
-                  onClick={handleAddRow}
-                  className="edu-button-accent text-sm px-4 py-2"
-                  disabled={createRowMutation.isPending}
-                >
-                  Add Curriculum Row
-                </Button>
-              )}
+              {/* Add Row button removed - now only inside cards */}
             </div>
           </div>
         </div>
 
         {/* Specialist Grade Tables */}
-        {selectedGrade === "Specialists" && !selectedSubject.includes("Grade") && (
+        {selectedGrade === "Specialists" && (
           <div className="space-y-8">
-            <h2 className="text-xl font-medium text-gray-900 mb-6">Specialist Curriculum: {selectedSubject}</h2>
-            
-            {[1, 2, 3, 4, 5].map((gradeNum) => (
-              <div key={gradeNum} className="border border-gray-200 rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Grade {gradeNum}</h3>
-                <SpecialistGradeTable 
-                  grade={`Grade ${gradeNum}`}
-                  subject={selectedSubject}
-                />
+            {tableConfigs.length > 0 ? (
+              tableConfigs.map((config, idx) => {
+                // Filter rows for this table config
+                const filteredRows = curriculumRows.filter(row => row.subject === selectedSubject && row.grade === "Specialists" && row.tableName === config.tableName);
+                return (
+                  <div key={config.id} className="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow">
+                    <h3 className="text-lg font-semibold mb-2">{config.displayName || config.tableName}</h3>
+                    <Button
+                      onClick={() => {
+                        const newRow = {
+                          grade: "Specialists",
+                          subject: selectedSubject,
+                          tableName: config.tableName,
+                          objectives: "",
+                          unitPacing: "",
+                          assessments: "",
+                          materialsAndDifferentiation: "",
+                          biblical: "",
+                          standards: [],
+                        };
+                        createRowMutation.mutate(newRow);
+                      }}
+                      className="mb-4"
+                      disabled={createRowMutation.isPending}
+                    >
+                      Add Curriculum Row
+                    </Button>
+                    <CurriculumTable
+                      rows={filteredRows}
+                      standards={standards}
+                      tableConfigs={[config]}
+                      isLoading={isLoadingRows || isLoadingStandards}
+                      onEditCell={handleEditCell}
+                      onEditStandards={handleEditStandards}
+                      onDeleteRow={handleDeleteRow}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow">
+                <p className="text-gray-500 text-center">No table configurations found for this specialist subject.</p>
+                <p className="text-sm text-gray-400 text-center mt-2">Use the Admin Table Management to configure tables for this subject.</p>
               </div>
-            ))}
+            )}
           </div>
         )}
 
@@ -992,15 +1083,62 @@ export default function CurriculumBuilder() {
 
         {/* Curriculum Table for Regular Subjects */}
         {selectedGrade !== "Specialists" && selectedGrade !== "Admin" && (
-          <div className="w-full">
-            <CurriculumTable
-              rows={curriculumRows}
-              standards={standards}
-              isLoading={isLoadingRows || isLoadingStandards}
-              onEditCell={handleEditCell}
-              onEditStandards={handleEditStandards}
-              onDeleteRow={handleDeleteRow}
-            />
+          <div className="w-full space-y-8">
+            {tableConfigs.length > 0 ? (
+              tableConfigs.map((config, idx) => {
+                // Filter rows for this table config
+                const filteredRows = curriculumRows.filter(row => row.subject === selectedSubject && row.grade === selectedGrade && row.tableName === config.tableName);
+                return (
+                  <div key={config.id} className="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow">
+                    <h3 className="text-lg font-semibold mb-2">{config.displayName || config.tableName}</h3>
+                    <Button
+                      onClick={() => {
+                        const newRow = {
+                          grade: selectedGrade,
+                          subject: selectedSubject,
+                          tableName: config.tableName,
+                          objectives: "",
+                          unitPacing: "",
+                          assessments: "",
+                          materialsAndDifferentiation: "",
+                          biblical: "",
+                          standards: [],
+                        };
+                        createRowMutation.mutate(newRow);
+                      }}
+                      className="mb-4"
+                      disabled={createRowMutation.isPending}
+                    >
+                      Add Curriculum Row
+                    </Button>
+                    <CurriculumTable
+                      rows={filteredRows}
+                      standards={standards}
+                      tableConfigs={[config]}
+                      isLoading={isLoadingRows || isLoadingStandards}
+                      onEditCell={handleEditCell}
+                      onEditStandards={handleEditStandards}
+                      onDeleteRow={handleDeleteRow}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <div className="bg-white border border-gray-200 rounded-lg p-6 shadow">
+                <p className="text-gray-500 text-center">No table configurations found for this subject.</p>
+                <p className="text-sm text-gray-400 text-center mt-2">Use the Admin Table Management to configure tables for this subject.</p>
+                {curriculumRows.length > 0 && (
+                  <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
+                    <p className="text-sm text-yellow-800">
+                      <strong>Note:</strong> There are {curriculumRows.length} curriculum entries for this subject, but no table configurations are set up to display them.
+                    </p>
+                    <p className="text-xs text-yellow-600 mt-1">
+                      Add a table configuration in Admin → Table Management to view and manage these entries.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 

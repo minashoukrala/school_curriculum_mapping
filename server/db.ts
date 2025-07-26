@@ -44,7 +44,8 @@ export class SQLiteStorage {
         materials_and_differentiation TEXT NOT NULL DEFAULT '',
         biblical TEXT NOT NULL DEFAULT '',
         materials TEXT NOT NULL DEFAULT '',
-        differentiator TEXT NOT NULL DEFAULT ''
+        differentiator TEXT NOT NULL DEFAULT '',
+        table_name TEXT NOT NULL DEFAULT ''
       )
     `);
 
@@ -232,6 +233,7 @@ export class SQLiteStorage {
         cr.biblical,
         cr.materials,
         cr.differentiator,
+        cr.table_name as tableName,
         GROUP_CONCAT(cs.standard_code) as standards
       FROM curriculum_rows cr
       LEFT JOIN curriculum_standards cs ON cr.id = cs.curriculum_id
@@ -251,7 +253,10 @@ export class SQLiteStorage {
       assessments: row.assessments,
       materialsAndDifferentiation: row.materials_and_differentiation,
       biblical: row.biblical,
-      standards: row.standards ? row.standards.split(',') : []
+      standards: row.standards ? row.standards.split(',') : [],
+      materials: row.materials,
+      differentiator: row.differentiator,
+      tableName: row.tableName
     }));
   }
 
@@ -268,6 +273,7 @@ export class SQLiteStorage {
         cr.biblical,
         cr.materials,
         cr.differentiator,
+        cr.table_name as tableName,
         GROUP_CONCAT(cs.standard_code) as standards
       FROM curriculum_rows cr
       LEFT JOIN curriculum_standards cs ON cr.id = cs.curriculum_id
@@ -286,7 +292,10 @@ export class SQLiteStorage {
       assessments: row.assessments,
       materialsAndDifferentiation: row.materials_and_differentiation,
       biblical: row.biblical,
-      standards: row.standards ? row.standards.split(',') : []
+      standards: row.standards ? row.standards.split(',') : [],
+      materials: row.materials,
+      differentiator: row.differentiator,
+      tableName: row.tableName
     }));
   }
 
@@ -294,8 +303,8 @@ export class SQLiteStorage {
     const insertStmt = this.db.prepare(`
       INSERT INTO curriculum_rows (
         grade, subject, objectives, unit_pacing, assessments, 
-        materials_and_differentiation, biblical, materials, differentiator
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        materials_and_differentiation, biblical, materials, differentiator, table_name
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const result = insertStmt.run(
@@ -307,7 +316,8 @@ export class SQLiteStorage {
       row.materialsAndDifferentiation,
       row.biblical,
       row.materials || '',
-      row.differentiator || ''
+      row.differentiator || '',
+      row.tableName || ''
     );
 
     const newId = result.lastInsertRowid as number;
@@ -332,7 +342,10 @@ export class SQLiteStorage {
       assessments: row.assessments,
       materialsAndDifferentiation: row.materialsAndDifferentiation,
       biblical: row.biblical,
-      standards: row.standards || []
+      standards: row.standards || [],
+      materials: row.materials || '',
+      differentiator: row.differentiator || '',
+      tableName: row.tableName || ''
     };
   }
 
@@ -376,6 +389,10 @@ export class SQLiteStorage {
     if (row.differentiator !== undefined) {
       updates.push('differentiator = ?');
       values.push(row.differentiator);
+    }
+    if (row.tableName !== undefined) {
+      updates.push('table_name = ?');
+      values.push(row.tableName || '');
     }
 
     // Only update curriculum_rows table if there are fields to update
@@ -432,6 +449,7 @@ export class SQLiteStorage {
         cr.biblical,
         cr.materials,
         cr.differentiator,
+        cr.table_name as tableName,
         GROUP_CONCAT(cs.standard_code) as standards
       FROM curriculum_rows cr
       LEFT JOIN curriculum_standards cs ON cr.id = cs.curriculum_id
@@ -450,7 +468,10 @@ export class SQLiteStorage {
       assessments: updatedRow.assessments,
       materialsAndDifferentiation: updatedRow.materials_and_differentiation,
       biblical: updatedRow.biblical,
-      standards: updatedRow.standards ? updatedRow.standards.split(',') : []
+      standards: updatedRow.standards ? updatedRow.standards.split(',') : [],
+      materials: updatedRow.materials,
+      differentiator: updatedRow.differentiator,
+      tableName: updatedRow.tableName
     };
   }
 
@@ -490,12 +511,103 @@ export class SQLiteStorage {
   }
 
   // Database operations
-  async importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void> {
+  async importFullDatabase(data: { 
+    curriculumRows: CurriculumRow[]; 
+    standards: Standard[]; 
+    navigationTabs?: NavigationTab[];
+    dropdownItems?: DropdownItem[];
+    tableConfigs?: TableConfig[];
+    schoolYear?: SchoolYear;
+    metadata: any 
+  }): Promise<void> {
     const transaction = this.db.transaction(() => {
       // Clear existing data
       this.db.prepare('DELETE FROM curriculum_standards').run();
       this.db.prepare('DELETE FROM curriculum_rows').run();
       this.db.prepare('DELETE FROM standards').run();
+      
+      // Clear navigation data if provided
+      if (data.navigationTabs || data.dropdownItems || data.tableConfigs) {
+        this.db.prepare('DELETE FROM table_configs').run();
+        this.db.prepare('DELETE FROM dropdown_items').run();
+        this.db.prepare('DELETE FROM navigation_tabs').run();
+      }
+
+      // Insert navigation tabs if provided
+      if (data.navigationTabs && data.navigationTabs.length > 0) {
+        const navigationTabStmt = this.db.prepare(`
+          INSERT INTO navigation_tabs (id, name, display_name, order_index, is_active, created_at, updated_at) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `);
+        
+        for (const tab of data.navigationTabs) {
+          navigationTabStmt.run(
+            tab.id,
+            tab.name,
+            tab.displayName,
+            tab.order,
+            tab.isActive,
+            tab.createdAt,
+            tab.updatedAt
+          );
+        }
+      }
+
+      // Insert dropdown items if provided
+      if (data.dropdownItems && data.dropdownItems.length > 0) {
+        const dropdownItemStmt = this.db.prepare(`
+          INSERT INTO dropdown_items (id, tab_id, name, display_name, order_index, is_active, created_at, updated_at) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        
+        for (const item of data.dropdownItems) {
+          dropdownItemStmt.run(
+            item.id,
+            item.tabId,
+            item.name,
+            item.displayName,
+            item.order,
+            item.isActive,
+            item.createdAt,
+            item.updatedAt
+          );
+        }
+      }
+
+      // Insert table configs if provided
+      if (data.tableConfigs && data.tableConfigs.length > 0) {
+        const tableConfigStmt = this.db.prepare(`
+          INSERT INTO table_configs (id, tab_id, dropdown_id, table_name, display_name, order_index, is_active, created_at, updated_at) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        
+        for (const config of data.tableConfigs) {
+          tableConfigStmt.run(
+            config.id,
+            config.tabId,
+            config.dropdownId,
+            config.tableName,
+            config.displayName,
+            config.order,
+            config.isActive,
+            config.createdAt,
+            config.updatedAt
+          );
+        }
+      }
+
+      // Update school year if provided
+      if (data.schoolYear) {
+        this.db.prepare('DELETE FROM school_year').run();
+        const schoolYearStmt = this.db.prepare(`
+          INSERT INTO school_year (id, year, updated_at) VALUES (?, ?, ?)
+        `);
+        schoolYearStmt.run(
+          data.schoolYear.id,
+          data.schoolYear.year,
+          data.schoolYear.updatedAt
+        );
+      }
 
       // Insert standards
       const standardStmt = this.db.prepare(`
@@ -510,8 +622,8 @@ export class SQLiteStorage {
       const curriculumStmt = this.db.prepare(`
         INSERT INTO curriculum_rows (
           id, grade, subject, objectives, unit_pacing, assessments, 
-          materials_and_differentiation, biblical, materials, differentiator
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          materials_and_differentiation, biblical, materials, differentiator, table_name
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       for (const row of data.curriculumRows) {
@@ -525,7 +637,8 @@ export class SQLiteStorage {
           row.materialsAndDifferentiation,
           row.biblical,
           row.materials || '',
-          row.differentiator || ''
+          row.differentiator || '',
+          row.tableName || ''
         );
       }
 
@@ -542,7 +655,6 @@ export class SQLiteStorage {
     });
 
     transaction();
-    console.log(`Database imported successfully: ${data.curriculumRows.length} curriculum rows, ${data.standards.length} standards`);
   }
 
 
@@ -681,7 +793,9 @@ export class SQLiteStorage {
       SELECT id, name, display_name as displayName, order_index as "order", 
              is_active as isActive, created_at as createdAt, updated_at as updatedAt
       FROM navigation_tabs 
-      ORDER BY order_index
+      ORDER BY 
+        CASE WHEN name = 'Admin' THEN 1 ELSE 0 END,
+        order_index
     `);
     return stmt.all() as NavigationTab[];
   }
@@ -692,7 +806,9 @@ export class SQLiteStorage {
              is_active as isActive, created_at as createdAt, updated_at as updatedAt
       FROM navigation_tabs 
       WHERE is_active = 1
-      ORDER BY order_index
+      ORDER BY 
+        CASE WHEN name = 'Admin' THEN 1 ELSE 0 END,
+        order_index
     `);
     return stmt.all() as NavigationTab[];
   }
@@ -729,6 +845,11 @@ export class SQLiteStorage {
   async updateNavigationTab(id: number, data: UpdateNavigationTab): Promise<NavigationTab | null> {
     const current = this.db.prepare('SELECT * FROM navigation_tabs WHERE id = ?').get(id) as any;
     if (!current) return null;
+    
+    // Prevent modification of Admin tab
+    if (current.name === 'Admin') {
+      throw new Error('Cannot modify the Admin tab - it is system-managed');
+    }
 
     const updates: string[] = [];
     const values: any[] = [];
@@ -766,20 +887,15 @@ export class SQLiteStorage {
   }
 
   async deleteNavigationTab(id: number): Promise<boolean> {
+    // Prevent deletion of Admin tab
+    const tab = this.db.prepare('SELECT name FROM navigation_tabs WHERE id = ?').get(id) as any;
+    if (tab && tab.name === 'Admin') {
+      throw new Error('Cannot delete the Admin tab - it is system-managed');
+    }
+    
     const stmt = this.db.prepare('DELETE FROM navigation_tabs WHERE id = ?');
     const result = stmt.run(id);
     return result.changes > 0;
-  }
-
-  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
-    const stmt = this.db.prepare(`
-      SELECT id, name, display_name as displayName, order_index as "order", 
-             is_active as isActive, created_at as createdAt, updated_at as updatedAt
-      FROM navigation_tabs 
-      WHERE id = ?
-    `);
-    const row = stmt.get(id) as any;
-    return row || null;
   }
 
   // Added: Dropdown item methods

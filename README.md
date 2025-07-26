@@ -1,76 +1,43 @@
 # CurriculumCrafter
 
-A comprehensive curriculum management system built with React, TypeScript, and SQLite. This application allows educators to create, manage, and organize curriculum content with biblical integration and educational standards.
+A simple, modern curriculum management system built with React, TypeScript, and SQLite. This system allows educators to create, manage, and organize curriculum content with a dynamic navigation structure.
 
-## 🚀 Features
+## Features
 
-### Core Functionality
-- **Curriculum Management**: Create, edit, and delete curriculum rows with detailed objectives, assessments, and materials
-- **Grade & Subject Navigation**: Intuitive navigation through different grades and subjects
-- **Standards Integration**: Link curriculum content to educational standards with searchable categories
-- **Biblical Integration**: Incorporate biblical principles and values into curriculum content
-- **Real-time Editing**: Inline editing capabilities for quick content updates
-- **Mobile Responsive**: Fully responsive design that works on all devices
-- **School Year Management**: Editable school year that appears on all curriculum pages (Admin feature)
+### 🎯 Core Functionality
+- **Dynamic Navigation Management**: Create and manage navigation tabs, dropdown items, and table configurations through an intuitive admin interface
+- **Curriculum Management**: Add, edit, and delete curriculum entries with support for objectives, assessments, materials, and biblical integration
+- **Standards Integration**: Link curriculum entries to educational standards with search and filtering capabilities
+- **School Year Management**: Set and update the school year that appears across all curriculum pages
 
-### Database Features
-- **SQLite Database**: Fast, reliable, and file-based database storage
-- **Data Export/Import**: Full database export and import functionality
-- **Search Capabilities**: Full-text search across curriculum content
-- **Database Statistics**: Real-time statistics and analytics
-- **School Year Persistence**: Global school year setting with database storage
+### 🛠️ Admin Features
+- **Table Management**: Dynamically create and configure tables for each subject with automatic system name conversion
+- **Database Export/Import**: Full database backup and restore functionality including navigation structure
+- **Real-time Updates**: Changes in admin interface immediately reflect across the application
+- **Automatic Data Setup**: Creating table configurations automatically generates sample curriculum rows
 
-### API Endpoints
+### 📱 User Experience
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Modern UI**: Clean, intuitive interface built with Tailwind CSS and shadcn/ui components
+- **Fast Performance**: Optimized with React Query for efficient data fetching and caching
+- **Accessibility**: Built with accessibility best practices in mind
 
-#### Curriculum Management
-- `GET /api/curriculum/:grade/:subject` - Get curriculum rows for specific grade/subject
-- `GET /api/curriculum/all` - Get all curriculum rows (admin)
-- `POST /api/curriculum` - Create new curriculum row
-- `PATCH /api/curriculum/:id` - Update curriculum row
-- `DELETE /api/curriculum/:id` - Delete curriculum row
+## Technology Stack
 
-#### Standards Management
-- `GET /api/standards` - Get all standards
-- `GET /api/standards/category/:category` - Get standards by category
-- `GET /api/standards/categories` - Get all standard categories
-- `POST /api/standards` - Create new standard
+- **Frontend**: React 18, TypeScript, Vite
+- **Backend**: Node.js, Express.js
+- **Database**: SQLite with better-sqlite3
+- **UI Components**: Tailwind CSS, shadcn/ui
+- **State Management**: TanStack Query (React Query)
+- **Validation**: Zod schema validation
 
-#### School Year Management
-- `GET /api/school-year` - Get current school year
-- `PATCH /api/school-year` - Update school year
+## Quick Start
 
-#### Data Operations
-- `GET /api/export/full-database` - Export full database as JSON
-- `POST /api/import/full-database` - Import full database from JSON
-- `GET /api/stats` - Get database statistics
-- `GET /api/search?q=query` - Search curriculum content
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-#### Navigation & Discovery
-- `GET /api/grades` - Get all available grades
-- `GET /api/subjects` - Get all available subjects
-- `GET /api/subjects/:grade` - Get subjects for specific grade
-
-## 🛠️ Technology Stack
-
-### Frontend
-- **React 18** with TypeScript
-- **TanStack Query** for data fetching and caching
-- **Tailwind CSS** for styling
-- **Radix UI** for accessible components
-- **React Hook Form** for form management
-
-### Backend
-- **Node.js** with Express
-- **TypeScript** for type safety
-- **SQLite** with better-sqlite3 for database
-- **Zod** for data validation
-
-### Development Tools
-- **Vite** for fast development and building
-- **ESBuild** for server-side bundling
-- **PM2** for production process management
-
-## 📦 Installation
+### Installation
 
 1. **Clone the repository**
    ```bash
@@ -83,7 +50,7 @@ A comprehensive curriculum management system built with React, TypeScript, and S
    npm install
    ```
 
-3. **Start development server**
+3. **Start the development server**
    ```bash
    npm run dev
    ```
@@ -91,114 +58,62 @@ A comprehensive curriculum management system built with React, TypeScript, and S
 4. **Open your browser**
    Navigate to `http://localhost:3000`
 
-## 🗄️ Database
+### Database Setup
+The system automatically creates and initializes the SQLite database on first run. No additional setup required.
 
-The application uses SQLite as the primary database:
+## Project Structure
 
-1. **SQLite Database**: All data is stored in `curriculum.db`
-2. **Automatic Schema**: Database schema is created automatically on first run
-3. **Data Persistence**: All curriculum rows, standards, and school year are stored in SQLite
-4. **Performance**: Fast queries and efficient data storage
-
-### Database Schema
-
-```sql
--- Curriculum rows table
-CREATE TABLE curriculum_rows (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  grade TEXT NOT NULL,
-  subject TEXT NOT NULL,
-  objectives TEXT NOT NULL DEFAULT '',
-  unit_pacing TEXT NOT NULL DEFAULT '',
-  assessments TEXT NOT NULL DEFAULT '',
-  materials_and_differentiation TEXT NOT NULL DEFAULT '',
-  biblical TEXT NOT NULL DEFAULT '',
-  materials TEXT NOT NULL DEFAULT '',
-  differentiator TEXT NOT NULL DEFAULT ''
-);
-
--- Standards table
-CREATE TABLE standards (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  code TEXT UNIQUE NOT NULL,
-  description TEXT NOT NULL,
-  category TEXT NOT NULL
-);
-
--- Junction table for many-to-many relationship
-CREATE TABLE curriculum_standards (
-  curriculum_id INTEGER NOT NULL,
-  standard_code TEXT NOT NULL,
-  PRIMARY KEY (curriculum_id, standard_code),
-  FOREIGN KEY (curriculum_id) REFERENCES curriculum_rows(id) ON DELETE CASCADE,
-  FOREIGN KEY (standard_code) REFERENCES standards(code) ON DELETE CASCADE
-);
-
--- School year table
-CREATE TABLE school_year (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  year TEXT NOT NULL,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+```
+CurriculumCrafter/
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   ├── pages/         # Main application pages
+│   │   ├── hooks/         # Custom React hooks
+│   │   └── lib/           # Utility functions and configurations
+├── server/                # Express.js backend
+│   ├── db.ts             # Database operations
+│   ├── storage.ts        # Data storage interface
+│   └── index.ts          # Server entry point
+├── shared/               # Shared TypeScript interfaces and schemas
+└── curriculum.db         # SQLite database file
 ```
 
-## 🚀 Production Deployment
+## Usage
 
-### Using PM2 (Recommended)
-```bash
-# Build the application
-npm run build
+### Navigation Management
+1. Navigate to **Admin → Table Management**
+2. Create navigation tabs for different grade levels
+3. Add dropdown items for subjects under each tab
+4. Configure tables for each subject with custom display names
 
-# Start in production mode
-npm start
-
-# Monitor the application
-npm run monitor
-
-# View logs
-npm run logs
-```
-
-### Manual Deployment
-```bash
-# Build the application
-npm run build
-
-# Start the server
-npm run start:single
-```
-
-## 📊 Current Data Statistics
-
-- **95 Curriculum Rows** across 10 grades and 14 subjects
-- **8 Educational Standards** in 3 categories
-- **Complete Biblical Integration** throughout all content
-- **Comprehensive Assessment Strategies** for each curriculum item
-- **Global School Year Management** with database persistence
-
-## 🔧 Development Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm run start` - Start production server with PM2
-- `npm run check` - TypeScript type checking
-- `npm run db:push` - Push database schema changes
-
-## 🎯 Admin Features
-
-### School Year Management
-- **Edit School Year**: Change the school year that appears on all curriculum pages
-- **Database Persistence**: School year changes are saved to SQLite database
-- **Real-time Updates**: Changes reflect immediately across all pages
-- **Admin Only Access**: School year editing is restricted to admin users
+### Curriculum Management
+1. Select a grade and subject from the navigation
+2. Add curriculum entries using the "Add Curriculum Row" button
+3. Edit entries inline or through the edit modal
+4. Link entries to educational standards as needed
 
 ### Database Operations
-- **Export Database**: Download complete database as JSON backup
-- **Import Database**: Restore database from JSON backup file
-- **Database Statistics**: View real-time statistics about curriculum data
-- **Search Functionality**: Full-text search across all curriculum content
+- **Export**: Download a complete backup of all data and structure
+- **Import**: Restore from a previous backup (completely replaces current data)
 
-## 🤝 Contributing
+## Development
+
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+
+### Database Schema
+The system uses the following main tables:
+- `curriculum_rows` - Curriculum entries
+- `standards` - Educational standards
+- `navigation_tabs` - Main navigation structure
+- `dropdown_items` - Subject dropdowns
+- `table_configs` - Table configurations
+- `school_year` - School year setting
+
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -206,17 +121,14 @@ npm run start:single
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Support
+## Support
 
-For support and questions:
-- Create an issue in the GitHub repository
-- Check the [CHANGELOG.md](CHANGELOG.md) for recent updates
-- Review the [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
+For support, please open an issue on GitHub or contact the development team.
 
 ---
 
-**Built with ❤️ for educational excellence and biblical integration** 
+**CurriculumCrafter** - Simplifying curriculum management for educators. 

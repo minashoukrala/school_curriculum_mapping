@@ -1,11 +1,12 @@
 import { Pencil, Trash2, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CurriculumRow, Standard } from "@shared/schema";
+import { CurriculumRow, Standard, TableConfig } from "@shared/schema";
 
 interface CurriculumTableProps {
   rows: CurriculumRow[];
-  standards: Standard[];
+  standards?: Standard[];
+  tableConfigs: TableConfig[];
   isLoading: boolean;
   onEditCell: (row: CurriculumRow, field: string) => void;
   onEditStandards: (rowId: number) => void;
@@ -14,13 +15,17 @@ interface CurriculumTableProps {
 
 export default function CurriculumTable({
   rows,
-  standards,
+  standards = [],
+  tableConfigs,
   isLoading,
   onEditCell,
   onEditStandards,
   onDeleteRow,
 }: CurriculumTableProps) {
   const standardsMap = new Map(standards.map(s => [s.code, s.description]));
+
+  // Get the primary table config (first one, or default if none)
+  const primaryTableConfig = tableConfigs.length > 0 ? tableConfigs[0] : null;
 
   if (isLoading) {
     return (

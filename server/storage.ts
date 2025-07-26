@@ -30,7 +30,15 @@ export interface IStorage {
   createStandard(data: InsertStandard): Promise<Standard>;
 
   // Database operations
-  importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void>;
+  importFullDatabase(data: { 
+    curriculumRows: CurriculumRow[]; 
+    standards: Standard[]; 
+    navigationTabs?: NavigationTab[];
+    dropdownItems?: DropdownItem[];
+    tableConfigs?: TableConfig[];
+    schoolYear?: SchoolYear;
+    metadata: any 
+  }): Promise<void>;
 
   // Additional utility methods
   getDatabaseStats(): Promise<{ totalCurriculumRows: number; totalStandards: number; totalGrades: number; totalSubjects: number; totalCategories: number }>;
@@ -106,7 +114,15 @@ export class SQLiteStorageAdapter implements IStorage {
   }
 
   // Database operations
-  async importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void> {
+  async importFullDatabase(data: { 
+    curriculumRows: CurriculumRow[]; 
+    standards: Standard[]; 
+    navigationTabs?: NavigationTab[];
+    dropdownItems?: DropdownItem[];
+    tableConfigs?: TableConfig[];
+    schoolYear?: SchoolYear;
+    metadata: any 
+  }): Promise<void> {
     return sqliteStorage.importFullDatabase(data);
   }
 

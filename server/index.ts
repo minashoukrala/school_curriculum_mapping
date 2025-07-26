@@ -48,20 +48,28 @@ app.use('/attached_assets', express.static('attached_assets'));
 app.get('/api/export/full-database', async (req, res) => {
   try {
     const { storage } = await import('./storage');
-    console.log('Full database export requested');
     const allRows = await storage.getAllCurriculumRows();
     const standards = await storage.getAllStandards();
-    
-    console.log(`Exporting ${allRows.length} curriculum rows and ${standards.length} standards`);
+    const navigationTabs = await storage.getAllNavigationTabs();
+    const dropdownItems = await storage.getAllDropdownItems();
+    const tableConfigs = await storage.getAllTableConfigs();
+    const schoolYear = await storage.getSchoolYear();
     
     const exportData = {
       curriculumRows: allRows,
       standards,
+      navigationTabs,
+      dropdownItems,
+      tableConfigs,
+      schoolYear,
       metadata: {
         totalCurriculumEntries: allRows.length,
         totalStandards: standards.length,
+        totalNavigationTabs: navigationTabs.length,
+        totalDropdownItems: dropdownItems.length,
+        totalTableConfigs: tableConfigs.length,
         exportDate: new Date().toISOString(),
-        version: "1.0"
+        version: "2.0"
       }
     };
     
@@ -69,7 +77,6 @@ app.get('/api/export/full-database', async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Disposition', `attachment; filename=full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
     res.json(exportData);
-    console.log('Full database export completed successfully');
   } catch (error) {
     console.error('Full database export error:', error);
     res.status(500).json({ message: "Failed to export full database" });
@@ -78,34 +85,38 @@ app.get('/api/export/full-database', async (req, res) => {
 
 // Add specific route for full database import before Vite middleware
 app.post('/api/import/full-database', async (req, res) => {
-  try {
-    const { storage } = await import('./storage');
-    console.log('Full database import requested');
-    
-    const { curriculumRows, standards, metadata } = req.body;
+      try {
+      const { storage } = await import('./storage');
+
+      const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
     
     // Comprehensive server-side validation
     const validationResult = validateImportDataServer(curriculumRows, standards, metadata);
     if (!validationResult.isValid) {
-      console.log('Import validation failed:', validationResult.error);
       return res.status(400).json({ 
         message: "Import validation failed", 
         error: validationResult.error 
       });
     }
     
-    console.log(`Importing ${curriculumRows.length} curriculum rows and ${standards.length} standards`);
-    console.log(`Validation passed: ${validationResult.gradeCount} grades, ${validationResult.subjectCount} subjects`);
-    
     // Import the data using the storage method
-    await storage.importFullDatabase({ curriculumRows, standards, metadata });
-    
-    console.log('Full database import completed successfully');
+    await storage.importFullDatabase({ 
+      curriculumRows, 
+      standards, 
+      navigationTabs, 
+      dropdownItems, 
+      tableConfigs, 
+      schoolYear, 
+      metadata 
+    });
     res.json({ 
       message: "Database imported successfully",
       summary: {
         curriculumRows: curriculumRows.length,
         standards: standards.length,
+        navigationTabs: navigationTabs?.length || 0,
+        dropdownItems: dropdownItems?.length || 0,
+        tableConfigs: tableConfigs?.length || 0,
         grades: validationResult.gradeCount,
         subjects: validationResult.subjectCount
       }
@@ -257,10 +268,15 @@ app.get('/api/standards/categories', async (req, res) => {
     }
   });
 
-  app.get('/api/navigation-tabs/:id(\\d+)', async (req, res) => {
+  app.get('/api/navigation-tabs/:id', async (req, res) => {
+    const id = Number(req.params.id);
+    console.log(`[DEBUG] typeof id: ${typeof id}, id:`, id, 'raw:', req.params.id);
+    if (!id || isNaN(id) || id < 1) {
+      console.log(`[WARN] Invalid navigation tab ID requested: "${req.params.id}" from ${req.headers.referer || 'unknown'}`);
+      return res.status(404).json({ message: "Navigation tab not found" });
+    }
     try {
       const { storage } = await import('./storage');
-      const id = parseInt(req.params.id);
       const tab = await storage.getNavigationTabById(id);
       if (!tab) {
         res.status(404).json({ message: "Navigation tab not found" });
@@ -271,6 +287,12 @@ app.get('/api/standards/categories', async (req, res) => {
       console.error('Get navigation tab by ID error:', error);
       res.status(500).json({ message: "Failed to fetch navigation tab" });
     }
+  });
+
+  // Catch-all for unmatched navigation-tabs requests
+  app.get('/api/navigation-tabs/*', (req, res) => {
+    console.log(`[WARN] Unmatched navigation-tabs route: ${req.originalUrl}`);
+    res.status(404).json({ message: "Navigation tab not found" });
   });
 
   app.post('/api/navigation-tabs', async (req, res) => {
@@ -293,6 +315,7 @@ app.get('/api/standards/categories', async (req, res) => {
   });
 
   app.patch('/api/navigation-tabs/:id', async (req, res) => {
+    console.log(`[DEBUG] PATCH /api/navigation-tabs/${req.params.id} called`);
     try {
       const { storage } = await import('./storage');
       const { updateNavigationTabSchema } = await import('@shared/schema');
@@ -462,6 +485,39 @@ app.get('/api/standards/categories', async (req, res) => {
       const { z } = await import('zod');
       const validatedData = createTableConfigSchema.parse(req.body);
       const config = await storage.createTableConfig(validatedData);
+      
+      // Get the dropdown item to find the subject name
+      const dropdownItems = await storage.getAllDropdownItems();
+      const dropdown = dropdownItems.find(item => item.id === validatedData.dropdownId);
+      
+      if (dropdown) {
+        // Get the navigation tab to find the grade name
+        const navigationTabs = await storage.getAllNavigationTabs();
+        const tab = navigationTabs.find(tab => tab.id === validatedData.tabId);
+        
+        if (tab) {
+          // Create a sample curriculum row with the correct tableName
+          const sampleCurriculumRow = {
+            grade: tab.name,
+            subject: dropdown.name,
+            tableName: validatedData.tableName,
+            objectives: '',
+            unitPacing: '',
+            assessments: '',
+            materialsAndDifferentiation: '',
+            biblical: '',
+            standards: []
+          };
+          
+          try {
+            await storage.createCurriculumRow(sampleCurriculumRow);
+                  // Sample curriculum row created successfully
+    } catch (curriculumError) {
+      // Sample curriculum row may already exist
+    }
+        }
+      }
+      
       res.status(201).json(config);
     } catch (error) {
       const { z } = await import('zod');
@@ -502,8 +558,31 @@ app.get('/api/standards/categories', async (req, res) => {
     try {
       const { storage } = await import('./storage');
       const id = parseInt(req.params.id);
+      
+      // Get the table config before deleting to know the tableName
+      const tableConfigs = await storage.getAllTableConfigs();
+      const configToDelete = tableConfigs.find(config => config.id === id);
+      
       const success = await storage.deleteTableConfig(id);
       if (success) {
+        // Optionally delete associated curriculum rows with the same tableName
+        if (configToDelete) {
+          try {
+            const allCurriculumRows = await storage.getAllCurriculumRows();
+            const rowsToDelete = allCurriculumRows.filter(row => row.tableName === configToDelete.tableName);
+            
+            for (const row of rowsToDelete) {
+              await storage.deleteCurriculumRow(row.id);
+            }
+            
+            if (rowsToDelete.length > 0) {
+              // Associated curriculum rows deleted successfully
+            }
+          } catch (curriculumError) {
+            // Could not delete associated curriculum rows
+          }
+        }
+        
         res.status(204).send();
       } else {
         res.status(404).json({ message: "Table config not found" });
@@ -555,6 +634,7 @@ app.get('/api/standards/categories', async (req, res) => {
       const row = await storage.createCurriculumRow(validatedData);
       res.status(201).json(row);
     } catch (error) {
+      console.error('POST /api/curriculum error:', error);
       const { z } = await import('zod');
       if (error instanceof z.ZodError) {
         res.status(400).json({ message: "Invalid data", errors: error.errors });
@@ -568,12 +648,10 @@ app.get('/api/standards/categories', async (req, res) => {
   app.patch("/api/curriculum/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      console.log('PATCH body:', req.body);
       const { storage } = await import('./storage');
       const { insertCurriculumRowSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = insertCurriculumRowSchema.partial().parse(req.body);
-      console.log('PATCH validatedData:', validatedData);
       const row = await storage.updateCurriculumRow(id, validatedData);
       res.json(row);
     } catch (error) {

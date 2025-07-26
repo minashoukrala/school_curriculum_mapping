@@ -13,6 +13,7 @@ export interface CurriculumRow {
   standards: string[];
   materials?: string;
   differentiator?: string;
+  tableName?: string;
 }
 
 export interface Standard {
@@ -74,6 +75,7 @@ export const insertCurriculumRowSchema = z.object({
   standards: z.array(z.string()).default([]),
   materials: z.string().optional(),
   differentiator: z.string().optional(),
+  tableName: z.string().optional(),
 });
 
 export const insertStandardSchema = z.object({

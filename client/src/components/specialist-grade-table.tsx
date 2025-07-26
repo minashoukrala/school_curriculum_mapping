@@ -163,6 +163,7 @@ export default function SpecialistGradeTable({ grade, subject }: SpecialistGrade
       <CurriculumTable
         rows={curriculumRows}
         standards={standards}
+        tableConfigs={[]}
         isLoading={isLoadingRows || isLoadingStandards}
         onEditCell={handleEditCell}
         onEditStandards={handleEditStandards}
