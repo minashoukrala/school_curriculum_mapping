@@ -127,15 +127,17 @@ export default function CurriculumBuilder() {
   const { data: navigationTabs = [] } = useQuery<NavigationTab[]>({
     queryKey: ['navigation-tabs', 'active'],
     queryFn: () => apiRequest('GET', '/api/navigation-tabs/active').then(res => res.json()),
-    refetchInterval: 500, // Refetch every 500ms for real-time updates
+    refetchInterval: 200, // Refetch every 200ms for real-time updates
     staleTime: 0, // Always consider data stale
+    refetchOnWindowFocus: true, // Refetch when window gains focus
   });
 
   const { data: dropdownItems = [] } = useQuery<DropdownItem[]>({
     queryKey: ['dropdown-items'],
     queryFn: () => apiRequest('GET', '/api/dropdown-items').then(res => res.json()),
-    refetchInterval: 500, // Refetch every 500ms for real-time updates
+    refetchInterval: 200, // Refetch every 200ms for real-time updates
     staleTime: 0, // Always consider data stale
+    refetchOnWindowFocus: true, // Refetch when window gains focus
   });
 
   // Get active grades from navigation tabs

@@ -42,6 +42,11 @@ export default function TableManagement() {
       queryClient.refetchQueries({ queryKey: ['navigation-tabs', 'active'] });
       queryClient.refetchQueries({ queryKey: ['dropdown-items'] });
     }, 100);
+    
+    // Force refetch all queries that might be affected
+    setTimeout(() => {
+      queryClient.refetchQueries();
+    }, 200);
   };
 
   // Queries
@@ -173,6 +178,23 @@ export default function TableManagement() {
 
   return (
     <div className="space-y-8">
+      {/* Manual refresh button */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Table Management</h2>
+        <Button 
+          onClick={() => {
+            invalidateNavigationCache();
+            // Force a hard refresh of the page to ensure navigation updates
+            setTimeout(() => {
+              window.location.reload();
+            }, 300);
+          }}
+          variant="outline"
+          size="sm"
+        >
+          🔄 Refresh Navigation
+        </Button>
+      </div>
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Navigation Tabs</h3>
         
