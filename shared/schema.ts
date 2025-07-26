@@ -28,6 +28,40 @@ export interface SchoolYear {
   updatedAt: string;
 }
 
+// Added for table management feature
+export interface NavigationTab {
+  id: number;
+  name: string;
+  displayName: string;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DropdownItem {
+  id: number;
+  tabId: number;
+  name: string;
+  displayName: string;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TableConfig {
+  id: number;
+  tabId: number;
+  dropdownId: number;
+  tableName: string;
+  displayName: string;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Zod schemas for validation
 export const insertCurriculumRowSchema = z.object({
   grade: z.string(),
@@ -48,10 +82,62 @@ export const insertStandardSchema = z.object({
   category: z.string(),
 });
 
+// Added for school year feature
 export const updateSchoolYearSchema = z.object({
   year: z.string().min(1, "School year is required"),
 });
 
+// Added for table management feature
+export const createNavigationTabSchema = z.object({
+  name: z.string().min(1, "Tab name is required"),
+  displayName: z.string().min(1, "Display name is required"),
+  order: z.number().int().min(0, "Order must be a positive integer"),
+});
+
+export const updateNavigationTabSchema = z.object({
+  name: z.string().min(1, "Tab name is required").optional(),
+  displayName: z.string().min(1, "Display name is required").optional(),
+  order: z.number().int().min(0, "Order must be a positive integer").optional(),
+  isActive: z.boolean().optional(),
+});
+
+export const createDropdownItemSchema = z.object({
+  tabId: z.number().int().positive("Tab ID is required"),
+  name: z.string().min(1, "Item name is required"),
+  displayName: z.string().min(1, "Display name is required"),
+  order: z.number().int().min(0, "Order must be a positive integer"),
+});
+
+export const updateDropdownItemSchema = z.object({
+  name: z.string().min(1, "Item name is required").optional(),
+  displayName: z.string().min(1, "Display name is required").optional(),
+  order: z.number().int().min(0, "Order must be a positive integer").optional(),
+  isActive: z.boolean().optional(),
+});
+
+export const createTableConfigSchema = z.object({
+  tabId: z.number().int().positive("Tab ID is required"),
+  dropdownId: z.number().int().positive("Dropdown ID is required"),
+  tableName: z.string().min(1, "Table name is required"),
+  displayName: z.string().min(1, "Display name is required"),
+  order: z.number().int().min(0, "Order must be a positive integer"),
+});
+
+export const updateTableConfigSchema = z.object({
+  tableName: z.string().min(1, "Table name is required").optional(),
+  displayName: z.string().min(1, "Display name is required").optional(),
+  order: z.number().int().min(0, "Order must be a positive integer").optional(),
+  isActive: z.boolean().optional(),
+});
+
 export type InsertCurriculumRow = z.infer<typeof insertCurriculumRowSchema>;
 export type InsertStandard = z.infer<typeof insertStandardSchema>;
-export type UpdateSchoolYear = z.infer<typeof updateSchoolYearSchema>;
+export type UpdateSchoolYear = z.infer<typeof updateSchoolYearSchema>; // Added
+
+// Added for table management feature
+export type CreateNavigationTab = z.infer<typeof createNavigationTabSchema>;
+export type UpdateNavigationTab = z.infer<typeof updateNavigationTabSchema>;
+export type CreateDropdownItem = z.infer<typeof createDropdownItemSchema>;
+export type UpdateDropdownItem = z.infer<typeof updateDropdownItemSchema>;
+export type CreateTableConfig = z.infer<typeof createTableConfigSchema>;
+export type UpdateTableConfig = z.infer<typeof updateTableConfigSchema>;

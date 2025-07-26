@@ -7,7 +7,15 @@ import {
   type Standard,
   type InsertStandard,
   type SchoolYear,
-  type UpdateSchoolYear
+  type NavigationTab,
+  type DropdownItem,
+  type TableConfig,
+  type CreateNavigationTab,
+  type UpdateNavigationTab,
+  type CreateDropdownItem,
+  type UpdateDropdownItem,
+  type CreateTableConfig,
+  type UpdateTableConfig
 } from "@shared/schema";
 
 export class SQLiteStorage {
@@ -96,6 +104,118 @@ export class SQLiteStorage {
     if (schoolYearCount.count === 0) {
       this.db.prepare('INSERT INTO school_year (year) VALUES (?)').run('2025-2026');
     }
+
+    // Create navigation_tabs table
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS navigation_tabs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT UNIQUE NOT NULL,
+        display_name TEXT NOT NULL,
+        order_index INTEGER NOT NULL DEFAULT 0,
+        is_active BOOLEAN NOT NULL DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create dropdown_items table
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS dropdown_items (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        tab_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        display_name TEXT NOT NULL,
+        order_index INTEGER NOT NULL DEFAULT 0,
+        is_active BOOLEAN NOT NULL DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (tab_id) REFERENCES navigation_tabs(id) ON DELETE CASCADE
+      )
+    `);
+
+    // Create table_configs table
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS table_configs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        tab_id INTEGER NOT NULL,
+        dropdown_id INTEGER NOT NULL,
+        table_name TEXT NOT NULL,
+        display_name TEXT NOT NULL,
+        order_index INTEGER NOT NULL DEFAULT 0,
+        is_active BOOLEAN NOT NULL DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (tab_id) REFERENCES navigation_tabs(id) ON DELETE CASCADE,
+        FOREIGN KEY (dropdown_id) REFERENCES dropdown_items(id) ON DELETE CASCADE
+      )
+    `);
+
+    // Insert default navigation structure if tables are empty
+    const tabCount = this.db.prepare('SELECT COUNT(*) as count FROM navigation_tabs').get() as { count: number };
+    if (tabCount.count === 0) {
+      this.insertDefaultNavigationStructure();
+    }
+  }
+
+  // Added: Insert default navigation structure
+  private insertDefaultNavigationStructure() {
+    // Insert default tabs
+    const insertTab = this.db.prepare(`
+      INSERT INTO navigation_tabs (name, display_name, order_index, is_active) 
+      VALUES (?, ?, ?, ?)
+    `);
+
+    const tabs = [
+      { name: 'KG', displayName: 'KG', order: 0 },
+      { name: 'Grade 1', displayName: 'Grade 1', order: 1 },
+      { name: 'Grade 2', displayName: 'Grade 2', order: 2 },
+      { name: 'Grade 3', displayName: 'Grade 3', order: 3 },
+      { name: 'Grade 4', displayName: 'Grade 4', order: 4 },
+      { name: 'Grade 5', displayName: 'Grade 5', order: 5 },
+      { name: 'Grade 6', displayName: 'Grade 6', order: 6 },
+      { name: 'Grade 7', displayName: 'Grade 7', order: 7 },
+      { name: 'Grade 8', displayName: 'Grade 8', order: 8 },
+      { name: 'Specialists', displayName: 'Specialists', order: 9 },
+      { name: 'Admin', displayName: 'Admin', order: 10 }
+    ];
+
+    tabs.forEach(tab => {
+      insertTab.run(tab.name, tab.displayName, tab.order, 1);
+    });
+
+    // Insert default dropdown items
+    const insertDropdown = this.db.prepare(`
+      INSERT INTO dropdown_items (tab_id, name, display_name, order_index, is_active) 
+      VALUES (?, ?, ?, ?, ?)
+    `);
+
+    // Get tab IDs
+    const tabIds = this.db.prepare('SELECT id, name FROM navigation_tabs').all() as { id: number, name: string }[];
+    const tabIdMap = new Map(tabIds.map(t => [t.name, t.id]));
+
+    // Default subjects for each grade
+    const subjects = {
+      'KG': ['Bible Study', 'Reading', 'Math', 'Science', 'Social Studies', 'Visual Art'],
+      'Grade 1': ['Bible Study', 'Reading', 'Writing', 'Math', 'Social Studies', 'Science'],
+      'Grade 2': ['Bible Study', 'Reading', 'Writing', 'Math', 'Social Studies', 'Science'],
+      'Grade 3': ['Bible Study', 'Reading', 'Writing', 'Math', 'Social Studies', 'Science'],
+      'Grade 4': ['Bible Study', 'Reading', 'Writing', 'Math', 'Social Studies', 'Science'],
+      'Grade 5': ['Bible Study', 'Reading', 'Writing', 'Math', 'Social Studies', 'Science'],
+      'Grade 6': ['Bible Study', 'English', 'Math', 'Science', 'History'],
+      'Grade 7': ['Bible Study', 'English', 'Math', 'Science', 'History'],
+      'Grade 8': ['Bible Study', 'English', 'Math', 'Science', 'History'],
+      'Specialists': ['Art', 'Spanish', 'Music', 'Technology', 'PE'],
+      'Admin': ['Database Export', 'Table Management']
+    };
+
+    Object.entries(subjects).forEach(([tabName, subjectList]) => {
+      const tabId = tabIdMap.get(tabName);
+      if (tabId) {
+        subjectList.forEach((subject, index) => {
+          insertDropdown.run(tabId, subject, subject, index, 1);
+        });
+      }
+    });
   }
 
   // Curriculum rows methods
@@ -553,6 +673,300 @@ export class SQLiteStorage {
       year: year,
       updatedAt: new Date().toISOString()
     };
+  }
+
+  // Added: Navigation tab methods
+  async getAllNavigationTabs(): Promise<NavigationTab[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, name, display_name as displayName, order_index as "order", 
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM navigation_tabs 
+      ORDER BY order_index
+    `);
+    return stmt.all() as NavigationTab[];
+  }
+
+  async getActiveNavigationTabs(): Promise<NavigationTab[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, name, display_name as displayName, order_index as "order", 
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM navigation_tabs 
+      WHERE is_active = 1
+      ORDER BY order_index
+    `);
+    return stmt.all() as NavigationTab[];
+  }
+
+  async createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab> {
+    const stmt = this.db.prepare(`
+      INSERT INTO navigation_tabs (name, display_name, order_index, is_active)
+      VALUES (?, ?, ?, 1)
+    `);
+    const result = stmt.run(data.name, data.displayName, data.order);
+    
+    return {
+      id: result.lastInsertRowid as number,
+      name: data.name,
+      displayName: data.displayName,
+      order: data.order,
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  async updateNavigationTab(id: number, data: UpdateNavigationTab): Promise<NavigationTab | null> {
+    const current = this.db.prepare('SELECT * FROM navigation_tabs WHERE id = ?').get(id) as any;
+    if (!current) return null;
+
+    const updates: string[] = [];
+    const values: any[] = [];
+
+    if (data.name !== undefined) {
+      updates.push('name = ?');
+      values.push(data.name);
+    }
+    if (data.displayName !== undefined) {
+      updates.push('display_name = ?');
+      values.push(data.displayName);
+    }
+    if (data.order !== undefined) {
+      updates.push('order_index = ?');
+      values.push(data.order);
+    }
+    if (data.isActive !== undefined) {
+      updates.push('is_active = ?');
+      values.push(data.isActive ? 1 : 0);
+    }
+
+    if (updates.length === 0) return null;
+
+    updates.push('updated_at = CURRENT_TIMESTAMP');
+    values.push(id);
+
+    const stmt = this.db.prepare(`
+      UPDATE navigation_tabs 
+      SET ${updates.join(', ')}
+      WHERE id = ?
+    `);
+    stmt.run(...values);
+
+    return this.getNavigationTabById(id);
+  }
+
+  async deleteNavigationTab(id: number): Promise<boolean> {
+    const stmt = this.db.prepare('DELETE FROM navigation_tabs WHERE id = ?');
+    const result = stmt.run(id);
+    return result.changes > 0;
+  }
+
+  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
+    const stmt = this.db.prepare(`
+      SELECT id, name, display_name as displayName, order_index as "order", 
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM navigation_tabs 
+      WHERE id = ?
+    `);
+    const row = stmt.get(id) as any;
+    return row || null;
+  }
+
+  // Added: Dropdown item methods
+  async getDropdownItemsByTabId(tabId: number): Promise<DropdownItem[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, name, display_name as displayName, order_index as "order",
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM dropdown_items 
+      WHERE tab_id = ? AND is_active = 1
+      ORDER BY order_index
+    `);
+    return stmt.all(tabId) as DropdownItem[];
+  }
+
+  async getAllDropdownItems(): Promise<DropdownItem[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, name, display_name as displayName, order_index as "order",
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM dropdown_items 
+      ORDER BY tab_id, order_index
+    `);
+    return stmt.all() as DropdownItem[];
+  }
+
+  async createDropdownItem(data: CreateDropdownItem): Promise<DropdownItem> {
+    const stmt = this.db.prepare(`
+      INSERT INTO dropdown_items (tab_id, name, display_name, order_index, is_active)
+      VALUES (?, ?, ?, ?, 1)
+    `);
+    const result = stmt.run(data.tabId, data.name, data.displayName, data.order);
+    
+    return {
+      id: result.lastInsertRowid as number,
+      tabId: data.tabId,
+      name: data.name,
+      displayName: data.displayName,
+      order: data.order,
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  async updateDropdownItem(id: number, data: UpdateDropdownItem): Promise<DropdownItem | null> {
+    const current = this.db.prepare('SELECT * FROM dropdown_items WHERE id = ?').get(id) as any;
+    if (!current) return null;
+
+    const updates: string[] = [];
+    const values: any[] = [];
+
+    if (data.name !== undefined) {
+      updates.push('name = ?');
+      values.push(data.name);
+    }
+    if (data.displayName !== undefined) {
+      updates.push('display_name = ?');
+      values.push(data.displayName);
+    }
+    if (data.order !== undefined) {
+      updates.push('order_index = ?');
+      values.push(data.order);
+    }
+    if (data.isActive !== undefined) {
+      updates.push('is_active = ?');
+      values.push(data.isActive ? 1 : 0);
+    }
+
+    if (updates.length === 0) return null;
+
+    updates.push('updated_at = CURRENT_TIMESTAMP');
+    values.push(id);
+
+    const stmt = this.db.prepare(`
+      UPDATE dropdown_items 
+      SET ${updates.join(', ')}
+      WHERE id = ?
+    `);
+    stmt.run(...values);
+
+    return this.getDropdownItemById(id);
+  }
+
+  async deleteDropdownItem(id: number): Promise<boolean> {
+    const stmt = this.db.prepare('DELETE FROM dropdown_items WHERE id = ?');
+    const result = stmt.run(id);
+    return result.changes > 0;
+  }
+
+  async getDropdownItemById(id: number): Promise<DropdownItem | null> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, name, display_name as displayName, order_index as "order",
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM dropdown_items 
+      WHERE id = ?
+    `);
+    const row = stmt.get(id) as any;
+    return row || null;
+  }
+
+  // Added: Table config methods
+  async getTableConfigsByDropdownId(dropdownId: number): Promise<TableConfig[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, dropdown_id as dropdownId, table_name as tableName, 
+             display_name as displayName, order_index as "order", is_active as isActive,
+             created_at as createdAt, updated_at as updatedAt
+      FROM table_configs 
+      WHERE dropdown_id = ? AND is_active = 1
+      ORDER BY order_index
+    `);
+    return stmt.all(dropdownId) as TableConfig[];
+  }
+
+  async getAllTableConfigs(): Promise<TableConfig[]> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, dropdown_id as dropdownId, table_name as tableName, 
+             display_name as displayName, order_index as "order", is_active as isActive,
+             created_at as createdAt, updated_at as updatedAt
+      FROM table_configs 
+      ORDER BY tab_id, dropdown_id, order_index
+    `);
+    return stmt.all() as TableConfig[];
+  }
+
+  async createTableConfig(data: CreateTableConfig): Promise<TableConfig> {
+    const stmt = this.db.prepare(`
+      INSERT INTO table_configs (tab_id, dropdown_id, table_name, display_name, order_index, is_active)
+      VALUES (?, ?, ?, ?, ?, 1)
+    `);
+    const result = stmt.run(data.tabId, data.dropdownId, data.tableName, data.displayName, data.order);
+    
+    return {
+      id: result.lastInsertRowid as number,
+      tabId: data.tabId,
+      dropdownId: data.dropdownId,
+      tableName: data.tableName,
+      displayName: data.displayName,
+      order: data.order,
+      isActive: true,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+  }
+
+  async updateTableConfig(id: number, data: UpdateTableConfig): Promise<TableConfig | null> {
+    const current = this.db.prepare('SELECT * FROM table_configs WHERE id = ?').get(id) as any;
+    if (!current) return null;
+
+    const updates: string[] = [];
+    const values: any[] = [];
+
+    if (data.tableName !== undefined) {
+      updates.push('table_name = ?');
+      values.push(data.tableName);
+    }
+    if (data.displayName !== undefined) {
+      updates.push('display_name = ?');
+      values.push(data.displayName);
+    }
+    if (data.order !== undefined) {
+      updates.push('order_index = ?');
+      values.push(data.order);
+    }
+    if (data.isActive !== undefined) {
+      updates.push('is_active = ?');
+      values.push(data.isActive ? 1 : 0);
+    }
+
+    if (updates.length === 0) return null;
+
+    updates.push('updated_at = CURRENT_TIMESTAMP');
+    values.push(id);
+
+    const stmt = this.db.prepare(`
+      UPDATE table_configs 
+      SET ${updates.join(', ')}
+      WHERE id = ?
+    `);
+    stmt.run(...values);
+
+    return this.getTableConfigById(id);
+  }
+
+  async deleteTableConfig(id: number): Promise<boolean> {
+    const stmt = this.db.prepare('DELETE FROM table_configs WHERE id = ?');
+    const result = stmt.run(id);
+    return result.changes > 0;
+  }
+
+  async getTableConfigById(id: number): Promise<TableConfig | null> {
+    const stmt = this.db.prepare(`
+      SELECT id, tab_id as tabId, dropdown_id as dropdownId, table_name as tableName, 
+             display_name as displayName, order_index as "order", is_active as isActive,
+             created_at as createdAt, updated_at as updatedAt
+      FROM table_configs 
+      WHERE id = ?
+    `);
+    const row = stmt.get(id) as any;
+    return row || null;
   }
 }
 

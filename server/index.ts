@@ -226,6 +226,254 @@ app.get('/api/standards/categories', async (req, res) => {
     }
   });
 
+  // Added: Navigation tabs endpoints
+  app.get('/api/navigation-tabs', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const tabs = await storage.getAllNavigationTabs();
+      res.json(tabs);
+    } catch (error) {
+      console.error('Get navigation tabs error:', error);
+      res.status(500).json({ message: "Failed to fetch navigation tabs" });
+    }
+  });
+
+  app.get('/api/navigation-tabs/active', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const tabs = await storage.getActiveNavigationTabs();
+      res.json(tabs);
+    } catch (error) {
+      console.error('Get active navigation tabs error:', error);
+      res.status(500).json({ message: "Failed to fetch active navigation tabs" });
+    }
+  });
+
+  app.post('/api/navigation-tabs', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { createNavigationTabSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = createNavigationTabSchema.parse(req.body);
+      const tab = await storage.createNavigationTab(validatedData);
+      res.status(201).json(tab);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Create navigation tab error:', error);
+        res.status(500).json({ message: "Failed to create navigation tab" });
+      }
+    }
+  });
+
+  app.patch('/api/navigation-tabs/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { updateNavigationTabSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const id = parseInt(req.params.id);
+      const validatedData = updateNavigationTabSchema.parse(req.body);
+      const tab = await storage.updateNavigationTab(id, validatedData);
+      if (!tab) {
+        res.status(404).json({ message: "Navigation tab not found" });
+      } else {
+        res.json(tab);
+      }
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Update navigation tab error:', error);
+        res.status(500).json({ message: "Failed to update navigation tab" });
+      }
+    }
+  });
+
+  app.delete('/api/navigation-tabs/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteNavigationTab(id);
+      if (success) {
+        res.status(204).send();
+      } else {
+        res.status(404).json({ message: "Navigation tab not found" });
+      }
+    } catch (error) {
+      console.error('Delete navigation tab error:', error);
+      res.status(500).json({ message: "Failed to delete navigation tab" });
+    }
+  });
+
+  // Added: Dropdown items endpoints
+  app.get('/api/dropdown-items', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const items = await storage.getAllDropdownItems();
+      res.json(items);
+    } catch (error) {
+      console.error('Get dropdown items error:', error);
+      res.status(500).json({ message: "Failed to fetch dropdown items" });
+    }
+  });
+
+  app.get('/api/dropdown-items/tab/:tabId', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const tabId = parseInt(req.params.tabId);
+      const items = await storage.getDropdownItemsByTabId(tabId);
+      res.json(items);
+    } catch (error) {
+      console.error('Get dropdown items by tab error:', error);
+      res.status(500).json({ message: "Failed to fetch dropdown items" });
+    }
+  });
+
+  app.post('/api/dropdown-items', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { createDropdownItemSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = createDropdownItemSchema.parse(req.body);
+      const item = await storage.createDropdownItem(validatedData);
+      res.status(201).json(item);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Create dropdown item error:', error);
+        res.status(500).json({ message: "Failed to create dropdown item" });
+      }
+    }
+  });
+
+  app.patch('/api/dropdown-items/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { updateDropdownItemSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const id = parseInt(req.params.id);
+      const validatedData = updateDropdownItemSchema.parse(req.body);
+      const item = await storage.updateDropdownItem(id, validatedData);
+      if (!item) {
+        res.status(404).json({ message: "Dropdown item not found" });
+      } else {
+        res.json(item);
+      }
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Update dropdown item error:', error);
+        res.status(500).json({ message: "Failed to update dropdown item" });
+      }
+    }
+  });
+
+  app.delete('/api/dropdown-items/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteDropdownItem(id);
+      if (success) {
+        res.status(204).send();
+      } else {
+        res.status(404).json({ message: "Dropdown item not found" });
+      }
+    } catch (error) {
+      console.error('Delete dropdown item error:', error);
+      res.status(500).json({ message: "Failed to delete dropdown item" });
+    }
+  });
+
+  // Added: Table configs endpoints
+  app.get('/api/table-configs', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const configs = await storage.getAllTableConfigs();
+      res.json(configs);
+    } catch (error) {
+      console.error('Get table configs error:', error);
+      res.status(500).json({ message: "Failed to fetch table configs" });
+    }
+  });
+
+  app.get('/api/table-configs/dropdown/:dropdownId', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const dropdownId = parseInt(req.params.dropdownId);
+      const configs = await storage.getTableConfigsByDropdownId(dropdownId);
+      res.json(configs);
+    } catch (error) {
+      console.error('Get table configs by dropdown error:', error);
+      res.status(500).json({ message: "Failed to fetch table configs" });
+    }
+  });
+
+  app.post('/api/table-configs', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { createTableConfigSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = createTableConfigSchema.parse(req.body);
+      const config = await storage.createTableConfig(validatedData);
+      res.status(201).json(config);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Create table config error:', error);
+        res.status(500).json({ message: "Failed to create table config" });
+      }
+    }
+  });
+
+  app.patch('/api/table-configs/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { updateTableConfigSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const id = parseInt(req.params.id);
+      const validatedData = updateTableConfigSchema.parse(req.body);
+      const config = await storage.updateTableConfig(id, validatedData);
+      if (!config) {
+        res.status(404).json({ message: "Table config not found" });
+      } else {
+        res.json(config);
+      }
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Update table config error:', error);
+        res.status(500).json({ message: "Failed to update table config" });
+      }
+    }
+  });
+
+  app.delete('/api/table-configs/:id', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteTableConfig(id);
+      if (success) {
+        res.status(204).send();
+      } else {
+        res.status(404).json({ message: "Table config not found" });
+      }
+    } catch (error) {
+      console.error('Delete table config error:', error);
+      res.status(500).json({ message: "Failed to delete table config" });
+    }
+  });
+
   // Get curriculum rows for a specific grade and subject
   app.get("/api/curriculum/:grade/:subject", async (req, res) => {
     try {

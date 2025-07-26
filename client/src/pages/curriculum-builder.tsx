@@ -10,6 +10,7 @@ import CurriculumTable from "@/components/curriculum-table";
 import SpecialistGradeTable from "@/components/specialist-grade-table";
 import StandardsModal from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
+import TableManagement from "@/components/table-management";
 
 
 const grades = [
@@ -96,18 +97,11 @@ const grades = [
   }
   if (grade === "Admin") {
     return [
-      "Database Export"
+      "Database Export",
+      "Table Management"
     ];
   }
-  return [
-    "English",
-    "Math",
-    "Science",
-    "History",
-    "Technology",
-    "Art",
-    "PE",
-  ];
+  return [];
 };
 
 export default function CurriculumBuilder() {
@@ -877,117 +871,129 @@ export default function CurriculumBuilder() {
         {/* Admin Section */}
         {selectedGrade === "Admin" && (
           <div className="space-y-8">
-            <div className="bg-white border border-gray-200 rounded-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Database Administration</h2>
-              
-              <div className="space-y-6">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-3">Export Full Database</h3>
-                  <p className="text-blue-700 mb-4">
-                    Download the complete curriculum database including all grades, subjects, and standards.
-                  </p>
-                  <Button
-                    onClick={handleExportFullDatabase}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
-                  >
-                    Export Complete Database
-                  </Button>
-                </div>
-
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-orange-900 mb-3">Import Database</h3>
-                  <p className="text-orange-700 mb-4">
-                    Replace the current database with a new JSON file. This will completely overwrite all existing data.
-                  </p>
-                  <div className="flex items-center space-x-4">
-                    <input
-                      type="file"
-                      accept=".json"
-                      onChange={handleImportDatabase}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
-                    />
+            {selectedSubject === "Database Export" && (
+              <div className="bg-white border border-gray-200 rounded-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Database Administration</h2>
+                
+                <div className="space-y-6">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-blue-900 mb-3">Export Full Database</h3>
+                    <p className="text-blue-700 mb-4">
+                      Download the complete curriculum database including all grades, subjects, and standards.
+                    </p>
+                    <Button
+                      onClick={handleExportFullDatabase}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
+                    >
+                      Export Complete Database
+                    </Button>
                   </div>
-                  <p className="text-xs text-orange-600 mt-2">
-                    ⚠️ Warning: This action will permanently replace all current data. Make sure to export a backup first.
-                  </p>
-                </div>
 
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Database Information</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="font-medium text-gray-700">Total Curriculum Entries:</span>
-                      <span className="ml-2 text-gray-900">{allCurriculumRows.length}</span>
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-orange-900 mb-3">Import Database</h3>
+                    <p className="text-orange-700 mb-4">
+                      Replace the current database with a new JSON file. This will completely overwrite all existing data.
+                    </p>
+                    <div className="flex items-center space-x-4">
+                      <input
+                        type="file"
+                        accept=".json"
+                        onChange={handleImportDatabase}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
+                      />
                     </div>
-                    <div>
-                      <span className="font-medium text-gray-700">Total Standards:</span>
-                      <span className="ml-2 text-gray-900">{standards.length}</span>
-                    </div>
-                    <div>
-                      <span className="font-medium text-gray-700">Grades Available:</span>
-                      <span className="ml-2 text-gray-900">KG, Grade 1-8, Specialists</span>
-                    </div>
-                    <div>
-                      <span className="font-medium text-gray-700">Last Export:</span>
-                      <span className="ml-2 text-gray-900">{new Date().toLocaleDateString()}</span>
-                    </div>
+                    <p className="text-xs text-orange-600 mt-2">
+                      ⚠️ Warning: This action will permanently replace all current data. Make sure to export a backup first.
+                    </p>
                   </div>
-                </div>
 
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-green-900 mb-3">School Year Management</h3>
-                  <p className="text-green-700 mb-4">
-                    Update the school year that appears on all curriculum pages.
-                  </p>
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-1">
-                      <label className="block text-sm font-medium text-green-900 mb-2">
-                        Current School Year
-                      </label>
-                      <div className="flex items-center space-x-2">
-                        <input
-                          type="text"
-                          value={schoolYearInput}
-                          onChange={(e) => setSchoolYearInput(e.target.value)}
-                          className="flex-1 px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                          placeholder="e.g., 2025-2026"
-                          disabled={!isEditingSchoolYear}
-                        />
-                        {isEditingSchoolYear ? (
-                          <>
-                            <Button
-                              onClick={handleSaveSchoolYear}
-                              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
-                              disabled={updateSchoolYearMutation.isPending}
-                            >
-                              {updateSchoolYearMutation.isPending ? 'Saving...' : 'Save'}
-                            </Button>
-                            <Button
-                              onClick={handleCancelSchoolYearEdit}
-                              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2"
-                            >
-                              Cancel
-                            </Button>
-                          </>
-                        ) : (
-                          <Button
-                            onClick={handleEditSchoolYear}
-                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
-                          >
-                            Edit
-                          </Button>
-                        )}
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Database Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium text-gray-700">Total Curriculum Entries:</span>
+                        <span className="ml-2 text-gray-900">{allCurriculumRows.length}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Total Standards:</span>
+                        <span className="ml-2 text-gray-900">{standards.length}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Grades Available:</span>
+                        <span className="ml-2 text-gray-900">KG, Grade 1-8, Specialists</span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-gray-700">Last Export:</span>
+                        <span className="ml-2 text-gray-900">{new Date().toLocaleDateString()}</span>
                       </div>
                     </div>
                   </div>
-                  {schoolYear && (
-                    <p className="text-xs text-green-600 mt-2">
-                      Last updated: {new Date(schoolYear.updatedAt).toLocaleString()}
+
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h3 className="text-lg font-semibold text-green-900 mb-3">School Year Management</h3>
+                    <p className="text-green-700 mb-4">
+                      Update the school year that appears on all curriculum pages.
                     </p>
-                  )}
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-1">
+                        <label className="block text-sm font-medium text-green-900 mb-2">
+                          Current School Year
+                        </label>
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="text"
+                            value={schoolYearInput}
+                            onChange={(e) => setSchoolYearInput(e.target.value)}
+                            className="flex-1 px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                            placeholder="e.g., 2025-2026"
+                            disabled={!isEditingSchoolYear}
+                          />
+                          {isEditingSchoolYear ? (
+                            <>
+                              <Button
+                                onClick={handleSaveSchoolYear}
+                                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
+                                disabled={updateSchoolYearMutation.isPending}
+                              >
+                                {updateSchoolYearMutation.isPending ? 'Saving...' : 'Save'}
+                              </Button>
+                              <Button
+                                onClick={handleCancelSchoolYearEdit}
+                                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2"
+                              >
+                                Cancel
+                              </Button>
+                            </>
+                          ) : (
+                            <Button
+                              onClick={handleEditSchoolYear}
+                              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
+                            >
+                              Edit
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {schoolYear && (
+                      <p className="text-xs text-green-600 mt-2">
+                        Last updated: {new Date(schoolYear.updatedAt).toLocaleString()}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {selectedSubject === "Table Management" && (
+              <div className="bg-white border border-gray-200 rounded-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Table Management</h2>
+                <p className="text-gray-600 mb-6">
+                  Manage navigation tabs, dropdown items, and table configurations for the curriculum system.
+                </p>
+                <TableManagement />
+              </div>
+            )}
           </div>
         )}
 
