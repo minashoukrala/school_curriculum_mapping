@@ -241,21 +241,27 @@ export class SQLiteStorage {
       values.push(row.differentiator);
     }
 
-    if (updates.length === 0) {
-      throw new Error('No fields to update');
-    }
+    // Only update curriculum_rows table if there are fields to update
+    if (updates.length > 0) {
+      values.push(id);
+      const updateStmt = this.db.prepare(`
+        UPDATE curriculum_rows 
+        SET ${updates.join(', ')} 
+        WHERE id = ?
+      `);
 
-    values.push(id);
-    const updateStmt = this.db.prepare(`
-      UPDATE curriculum_rows 
-      SET ${updates.join(', ')} 
-      WHERE id = ?
-    `);
+      const result = updateStmt.run(...values);
 
-    const result = updateStmt.run(...values);
-
-    if (result.changes === 0) {
-      throw new Error('Curriculum row not found');
+      if (result.changes === 0) {
+        throw new Error('Curriculum row not found');
+      }
+    } else {
+      // If no curriculum fields to update, verify the row exists
+      const checkStmt = this.db.prepare('SELECT id FROM curriculum_rows WHERE id = ?');
+      const row = checkStmt.get(id);
+      if (!row) {
+        throw new Error('Curriculum row not found');
+      }
     }
 
     // Update standards if provided

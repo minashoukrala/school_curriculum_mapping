@@ -177,22 +177,117 @@ app.get('/api/standards/categories', async (req, res) => {
   }
 });
 
-// Search curriculum rows
-app.get('/api/search', async (req, res) => {
-  try {
-    const { q } = req.query;
-    if (!q || typeof q !== 'string') {
-      return res.status(400).json({ message: "Search query is required" });
+  // Search curriculum rows
+  app.get('/api/search', async (req, res) => {
+    try {
+      const { q } = req.query;
+      if (!q || typeof q !== 'string') {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+      
+      const { storage } = await import('./storage');
+      const results = await storage.searchCurriculumRows(q);
+      res.json(results);
+    } catch (error) {
+      console.error('Search error:', error);
+      res.status(500).json({ message: "Failed to search curriculum rows" });
     }
-    
-    const { storage } = await import('./storage');
-    const results = await storage.searchCurriculumRows(q);
-    res.json(results);
-  } catch (error) {
-    console.error('Search error:', error);
-    res.status(500).json({ message: "Failed to search curriculum rows" });
-  }
-});
+  });
+
+  // Get curriculum rows for a specific grade and subject
+  app.get("/api/curriculum/:grade/:subject", async (req, res) => {
+    try {
+      const { grade, subject } = req.params;
+      const { storage } = await import('./storage');
+      const rows = await storage.getCurriculumRows(grade, subject);
+      // Add cache control headers to prevent browser caching
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
+      res.json(rows);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch curriculum rows" });
+    }
+  });
+
+  // Get all curriculum rows (for admin)
+  app.get("/api/curriculum/all", async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const rows = await storage.getAllCurriculumRows();
+      // Add cache control headers to prevent browser caching
+      res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
+      res.json(rows);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch all curriculum rows" });
+    }
+  });
+
+  // Create a new curriculum row
+  app.post("/api/curriculum", async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { insertCurriculumRowSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = insertCurriculumRowSchema.parse(req.body);
+      const row = await storage.createCurriculumRow(validatedData);
+      res.status(201).json(row);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create curriculum row" });
+      }
+    }
+  });
+
+  // Update a curriculum row
+  app.patch("/api/curriculum/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      console.log('PATCH body:', req.body);
+      const { storage } = await import('./storage');
+      const { insertCurriculumRowSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = insertCurriculumRowSchema.partial().parse(req.body);
+      console.log('PATCH validatedData:', validatedData);
+      const row = await storage.updateCurriculumRow(id, validatedData);
+      res.json(row);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        res.status(404).json({ message: "Curriculum row not found" });
+      }
+    }
+  });
+
+  // Delete a curriculum row
+  app.delete("/api/curriculum/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { storage } = await import('./storage');
+      await storage.deleteCurriculumRow(id);
+      res.status(204).send();
+    } catch (error) {
+      res.status(404).json({ message: "Curriculum row not found" });
+    }
+  });
+
+  // Get all standards
+  app.get("/api/standards", async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const standards = await storage.getAllStandards();
+      res.json(standards);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch standards" });
+    }
+  });
 
 // Server-side validation function
 function validateImportDataServer(curriculumRows: any[], standards: any[], metadata: any) {
