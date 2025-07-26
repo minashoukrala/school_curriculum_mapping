@@ -428,6 +428,14 @@ app.get('/api/standards/categories', async (req, res) => {
     try {
       const { storage } = await import('./storage');
       const configs = await storage.getAllTableConfigs();
+      
+      // Set cache control headers to prevent caching
+      res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      });
+      
       res.json(configs);
     } catch (error) {
       console.error('Get table configs error:', error);

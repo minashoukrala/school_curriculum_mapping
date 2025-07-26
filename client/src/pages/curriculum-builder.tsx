@@ -71,6 +71,7 @@ export default function CurriculumBuilder() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [isEditingSchoolYear, setIsEditingSchoolYear] = useState(false);
   const [schoolYearInput, setSchoolYearInput] = useState("");
+  const [adminRefreshKey, setAdminRefreshKey] = useState(0); // Force Admin page re-renders
 
   // const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -178,6 +179,20 @@ export default function CurriculumBuilder() {
       }
     }
   }, [navigationTabs, dropdownItems, selectedGrade, selectedSubject]);
+
+  // Force refresh of Admin page content when navigation changes
+  useEffect(() => {
+    if (selectedGrade === "Admin" && navigationTabs.length > 0) {
+      // Force a re-render of the Admin page content
+      const availableSubjects = getSubjectsForGrade("Admin");
+      if (availableSubjects.length > 0) {
+        // If we're on Admin and subjects changed, refresh the current subject
+        setSelectedSubject(availableSubjects[0]);
+        // Force a complete re-render of Admin content
+        setAdminRefreshKey(prev => prev + 1);
+      }
+    }
+  }, [navigationTabs, dropdownItems]);
 
   // Create curriculum row mutation
   const createRowMutation = useMutation({
@@ -964,7 +979,7 @@ export default function CurriculumBuilder() {
             )}
 
             {selectedSubject === "Table Management" && (
-              <div className="bg-white border border-gray-200 rounded-lg p-8">
+              <div className="bg-white border border-gray-200 rounded-lg p-8" key={`admin-content-${adminRefreshKey}`}>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Table Management</h2>
                 <p className="text-gray-600 mb-6">
                   Manage navigation tabs, dropdown items, and table configurations for the curriculum system.

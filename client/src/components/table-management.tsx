@@ -62,7 +62,11 @@ export default function TableManagement() {
 
   const { data: tableConfigs = [], isLoading: isLoadingConfigs } = useQuery({
     queryKey: ['table-configs'],
-    queryFn: () => apiRequest('GET', '/api/table-configs').then(res => res.json())
+    queryFn: () => apiRequest('GET', '/api/table-configs', undefined, true).then(res => res.json()),
+    refetchInterval: 1000, // Refetch every 1 second for real-time updates
+    staleTime: 0, // Always consider data stale
+    refetchOnWindowFocus: true, // Refetch when window gains focus
+    refetchOnMount: true, // Always refetch on component mount
   });
 
   // Mutations
