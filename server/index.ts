@@ -116,6 +116,84 @@ app.post('/api/import/full-database', async (req, res) => {
   }
 });
 
+// Get database statistics
+app.get('/api/stats', async (req, res) => {
+  try {
+    const { storage } = await import('./storage');
+    const stats = await storage.getDatabaseStats();
+    res.json(stats);
+  } catch (error) {
+    console.error('Stats error:', error);
+    res.status(500).json({ message: "Failed to fetch database statistics" });
+  }
+});
+
+// Get all grades
+app.get('/api/grades', async (req, res) => {
+  try {
+    const { storage } = await import('./storage');
+    const grades = await storage.getGrades();
+    res.json(grades);
+  } catch (error) {
+    console.error('Grades error:', error);
+    res.status(500).json({ message: "Failed to fetch grades" });
+  }
+});
+
+// Get all subjects
+app.get('/api/subjects', async (req, res) => {
+  try {
+    const { storage } = await import('./storage');
+    const subjects = await storage.getSubjects();
+    res.json(subjects);
+  } catch (error) {
+    console.error('Subjects error:', error);
+    res.status(500).json({ message: "Failed to fetch subjects" });
+  }
+});
+
+// Get subjects by grade
+app.get('/api/subjects/:grade', async (req, res) => {
+  try {
+    const { grade } = req.params;
+    const { storage } = await import('./storage');
+    const subjects = await storage.getSubjectsByGrade(grade);
+    res.json(subjects);
+  } catch (error) {
+    console.error('Subjects by grade error:', error);
+    res.status(500).json({ message: "Failed to fetch subjects for grade" });
+  }
+});
+
+// Get standard categories
+app.get('/api/standards/categories', async (req, res) => {
+  try {
+    const { storage } = await import('./storage');
+    const categories = await storage.getStandardCategories();
+    res.json(categories);
+  } catch (error) {
+    console.error('Standard categories error:', error);
+    res.status(500).json({ message: "Failed to fetch standard categories" });
+  }
+});
+
+// Search curriculum rows
+app.get('/api/search', async (req, res) => {
+  try {
+    const { q } = req.query;
+    if (!q || typeof q !== 'string') {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+    
+    const { storage } = await import('./storage');
+    const results = await storage.searchCurriculumRows(q);
+    res.json(results);
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ message: "Failed to search curriculum rows" });
+  }
+});
+
 // Server-side validation function
 function validateImportDataServer(curriculumRows: any[], standards: any[], metadata: any) {
   // Check arrays exist and are arrays

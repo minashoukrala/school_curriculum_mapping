@@ -23,7 +23,20 @@ export interface IStorage {
   
   // Database operations
   importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void>;
-}
+  
+  // Additional utility methods
+  getDatabaseStats(): Promise<{
+    totalCurriculumRows: number;
+    totalStandards: number;
+    totalGrades: number;
+    totalSubjects: number;
+    totalCategories: number;
+  }>;
+  getGrades(): Promise<string[]>;
+  getSubjects(): Promise<string[]>;
+  getSubjectsByGrade(grade: string): Promise<string[]>;
+  getStandardCategories(): Promise<string[]>;
+  searchCurriculumRows(query: string): Promise<CurriculumRow[]>;}
 
 // SQLite Storage Implementation
 export class SQLiteStorageAdapter implements IStorage {
