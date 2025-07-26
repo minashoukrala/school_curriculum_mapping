@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2025-07-26
+
+### Added
+- **Cascade Deletion System**: Deleting navigation tabs, dropdown items, or table configurations automatically removes all associated data
+- **Admin Tab Protection**: Admin tab is now immutable, cannot be deleted or modified, and always positioned last
+- **Orphaned Data Cleanup**: Automatic detection and cleanup of curriculum entries without table configurations
+- **Performance Monitoring**: Added cleanup API endpoint for manual orphaned data removal
+- **Transaction Safety**: All cascade operations use database transactions for data integrity
+- **Enhanced Error Handling**: Better error messages and validation for admin operations
+
+### Changed
+- **Database Operations**: Enhanced deletion methods to cascade through all related data
+- **Admin Interface**: Improved protection and ordering of Admin tab in navigation
+- **Data Integrity**: All operations now use transactions to prevent partial deletions
+- **Performance**: Optimized cascade deletion with efficient SQL queries
+
+### Fixed
+- **Data Consistency**: Resolved issues with orphaned curriculum entries after tab deletions
+- **Admin Tab Security**: Prevented accidental deletion or modification of Admin tab
+- **Cascade Operations**: Fixed issues where deleting tabs didn't properly clean up all related data
+- **Database Locks**: Improved transaction handling to prevent database lock contention
+
 ## [2.0.0] - 2025-07-26
 
 ### Added

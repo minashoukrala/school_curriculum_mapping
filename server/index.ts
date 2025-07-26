@@ -559,30 +559,8 @@ app.get('/api/standards/categories', async (req, res) => {
       const { storage } = await import('./storage');
       const id = parseInt(req.params.id);
       
-      // Get the table config before deleting to know the tableName
-      const tableConfigs = await storage.getAllTableConfigs();
-      const configToDelete = tableConfigs.find(config => config.id === id);
-      
       const success = await storage.deleteTableConfig(id);
       if (success) {
-        // Optionally delete associated curriculum rows with the same tableName
-        if (configToDelete) {
-          try {
-            const allCurriculumRows = await storage.getAllCurriculumRows();
-            const rowsToDelete = allCurriculumRows.filter(row => row.tableName === configToDelete.tableName);
-            
-            for (const row of rowsToDelete) {
-              await storage.deleteCurriculumRow(row.id);
-            }
-            
-            if (rowsToDelete.length > 0) {
-              // Associated curriculum rows deleted successfully
-            }
-          } catch (curriculumError) {
-            // Could not delete associated curriculum rows
-          }
-        }
-        
         res.status(204).send();
       } else {
         res.status(404).json({ message: "Table config not found" });
@@ -590,6 +568,21 @@ app.get('/api/standards/categories', async (req, res) => {
     } catch (error) {
       console.error('Delete table config error:', error);
       res.status(500).json({ message: "Failed to delete table config" });
+    }
+  });
+
+  // Cleanup orphaned curriculum rows
+  app.post('/api/cleanup-orphaned-data', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const deletedCount = await storage.cleanupOrphanedCurriculumRows();
+      res.json({ 
+        message: "Cleanup completed successfully", 
+        deletedCount 
+      });
+    } catch (error) {
+      console.error('Cleanup orphaned data error:', error);
+      res.status(500).json({ message: "Failed to cleanup orphaned data" });
     }
   });
 

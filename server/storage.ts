@@ -76,6 +76,9 @@ export interface IStorage {
   updateTableConfig(id: number, data: UpdateTableConfig): Promise<TableConfig | null>;
   deleteTableConfig(id: number): Promise<boolean>;
   getTableConfigById(id: number): Promise<TableConfig | null>;
+
+  // Utility methods
+  cleanupOrphanedCurriculumRows(): Promise<number>;
 }
 
 export class SQLiteStorageAdapter implements IStorage {
@@ -233,6 +236,11 @@ export class SQLiteStorageAdapter implements IStorage {
 
   async getTableConfigById(id: number): Promise<TableConfig | null> {
     return sqliteStorage.getTableConfigById(id);
+  }
+
+  // Utility methods
+  async cleanupOrphanedCurriculumRows(): Promise<number> {
+    return sqliteStorage.cleanupOrphanedCurriculumRows();
   }
 }
 

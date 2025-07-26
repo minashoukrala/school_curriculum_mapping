@@ -825,6 +825,11 @@ export class SQLiteStorage {
   }
 
   async createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab> {
+    // Prevent creating tabs with order 100 or higher (reserved for Admin)
+    if (data.order >= 100) {
+      throw new Error('Order index 100 and above are reserved for system tabs');
+    }
+    
     const stmt = this.db.prepare(`
       INSERT INTO navigation_tabs (name, display_name, order_index, is_active)
       VALUES (?, ?, ?, 1)
@@ -863,6 +868,10 @@ export class SQLiteStorage {
       values.push(data.displayName);
     }
     if (data.order !== undefined) {
+      // Prevent setting order to 100 or higher (reserved for Admin)
+      if (data.order >= 100) {
+        throw new Error('Order index 100 and above are reserved for system tabs');
+      }
       updates.push('order_index = ?');
       values.push(data.order);
     }
@@ -893,9 +902,54 @@ export class SQLiteStorage {
       throw new Error('Cannot delete the Admin tab - it is system-managed');
     }
     
-    const stmt = this.db.prepare('DELETE FROM navigation_tabs WHERE id = ?');
-    const result = stmt.run(id);
-    return result.changes > 0;
+    // Use a transaction to ensure all operations succeed or fail together
+    const transaction = this.db.transaction(() => {
+      // 1. Get all dropdown items for this tab
+      const dropdownItems = this.db.prepare(`
+        SELECT id FROM dropdown_items WHERE tab_id = ?
+      `).all(id) as any[];
+      
+      // 2. For each dropdown item, get all table configs
+      const tableConfigs: any[] = [];
+      for (const dropdown of dropdownItems) {
+        const configs = this.db.prepare(`
+          SELECT table_name FROM table_configs WHERE dropdown_id = ?
+        `).all(dropdown.id) as any[];
+        tableConfigs.push(...configs);
+      }
+      
+      // 3. Delete all curriculum rows that belong to these table configs
+      for (const config of tableConfigs) {
+        this.db.prepare(`
+          DELETE FROM curriculum_rows WHERE table_name = ?
+        `).run(config.table_name);
+      }
+      
+      // 4. Delete all table configs for this tab's dropdown items
+      this.db.prepare(`
+        DELETE FROM table_configs WHERE dropdown_id IN (
+          SELECT id FROM dropdown_items WHERE tab_id = ?
+        )
+      `).run(id);
+      
+      // 5. Delete all dropdown items for this tab
+      this.db.prepare(`
+        DELETE FROM dropdown_items WHERE tab_id = ?
+      `).run(id);
+      
+      // 6. Finally, delete the navigation tab itself
+      const result = this.db.prepare('DELETE FROM navigation_tabs WHERE id = ?').run(id);
+      
+      return {
+        tabDeleted: result.changes,
+        dropdownItemsDeleted: dropdownItems.length,
+        tableConfigsDeleted: tableConfigs.length,
+        curriculumRowsDeleted: tableConfigs.length // Each table config had at least one curriculum row
+      };
+    });
+    
+    const result = transaction();
+    return result.tabDeleted > 0;
   }
 
   // Added: Dropdown item methods
@@ -979,9 +1033,37 @@ export class SQLiteStorage {
   }
 
   async deleteDropdownItem(id: number): Promise<boolean> {
-    const stmt = this.db.prepare('DELETE FROM dropdown_items WHERE id = ?');
-    const result = stmt.run(id);
-    return result.changes > 0;
+    // Use a transaction to ensure all operations succeed or fail together
+    const transaction = this.db.transaction(() => {
+      // 1. Get all table configs for this dropdown item
+      const tableConfigs = this.db.prepare(`
+        SELECT table_name FROM table_configs WHERE dropdown_id = ?
+      `).all(id) as any[];
+      
+      // 2. Delete all curriculum rows that belong to these table configs
+      for (const config of tableConfigs) {
+        this.db.prepare(`
+          DELETE FROM curriculum_rows WHERE table_name = ?
+        `).run(config.table_name);
+      }
+      
+      // 3. Delete all table configs for this dropdown item
+      this.db.prepare(`
+        DELETE FROM table_configs WHERE dropdown_id = ?
+      `).run(id);
+      
+      // 4. Finally, delete the dropdown item itself
+      const result = this.db.prepare('DELETE FROM dropdown_items WHERE id = ?').run(id);
+      
+      return {
+        dropdownItemDeleted: result.changes,
+        tableConfigsDeleted: tableConfigs.length,
+        curriculumRowsDeleted: tableConfigs.length
+      };
+    });
+    
+    const result = transaction();
+    return result.dropdownItemDeleted > 0;
   }
 
   async getDropdownItemById(id: number): Promise<DropdownItem | null> {
@@ -1079,9 +1161,31 @@ export class SQLiteStorage {
   }
 
   async deleteTableConfig(id: number): Promise<boolean> {
-    const stmt = this.db.prepare('DELETE FROM table_configs WHERE id = ?');
-    const result = stmt.run(id);
-    return result.changes > 0;
+    // First, get the table config to know which table_name to delete
+    const tableConfig = await this.getTableConfigById(id);
+    if (!tableConfig) return false;
+    
+    // Use a transaction to ensure both operations succeed or fail together
+    const transaction = this.db.transaction(() => {
+      // Delete all curriculum rows that belong to this table
+      const deleteCurriculumStmt = this.db.prepare(`
+        DELETE FROM curriculum_rows 
+        WHERE table_name = ?
+      `);
+      const curriculumResult = deleteCurriculumStmt.run(tableConfig.tableName);
+      
+      // Delete the table config itself
+      const deleteTableConfigStmt = this.db.prepare('DELETE FROM table_configs WHERE id = ?');
+      const tableConfigResult = deleteTableConfigStmt.run(id);
+      
+      return {
+        curriculumRowsDeleted: curriculumResult.changes,
+        tableConfigDeleted: tableConfigResult.changes
+      };
+    });
+    
+    const result = transaction();
+    return result.tableConfigDeleted > 0;
   }
 
   async getTableConfigById(id: number): Promise<TableConfig | null> {
@@ -1094,6 +1198,16 @@ export class SQLiteStorage {
     `);
     const row = stmt.get(id) as any;
     return row || null;
+  }
+
+  // Utility method to clean up orphaned curriculum rows
+  async cleanupOrphanedCurriculumRows(): Promise<number> {
+    const stmt = this.db.prepare(`
+      DELETE FROM curriculum_rows 
+      WHERE table_name NOT IN (SELECT table_name FROM table_configs)
+    `);
+    const result = stmt.run();
+    return result.changes;
   }
 }
 
