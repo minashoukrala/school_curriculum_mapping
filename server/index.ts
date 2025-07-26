@@ -242,6 +242,14 @@ app.get('/api/standards/categories', async (req, res) => {
     try {
       const { storage } = await import('./storage');
       const tabs = await storage.getActiveNavigationTabs();
+      
+      // Set cache control headers to prevent caching
+      res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      });
+      
       res.json(tabs);
     } catch (error) {
       console.error('Get active navigation tabs error:', error);
@@ -329,6 +337,14 @@ app.get('/api/standards/categories', async (req, res) => {
     try {
       const { storage } = await import('./storage');
       const items = await storage.getAllDropdownItems();
+      
+      // Set cache control headers to prevent caching
+      res.set({
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      });
+      
       res.json(items);
     } catch (error) {
       console.error('Get dropdown items error:', error);

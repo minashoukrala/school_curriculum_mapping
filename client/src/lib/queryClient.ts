@@ -11,12 +11,28 @@ export async function apiRequest(
   method: string,
   url: string,
   data?: unknown | undefined,
+  cacheBust: boolean = false,
 ): Promise<Response> {
+  const headers: Record<string, string> = {};
+  
+  if (data) {
+    headers["Content-Type"] = "application/json";
+  }
+  
+  // Add cache busting headers for GET requests
+  if (cacheBust && method.toUpperCase() === 'GET') {
+    headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+    headers["Pragma"] = "no-cache";
+    headers["Expires"] = "0";
+  }
+
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
+    // Force cache busting for GET requests
+    cache: cacheBust ? 'no-store' : 'default',
   });
 
   await throwIfResNotOk(res);

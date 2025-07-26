@@ -23,30 +23,30 @@ export default function TableManagement() {
   const [expandedTabs, setExpandedTabs] = useState<Set<number>>(new Set());
   const [expandedDropdowns, setExpandedDropdowns] = useState<Set<number>>(new Set());
 
-  // Function to invalidate all navigation-related queries
+  // Function to invalidate all navigation-related queries with cache busting
   const invalidateNavigationCache = () => {
-    // Immediately invalidate and remove from cache
-    queryClient.invalidateQueries({ queryKey: ['navigation-tabs'] });
-    queryClient.invalidateQueries({ queryKey: ['navigation-tabs', 'active'] });
-    queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
-    queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+    // Clear all React Query cache
+    queryClient.clear();
     
-    // Force refetch by removing from cache
-    queryClient.removeQueries({ queryKey: ['navigation-tabs'] });
-    queryClient.removeQueries({ queryKey: ['navigation-tabs', 'active'] });
-    queryClient.removeQueries({ queryKey: ['dropdown-items'] });
-    queryClient.removeQueries({ queryKey: ['table-configs'] });
+    // Force browser cache busting by adding timestamp to API calls
+    const timestamp = Date.now();
     
-    // Force immediate refetch after a small delay
+    // Immediately refetch with cache busting
+    queryClient.refetchQueries({ 
+      queryKey: ['navigation-tabs', 'active'],
+      exact: false 
+    });
+    queryClient.refetchQueries({ 
+      queryKey: ['dropdown-items'],
+      exact: false 
+    });
+    
+    // Force a complete cache refresh
     setTimeout(() => {
-      queryClient.refetchQueries({ queryKey: ['navigation-tabs', 'active'] });
-      queryClient.refetchQueries({ queryKey: ['dropdown-items'] });
-    }, 100);
-    
-    // Force refetch all queries that might be affected
-    setTimeout(() => {
+      // Clear all queries and refetch
+      queryClient.removeQueries();
       queryClient.refetchQueries();
-    }, 200);
+    }, 100);
   };
 
   // Queries

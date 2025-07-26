@@ -123,21 +123,23 @@ export default function CurriculumBuilder() {
     },
   });
 
-  // Fetch dynamic navigation data
+  // Fetch dynamic navigation data with cache busting
   const { data: navigationTabs = [] } = useQuery<NavigationTab[]>({
     queryKey: ['navigation-tabs', 'active'],
-    queryFn: () => apiRequest('GET', '/api/navigation-tabs/active').then(res => res.json()),
-    refetchInterval: 200, // Refetch every 200ms for real-time updates
+    queryFn: () => apiRequest('GET', '/api/navigation-tabs/active', undefined, true).then(res => res.json()),
+    refetchInterval: 1000, // Refetch every 1 second for real-time updates
     staleTime: 0, // Always consider data stale
     refetchOnWindowFocus: true, // Refetch when window gains focus
+    refetchOnMount: true, // Always refetch on component mount
   });
 
   const { data: dropdownItems = [] } = useQuery<DropdownItem[]>({
     queryKey: ['dropdown-items'],
-    queryFn: () => apiRequest('GET', '/api/dropdown-items').then(res => res.json()),
-    refetchInterval: 200, // Refetch every 200ms for real-time updates
+    queryFn: () => apiRequest('GET', '/api/dropdown-items', undefined, true).then(res => res.json()),
+    refetchInterval: 1000, // Refetch every 1 second for real-time updates
     staleTime: 0, // Always consider data stale
     refetchOnWindowFocus: true, // Refetch when window gains focus
+    refetchOnMount: true, // Always refetch on component mount
   });
 
   // Get active grades from navigation tabs
