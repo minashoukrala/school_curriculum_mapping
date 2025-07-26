@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+
 import { 
   NavigationTab, 
   DropdownItem, 
@@ -324,16 +324,19 @@ function NavigationTabItem({
               <span className="text-sm text-gray-500">({tab.name})</span>
               <span className="text-sm text-gray-500">Order: {tab.order}</span>
               <div className="flex items-center space-x-2">
-                <Switch
-                  checked={tab.isActive}
-                  onCheckedChange={(checked) => onUpdate({ 
+                <span className="text-sm text-gray-500">Order:</span>
+                <Input
+                  type="number"
+                  value={tab.order}
+                  onChange={(e) => onUpdate({ 
                     name: tab.name, 
                     displayName: tab.displayName, 
-                    order: tab.order, 
-                    isActive: checked 
+                    order: parseInt(e.target.value) || 0, 
+                    isActive: tab.isActive 
                   })}
+                  className="w-16 text-sm"
+                  min="0"
                 />
-                <span className="text-sm">{tab.isActive ? 'Active' : 'Inactive'}</span>
               </div>
             </div>
           )}
@@ -489,16 +492,19 @@ function DropdownItemComponent({
               <span className="text-sm text-gray-500">({dropdown.name})</span>
               <span className="text-sm text-gray-500">Order: {dropdown.order}</span>
               <div className="flex items-center space-x-2">
-                <Switch
-                  checked={dropdown.isActive}
-                  onCheckedChange={(checked) => onUpdate({ 
+                <span className="text-sm text-gray-500">Order:</span>
+                <Input
+                  type="number"
+                  value={dropdown.order}
+                  onChange={(e) => onUpdate({ 
                     name: dropdown.name, 
                     displayName: dropdown.displayName, 
-                    order: dropdown.order, 
-                    isActive: checked 
+                    order: parseInt(e.target.value) || 0, 
+                    isActive: dropdown.isActive 
                   })}
+                  className="w-16 text-sm"
+                  min="0"
                 />
-                <span className="text-sm">{dropdown.isActive ? 'Active' : 'Inactive'}</span>
               </div>
             </div>
           )}
@@ -626,17 +632,20 @@ function TableConfigItem({ config, onUpdate, onDelete }: TableConfigItemProps) {
             <span className="text-sm font-medium">{config.displayName}</span>
             <span className="text-xs text-gray-500">({config.tableName})</span>
             <span className="text-xs text-gray-500">Order: {config.order}</span>
-            <div className="flex items-center space-x-1">
-              <Switch
-                checked={config.isActive}
-                onCheckedChange={(checked) => onUpdate({ 
+            <div className="flex items-center space-x-2">
+              <span className="text-xs text-gray-500">Order:</span>
+              <Input
+                type="number"
+                value={config.order}
+                onChange={(e) => onUpdate({ 
                   tableName: config.tableName, 
                   displayName: config.displayName, 
-                  order: config.order, 
-                  isActive: checked 
+                  order: parseInt(e.target.value) || 0, 
+                  isActive: config.isActive 
                 })}
+                className="w-12 text-xs"
+                min="0"
               />
-              <span className="text-xs">{config.isActive ? 'Active' : 'Inactive'}</span>
             </div>
           </div>
           
