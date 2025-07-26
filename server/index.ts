@@ -194,6 +194,38 @@ app.get('/api/standards/categories', async (req, res) => {
     }
   });
 
+  // Get school year
+  app.get('/api/school-year', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const schoolYear = await storage.getSchoolYear();
+      res.json(schoolYear);
+    } catch (error) {
+      console.error('School year error:', error);
+      res.status(500).json({ message: "Failed to fetch school year" });
+    }
+  });
+
+  // Update school year
+  app.patch('/api/school-year', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const { updateSchoolYearSchema } = await import('@shared/schema');
+      const { z } = await import('zod');
+      const validatedData = updateSchoolYearSchema.parse(req.body);
+      const schoolYear = await storage.updateSchoolYear(validatedData.year);
+      res.json(schoolYear);
+    } catch (error) {
+      const { z } = await import('zod');
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        console.error('Update school year error:', error);
+        res.status(500).json({ message: "Failed to update school year" });
+      }
+    }
+  });
+
   // Get curriculum rows for a specific grade and subject
   app.get("/api/curriculum/:grade/:subject", async (req, res) => {
     try {

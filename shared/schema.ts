@@ -22,6 +22,12 @@ export interface Standard {
   category: string;
 }
 
+export interface SchoolYear {
+  id: number;
+  year: string;
+  updatedAt: string;
+}
+
 // Zod schemas for validation
 export const insertCurriculumRowSchema = z.object({
   grade: z.string(),
@@ -42,5 +48,10 @@ export const insertStandardSchema = z.object({
   category: z.string(),
 });
 
+export const updateSchoolYearSchema = z.object({
+  year: z.string().min(1, "School year is required"),
+});
+
 export type InsertCurriculumRow = z.infer<typeof insertCurriculumRowSchema>;
 export type InsertStandard = z.infer<typeof insertStandardSchema>;
+export type UpdateSchoolYear = z.infer<typeof updateSchoolYearSchema>;

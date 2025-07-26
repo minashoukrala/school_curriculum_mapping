@@ -153,6 +153,8 @@ export default function CurriculumBuilder() {
   const [editingField, setEditingField] = useState<string>("");
   const [editingRowId, setEditingRowId] = useState<number | null>(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isEditingSchoolYear, setIsEditingSchoolYear] = useState(false);
+  const [schoolYearInput, setSchoolYearInput] = useState("");
 
   // const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -191,6 +193,16 @@ export default function CurriculumBuilder() {
     queryFn: async () => {
       const response = await fetch("/api/standards");
       if (!response.ok) throw new Error("Failed to fetch standards");
+      return response.json();
+    },
+  });
+
+  // Fetch school year
+  const { data: schoolYear, isLoading: isLoadingSchoolYear } = useQuery<{ id: number; year: string; updatedAt: string }>({
+    queryKey: ["/api/school-year"],
+    queryFn: async () => {
+      const response = await fetch("/api/school-year");
+      if (!response.ok) throw new Error("Failed to fetch school year");
       return response.json();
     },
   });
@@ -252,6 +264,30 @@ export default function CurriculumBuilder() {
     },
   });
 
+  // Update school year mutation
+  const updateSchoolYearMutation = useMutation({
+    mutationFn: async (year: string) => {
+      const response = await apiRequest("PATCH", "/api/school-year", { year });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["/api/school-year"],
+      });
+      console.log("Success: School year updated successfully");
+    },
+    onError: () => {
+      console.log("Error: Failed to update school year");
+    },
+  });
+
+  // Initialize school year input when data loads
+  useEffect(() => {
+    if (schoolYear && !isEditingSchoolYear) {
+      setSchoolYearInput(schoolYear.year);
+    }
+  }, [schoolYear, isEditingSchoolYear]);
+
   const handleAddRow = () => {
     const newRow = {
       grade: selectedGrade,
@@ -303,6 +339,25 @@ export default function CurriculumBuilder() {
     });
     setIsStandardsModalOpen(false);
     setEditingRowId(null);
+  };
+
+  const handleEditSchoolYear = () => {
+    if (schoolYear) {
+      setSchoolYearInput(schoolYear.year);
+      setIsEditingSchoolYear(true);
+    }
+  };
+
+  const handleSaveSchoolYear = () => {
+    if (schoolYearInput.trim()) {
+      updateSchoolYearMutation.mutate(schoolYearInput.trim());
+      setIsEditingSchoolYear(false);
+    }
+  };
+
+  const handleCancelSchoolYearEdit = () => {
+    setIsEditingSchoolYear(false);
+    setSchoolYearInput("");
   };
 
 
@@ -748,7 +803,43 @@ export default function CurriculumBuilder() {
                   : `${selectedSubject} ${selectedGrade}`}
               </h1>
               <p className="text-sm sm:text-base text-gray-600 mt-1">
-                School Year: <span>2025-2026</span>
+                School Year: 
+                {isEditingSchoolYear ? (
+                  <div className="inline-flex items-center space-x-2 ml-2">
+                    <input
+                      type="text"
+                      value={schoolYearInput}
+                      onChange={(e) => setSchoolYearInput(e.target.value)}
+                      className="px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter school year"
+                    />
+                    <button
+                      onClick={handleSaveSchoolYear}
+                      className="text-green-600 hover:text-green-800 text-sm font-medium"
+                      disabled={updateSchoolYearMutation.isPending}
+                    >
+                      {updateSchoolYearMutation.isPending ? 'Saving...' : 'Save'}
+                    </button>
+                    <button
+                      onClick={handleCancelSchoolYearEdit}
+                      className="text-gray-600 hover:text-gray-800 text-sm font-medium"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <span className="ml-2">
+                    {schoolYear?.year || '2025-2026'}
+                    {selectedGrade === "Admin" && (
+                      <button
+                        onClick={handleEditSchoolYear}
+                        className="ml-2 text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </span>
+                )}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
@@ -841,6 +932,59 @@ export default function CurriculumBuilder() {
                       <span className="ml-2 text-gray-900">{new Date().toLocaleDateString()}</span>
                     </div>
                   </div>
+                </div>
+
+                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-green-900 mb-3">School Year Management</h3>
+                  <p className="text-green-700 mb-4">
+                    Update the school year that appears on all curriculum pages.
+                  </p>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-1">
+                      <label className="block text-sm font-medium text-green-900 mb-2">
+                        Current School Year
+                      </label>
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="text"
+                          value={schoolYearInput}
+                          onChange={(e) => setSchoolYearInput(e.target.value)}
+                          className="flex-1 px-3 py-2 border border-green-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                          placeholder="e.g., 2025-2026"
+                          disabled={!isEditingSchoolYear}
+                        />
+                        {isEditingSchoolYear ? (
+                          <>
+                            <Button
+                              onClick={handleSaveSchoolYear}
+                              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
+                              disabled={updateSchoolYearMutation.isPending}
+                            >
+                              {updateSchoolYearMutation.isPending ? 'Saving...' : 'Save'}
+                            </Button>
+                            <Button
+                              onClick={handleCancelSchoolYearEdit}
+                              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2"
+                            >
+                              Cancel
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            onClick={handleEditSchoolYear}
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2"
+                          >
+                            Edit
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {schoolYear && (
+                    <p className="text-xs text-green-600 mt-2">
+                      Last updated: {new Date(schoolYear.updatedAt).toLocaleString()}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

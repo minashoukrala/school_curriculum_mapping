@@ -5,7 +5,9 @@ import {
   type CurriculumRow, 
   type InsertCurriculumRow,
   type Standard,
-  type InsertStandard
+  type InsertStandard,
+  type SchoolYear,
+  type UpdateSchoolYear
 } from "@shared/schema";
 
 export class SQLiteStorage {
@@ -79,6 +81,21 @@ export class SQLiteStorage {
       CREATE INDEX IF NOT EXISTS idx_curriculum_standards_standard_code 
       ON curriculum_standards(standard_code)
     `);
+
+    // Create school_year table
+    this.db.exec(`
+      CREATE TABLE IF NOT EXISTS school_year (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        year TEXT NOT NULL,
+        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Insert default school year if table is empty
+    const schoolYearCount = this.db.prepare('SELECT COUNT(*) as count FROM school_year').get() as { count: number };
+    if (schoolYearCount.count === 0) {
+      this.db.prepare('INSERT INTO school_year (year) VALUES (?)').run('2025-2026');
+    }
   }
 
   // Curriculum rows methods
@@ -496,6 +513,45 @@ export class SQLiteStorage {
       totalGrades: gradesCount.count,
       totalSubjects: subjectsCount.count,
       totalCategories: categoriesCount.count
+    };
+  }
+
+  // School year methods
+  async getSchoolYear(): Promise<SchoolYear> {
+    const stmt = this.db.prepare('SELECT id, year, updated_at as updatedAt FROM school_year ORDER BY id DESC LIMIT 1');
+    const row = stmt.get() as any;
+    
+    if (!row) {
+      // If no school year exists, create a default one
+      const insertStmt = this.db.prepare('INSERT INTO school_year (year) VALUES (?)');
+      const result = insertStmt.run('2025-2026');
+      
+      return {
+        id: result.lastInsertRowid as number,
+        year: '2025-2026',
+        updatedAt: new Date().toISOString()
+      };
+    }
+    
+    return {
+      id: row.id,
+      year: row.year,
+      updatedAt: row.updatedAt
+    };
+  }
+
+  async updateSchoolYear(year: string): Promise<SchoolYear> {
+    // Delete all existing school year records (we only want one)
+    this.db.prepare('DELETE FROM school_year').run();
+    
+    // Insert the new school year
+    const stmt = this.db.prepare('INSERT INTO school_year (year) VALUES (?)');
+    const result = stmt.run(year);
+    
+    return {
+      id: result.lastInsertRowid as number,
+      year: year,
+      updatedAt: new Date().toISOString()
     };
   }
 }

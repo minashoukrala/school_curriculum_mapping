@@ -2,7 +2,8 @@ import {
   type CurriculumRow, 
   type InsertCurriculumRow,
   type Standard,
-  type InsertStandard
+  type InsertStandard,
+  type SchoolYear
 } from "@shared/schema";
 
 
@@ -36,7 +37,12 @@ export interface IStorage {
   getSubjects(): Promise<string[]>;
   getSubjectsByGrade(grade: string): Promise<string[]>;
   getStandardCategories(): Promise<string[]>;
-  searchCurriculumRows(query: string): Promise<CurriculumRow[]>;}
+  searchCurriculumRows(query: string): Promise<CurriculumRow[]>;
+  
+  // School year
+  getSchoolYear(): Promise<SchoolYear>;
+  updateSchoolYear(year: string): Promise<SchoolYear>;
+}
 
 // SQLite Storage Implementation
 export class SQLiteStorageAdapter implements IStorage {
@@ -105,6 +111,15 @@ export class SQLiteStorageAdapter implements IStorage {
 
   async searchCurriculumRows(query: string): Promise<CurriculumRow[]> {
     return sqliteStorage.searchCurriculumRows(query);
+  }
+
+  // School year methods
+  async getSchoolYear(): Promise<SchoolYear> {
+    return sqliteStorage.getSchoolYear();
+  }
+
+  async updateSchoolYear(year: string): Promise<SchoolYear> {
+    return sqliteStorage.updateSchoolYear(year);
   }
 }
 
