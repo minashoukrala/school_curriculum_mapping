@@ -11,6 +11,8 @@ export interface CurriculumRow {
   materialsAndDifferentiation: string;
   biblical: string;
   standards: string[];
+  materials?: string;
+  differentiator?: string;
 }
 
 export interface Standard {
@@ -30,6 +32,8 @@ export const insertCurriculumRowSchema = z.object({
   materialsAndDifferentiation: z.string(),
   biblical: z.string(),
   standards: z.array(z.string()).default([]),
+  materials: z.string().optional(),
+  differentiator: z.string().optional(),
 });
 
 export const insertStandardSchema = z.object({

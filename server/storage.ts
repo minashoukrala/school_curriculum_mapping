@@ -6,7 +6,7 @@ import {
 } from "@shared/schema";
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import * as lockfile from 'proper-lockfile';
+import { sqliteStorage } from './db';
 
 export interface IStorage {
   // Curriculum rows
@@ -25,211 +25,107 @@ export interface IStorage {
   importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void>;
 }
 
-interface DatabaseData {
-  curriculumRows: CurriculumRow[];
-  standards: Standard[];
-  nextCurriculumId: number;
-  nextStandardId: number;
-}
-
-export class JsonStorage implements IStorage {
-  private dataPath: string;
-  private cache: Map<string, any> = new Map();
-  private cacheTimeout = 5 * 60 * 1000; // 5 minutes
-  private lastCacheTime = 0;
-  
-  constructor() {
-    this.dataPath = path.join(process.cwd(), 'data.json');
-    this.initializeData();
-  }
-
-  private async initializeData() {
-    try {
-      await fs.access(this.dataPath);
-    } catch {
-      // File doesn't exist, create it with default data
-      const defaultData: DatabaseData = {
-        curriculumRows: [
-          {
-            id: 1,
-            grade: "KG",
-            subject: "English",
-            objectives: "Students will identify letters and sounds",
-            unitPacing: "Week 1-2",
-            assessments: "",
-            materialsAndDifferentiation: "",
-            biblical: "",
-            standards: ["RF.K.1", "RF.K.2"]
-          }
-        ],
-        standards: [
-          // Visual Arts Standards
-          { id: 1, code: "VA:Cr2.1.Ka", description: "Through experimentation, build skills in various media and approaches to art-making.", category: "Visual Arts" },
-          { id: 2, code: "VA:Re7.1.Ka", description: "Identify uses of art within one's personal environment.", category: "Visual Arts" },
-          { id: 3, code: "VA:Cn10.1.Ka", description: "Create art that tells a story about a life experience.", category: "Visual Arts" },
-          // Reading Foundational Skills
-          { id: 4, code: "RF.K.1", description: "Demonstrate understanding of the organization and basic features of print.", category: "Reading Foundational Skills" },
-          { id: 5, code: "RF.K.2", description: "Demonstrate understanding of spoken words, syllables, and sounds (phonemes).", category: "Reading Foundational Skills" },
-          { id: 6, code: "RF.K.3", description: "Know and apply grade-level phonics and word analysis skills in decoding words.", category: "Reading Foundational Skills" },
-          // Speaking and Listening
-          { id: 7, code: "SL.K.1", description: "Participate in collaborative conversations with diverse partners about kindergarten topics and texts.", category: "Speaking and Listening" },
-          { id: 8, code: "SL.K.2", description: "Confirm understanding of a text read aloud or information presented orally or through other media.", category: "Speaking and Listening" },
-        ],
-        nextCurriculumId: 2,
-        nextStandardId: 9
-      };
-      await this.saveData(defaultData);
-    }
-  }
-
-  private async loadData(): Promise<DatabaseData> {
-    const now = Date.now();
-    
-    // Check cache first
-    if (this.cache.has('data') && (now - this.lastCacheTime) < this.cacheTimeout) {
-      return this.cache.get('data');
-    }
-    
-    try {
-      const fileContent = await fs.readFile(this.dataPath, 'utf-8');
-      const data = JSON.parse(fileContent);
-      
-      // Update cache
-      this.cache.set('data', data);
-      this.lastCacheTime = now;
-      
-      return data;
-    } catch (error) {
-      console.error('Error loading data:', error);
-      throw new Error('Failed to load data from JSON file');
-    }
-  }
-
-  private async saveData(data: DatabaseData): Promise<void> {
-    try {
-      // Acquire file lock
-      const release = await lockfile.lock(this.dataPath, { 
-        retries: { retries: 5, factor: 3, minTimeout: 1000, maxTimeout: 5000 }
-      });
-      
-      try {
-        await fs.writeFile(this.dataPath, JSON.stringify(data, null, 2), 'utf-8');
-        
-        // Update cache
-        this.cache.set('data', data);
-        this.lastCacheTime = Date.now();
-      } finally {
-        await release();
-      }
-    } catch (error) {
-      console.error('Error saving data:', error);
-      throw new Error('Failed to save data to JSON file');
-    }
-  }
-
+// SQLite Storage Implementation
+export class SQLiteStorageAdapter implements IStorage {
   async getCurriculumRows(grade: string, subject: string): Promise<CurriculumRow[]> {
-    const data = await this.loadData();
-    return data.curriculumRows.filter(row => row.grade === grade && row.subject === subject);
+    return sqliteStorage.getCurriculumRows(grade, subject);
   }
 
   async getAllCurriculumRows(): Promise<CurriculumRow[]> {
-    const data = await this.loadData();
-    return data.curriculumRows;
+    return sqliteStorage.getAllCurriculumRows();
   }
 
-  async importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void> {
-    try {
-      // Calculate the next IDs
-      const nextCurriculumId = Math.max(...data.curriculumRows.map(row => row.id), 0) + 1;
-      const nextStandardId = Math.max(...data.standards.map(standard => standard.id), 0) + 1;
-      
-      const newData: DatabaseData = {
-        curriculumRows: data.curriculumRows,
-        standards: data.standards,
-        nextCurriculumId,
-        nextStandardId
-      };
-      
-      // Save the new data
-      await this.saveData(newData);
-      
-      // Clear the cache to force reload
-      this.cache.clear();
-      this.lastCacheTime = 0;
-      
-      console.log(`Database imported successfully: ${data.curriculumRows.length} curriculum rows, ${data.standards.length} standards`);
-    } catch (error) {
-      console.error('Error importing database:', error);
-      throw new Error('Failed to import database');
-    }
+  async createCurriculumRow(row: InsertCurriculumRow): Promise<CurriculumRow> {
+    return sqliteStorage.createCurriculumRow(row);
   }
 
-  async createCurriculumRow(insertRow: InsertCurriculumRow): Promise<CurriculumRow> {
-    const data = await this.loadData();
-    const newRow: CurriculumRow = {
-      id: data.nextCurriculumId,
-      ...insertRow
-    };
-    
-    data.curriculumRows.push(newRow);
-    data.nextCurriculumId++;
-    
-    await this.saveData(data);
-    return newRow;
-  }
-
-  async updateCurriculumRow(id: number, updates: Partial<InsertCurriculumRow>): Promise<CurriculumRow> {
-    const data = await this.loadData();
-    const rowIndex = data.curriculumRows.findIndex(row => row.id === id);
-    
-    if (rowIndex === -1) {
-      throw new Error(`Curriculum row with id ${id} not found`);
-    }
-    
-    data.curriculumRows[rowIndex] = { ...data.curriculumRows[rowIndex], ...updates };
-    // Debug log
-    console.log('Updating row:', data.curriculumRows[rowIndex]);
-    console.log('Full data before save:', JSON.stringify(data, null, 2));
-    await this.saveData(data);
-    
-    return data.curriculumRows[rowIndex];
+  async updateCurriculumRow(id: number, row: Partial<InsertCurriculumRow>): Promise<CurriculumRow> {
+    return sqliteStorage.updateCurriculumRow(id, row);
   }
 
   async deleteCurriculumRow(id: number): Promise<void> {
-    const data = await this.loadData();
-    const rowIndex = data.curriculumRows.findIndex(row => row.id === id);
-    
-    if (rowIndex === -1) {
-      throw new Error(`Curriculum row with id ${id} not found`);
-    }
-    
-    data.curriculumRows.splice(rowIndex, 1);
-    await this.saveData(data);
+    return sqliteStorage.deleteCurriculumRow(id);
   }
 
   async getAllStandards(): Promise<Standard[]> {
-    const data = await this.loadData();
-    return data.standards;
+    return sqliteStorage.getAllStandards();
   }
 
   async getStandardsByCategory(category: string): Promise<Standard[]> {
-    const data = await this.loadData();
-    return data.standards.filter(standard => standard.category === category);
+    return sqliteStorage.getStandardsByCategory(category);
   }
 
-  async createStandard(insertStandard: InsertStandard): Promise<Standard> {
-    const data = await this.loadData();
-    const newStandard: Standard = {
-      id: data.nextStandardId,
-      ...insertStandard
-    };
-    
-    data.standards.push(newStandard);
-    data.nextStandardId++;
-    
-    await this.saveData(data);
-    return newStandard;
+  async createStandard(standard: InsertStandard): Promise<Standard> {
+    return sqliteStorage.createStandard(standard);
+  }
+
+  async importFullDatabase(data: { curriculumRows: CurriculumRow[]; standards: Standard[]; metadata: any }): Promise<void> {
+    return sqliteStorage.importFullDatabase(data);
+  }
+
+  // Additional utility methods
+  async getDatabaseStats(): Promise<{
+    totalCurriculumRows: number;
+    totalStandards: number;
+    totalGrades: number;
+    totalSubjects: number;
+    totalCategories: number;
+  }> {
+    return sqliteStorage.getDatabaseStats();
+  }
+
+  async getGrades(): Promise<string[]> {
+    return sqliteStorage.getGrades();
+  }
+
+  async getSubjects(): Promise<string[]> {
+    return sqliteStorage.getSubjects();
+  }
+
+  async getSubjectsByGrade(grade: string): Promise<string[]> {
+    return sqliteStorage.getSubjectsByGrade(grade);
+  }
+
+  async getStandardCategories(): Promise<string[]> {
+    return sqliteStorage.getStandardCategories();
+  }
+
+  async searchCurriculumRows(query: string): Promise<CurriculumRow[]> {
+    return sqliteStorage.searchCurriculumRows(query);
   }
 }
 
-export const storage = new JsonStorage();
+// Migration function to move data from JSON to SQLite
+export async function migrateFromJsonToSQLite(): Promise<void> {
+  try {
+    const jsonPath = path.join(process.cwd(), 'data.json');
+    
+    // Check if JSON file exists
+    try {
+      await fs.access(jsonPath);
+    } catch {
+      console.log('No data.json file found, skipping migration');
+      return;
+    }
+
+    // Read JSON data
+    const jsonData = JSON.parse(await fs.readFile(jsonPath, 'utf-8'));
+    
+    // Migrate to SQLite
+    await sqliteStorage.migrateFromJson(jsonData);
+    
+    console.log('Migration from JSON to SQLite completed successfully');
+    
+    // Optionally backup the old JSON file
+    const backupPath = path.join(process.cwd(), 'data.json.backup');
+    await fs.copyFile(jsonPath, backupPath);
+    console.log(`Original data.json backed up to ${backupPath}`);
+    
+  } catch (error) {
+    console.error('Error during migration:', error);
+    throw error;
+  }
+}
+
+// Export the SQLite storage instance
+export const storage = new SQLiteStorageAdapter();

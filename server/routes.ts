@@ -123,8 +123,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const allRows = await storage.getAllCurriculumRows();
       const standards = await storage.getAllStandards();
       
-      console.log(`Exporting ${allRows.length} curriculum rows and ${standards.length} standards`);
-      
       const exportData = {
         curriculumRows: allRows,
         standards,
@@ -144,6 +142,72 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Full database export error:', error);
       res.status(500).json({ message: "Failed to export full database" });
+    }
+  });
+
+  // Get database statistics
+  app.get("/api/stats", async (req, res) => {
+    try {
+      const stats = await storage.getDatabaseStats();
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch database statistics" });
+    }
+  });
+
+  // Get all grades
+  app.get("/api/grades", async (req, res) => {
+    try {
+      const grades = await storage.getGrades();
+      res.json(grades);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch grades" });
+    }
+  });
+
+  // Get all subjects
+  app.get("/api/subjects", async (req, res) => {
+    try {
+      const subjects = await storage.getSubjects();
+      res.json(subjects);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch subjects" });
+    }
+  });
+
+  // Get subjects by grade
+  app.get("/api/subjects/:grade", async (req, res) => {
+    try {
+      const { grade } = req.params;
+      const subjects = await storage.getSubjectsByGrade(grade);
+      res.json(subjects);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch subjects for grade" });
+    }
+  });
+
+  // Get standard categories
+  app.get("/api/standards/categories", async (req, res) => {
+    try {
+      const categories = await storage.getStandardCategories();
+      res.json(categories);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch standard categories" });
+    }
+  });
+
+  // Search curriculum rows
+  app.get("/api/search", async (req, res) => {
+    try {
+      const { q } = req.query;
+      if (!q || typeof q !== 'string') {
+        return res.status(400).json({ message: "Search query is required" });
+      }
+      
+      const results = await storage.searchCurriculumRows(q);
+      res.json(results);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to search curriculum rows" });
     }
   });
 

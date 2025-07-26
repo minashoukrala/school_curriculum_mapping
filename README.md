@@ -1,206 +1,175 @@
-# 🏫 Schools Curriculum Mapping Tool
+# CurriculumCrafter
 
-A comprehensive, mobile-responsive curriculum mapping system designed specifically for schools. Built with React, TypeScript, and Express.js, featuring multi-grade support, specialist subjects, and Azure AD integration.
+A comprehensive curriculum management system built with React, TypeScript, and SQLite. This application allows educators to create, manage, and organize curriculum content with biblical integration and educational standards.
 
-## ✨ Features
+## 🚀 Features
 
-### 📚 Multi-Grade Curriculum Management
-- **KG to Grade 8** support with grade-specific subjects
-- **Specialist Subjects**: Art, Spanish, Music, Technology, PE
-- **Dynamic subject lists** per grade level
-- **Full CRUD operations** for curriculum entries
+### Core Functionality
+- **Curriculum Management**: Create, edit, and delete curriculum rows with detailed objectives, assessments, and materials
+- **Grade & Subject Navigation**: Intuitive navigation through different grades and subjects
+- **Standards Integration**: Link curriculum content to educational standards with searchable categories
+- **Biblical Integration**: Incorporate biblical principles and values into curriculum content
+- **Real-time Editing**: Inline editing capabilities for quick content updates
+- **Mobile Responsive**: Fully responsive design that works on all devices
 
-### 📱 Mobile-First Design
-- **Responsive design** optimized for phones, tablets, and desktops
-- **Touch-friendly interface** with hamburger navigation
-- **Progressive Web App** capabilities
-- **Fast loading** with compression and caching
+### Database Features
+- **SQLite Database**: Fast, reliable, and file-based database storage
+- **Automatic Migration**: Seamless migration from JSON to SQLite on first run
+- **Data Export/Import**: Full database export and import functionality
+- **Search Capabilities**: Full-text search across curriculum content
+- **Database Statistics**: Real-time statistics and analytics
 
-### 🔐 Security & Authentication
-- **Azure AD integration** ready (school email restrictions)
-- **Rate limiting** and security headers
-- **File locking** for data integrity
-- **Input validation** with Zod schemas
+### API Endpoints
 
-### 🚀 Performance Optimizations
-- **In-memory caching** (5-minute cache timeout)
-- **PM2 clustering** for multi-core utilization
-- **Compression** (gzip) for faster loading
-- **React Query** for efficient data fetching
-- **Background processing** for concurrent access
+#### Curriculum Management
+- `GET /api/curriculum/:grade/:subject` - Get curriculum rows for specific grade/subject
+- `GET /api/curriculum/all` - Get all curriculum rows (admin)
+- `POST /api/curriculum` - Create new curriculum row
+- `PATCH /api/curriculum/:id` - Update curriculum row
+- `DELETE /api/curriculum/:id` - Delete curriculum row
 
-### 📊 Admin Features
-- **Full database export/import** functionality
-- **Comprehensive validation** for data integrity
-- **Audit trails** and change tracking
-- **Backup and restore** capabilities
+#### Standards Management
+- `GET /api/standards` - Get all standards
+- `GET /api/standards/category/:category` - Get standards by category
+- `GET /api/standards/categories` - Get all standard categories
+- `POST /api/standards` - Create new standard
+
+#### Data Operations
+- `GET /api/export/full-database` - Export full database as JSON
+- `POST /api/import/full-database` - Import full database from JSON
+- `GET /api/stats` - Get database statistics
+- `GET /api/search?q=query` - Search curriculum content
+
+#### Navigation & Discovery
+- `GET /api/grades` - Get all available grades
+- `GET /api/subjects` - Get all available subjects
+- `GET /api/subjects/:grade` - Get subjects for specific grade
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 - **React 18** with TypeScript
+- **TanStack Query** for data fetching and caching
 - **Tailwind CSS** for styling
-- **Radix UI** components
-- **React Query** for state management
-- **Wouter** for routing
+- **Radix UI** for accessible components
+- **React Hook Form** for form management
 
 ### Backend
-- **Express.js** with TypeScript
-- **File-based storage** with JSON
-- **Proper-lockfile** for concurrent access
-- **Rate limiting** and compression
-- **PM2** for process management
-
-### Development
-- **Vite** for fast development
+- **Node.js** with Express
 - **TypeScript** for type safety
-- **ESLint** and **Prettier** for code quality
-- **Hot Module Replacement** (HMR)
+- **SQLite** with better-sqlite3 for database
+- **Zod** for data validation
 
-## 🚀 Quick Start
+### Development Tools
+- **Vite** for fast development and building
+- **ESBuild** for server-side bundling
+- **PM2** for production process management
 
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+## 📦 Installation
 
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/Schools-Curriculum-Mapping.git
-cd Schools-Curriculum-Mapping
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/minashoukrala/school_curriculum_mapping.git
+   cd school_curriculum_mapping
+   ```
 
-# Install dependencies
-npm install
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-# Start development server
-npm run dev
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
+
+## 🗄️ Database Migration
+
+The application automatically migrates from JSON to SQLite on first run:
+
+1. **Automatic Migration**: On startup, the system checks for existing `data.json`
+2. **Data Transfer**: All curriculum rows and standards are migrated to SQLite
+3. **Backup Creation**: Original `data.json` is backed up as `data.json.backup`
+4. **Database Creation**: New `curriculum.db` file is created with proper schema
+
+### Database Schema
+
+```sql
+-- Curriculum rows table
+CREATE TABLE curriculum_rows (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  grade TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  objectives TEXT NOT NULL DEFAULT '',
+  unit_pacing TEXT NOT NULL DEFAULT '',
+  assessments TEXT NOT NULL DEFAULT '',
+  materials_and_differentiation TEXT NOT NULL DEFAULT '',
+  biblical TEXT NOT NULL DEFAULT '',
+  materials TEXT NOT NULL DEFAULT '',
+  differentiator TEXT NOT NULL DEFAULT ''
+);
+
+-- Standards table
+CREATE TABLE standards (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  code TEXT UNIQUE NOT NULL,
+  description TEXT NOT NULL,
+  category TEXT NOT NULL
+);
+
+-- Junction table for many-to-many relationship
+CREATE TABLE curriculum_standards (
+  curriculum_id INTEGER NOT NULL,
+  standard_code TEXT NOT NULL,
+  PRIMARY KEY (curriculum_id, standard_code),
+  FOREIGN KEY (curriculum_id) REFERENCES curriculum_rows(id) ON DELETE CASCADE,
+  FOREIGN KEY (standard_code) REFERENCES standards(code) ON DELETE CASCADE
+);
 ```
 
-### Available Scripts
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run check        # TypeScript type checking
-npm run dev:cluster  # Start with PM2 clustering
-```
+## 🚀 Production Deployment
 
-## 📁 Project Structure
-
-```
-Schools-Curriculum-Mapping/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # UI components
-│   │   ├── pages/         # Page components
-│   │   ├── hooks/         # Custom hooks
-│   │   └── lib/           # Utilities
-│   └── public/            # Static assets
-├── server/                # Express backend
-│   ├── routes.ts          # API routes
-│   ├── storage.ts         # Data storage
-│   └── index.ts           # Server entry
-├── shared/                # Shared schemas
-├── data.json              # Database file
-└── ecosystem.config.js    # PM2 configuration
-```
-
-## 🎯 Grade & Subject Structure
-
-### Regular Grades (KG - Grade 8)
-- **KG**: Bible Study, Reading, Math, Science, Social Studies, Visual Art
-- **Grade 1-2**: Bible Study, Reading, Writing, Math, Social Studies, Science
-- **Grade 3-5**: Bible Study, Reading, Writing, Math, Social Studies, Science
-- **Grade 6-8**: Bible Study, English, Math, Science, History
-
-### Specialist Subjects
-- **Art, Spanish, Music, Technology, PE**
-- **Grade-specific tables** (Grade 1-5)
-- **Full CRUD functionality** per grade
-
-## ⚙️ Configuration
-
-### Environment Variables
-```env
-NODE_ENV=development
-PORT=3000
-```
-
-### Azure Deployment
-- **Azure Web App** compatible
-- **Free tier** support available
-- **Custom domains** supported
-- **SSL certificates** included
-
-## 📊 Performance
-
-### Concurrent User Capacity
-- **50+ concurrent users** with current optimizations
-- **30+ concurrent editors** with file locking
-- **100+ concurrent readers** with caching
-- **Scalable** to 200+ users with database migration
-
-### Optimization Features
-- **5-minute API cache** for reads
-- **1-hour static asset cache**
-- **Gzip compression** for all responses
-- **PM2 clustering** for multi-core utilization
-
-## 🔐 Security Features
-
-- **Rate limiting**: 1000 requests/minute per IP
-- **Input validation**: Zod schemas for all data
-- **File locking**: Prevents data corruption
-- **Security headers**: CORS, CSP, etc.
-- **Azure AD ready**: School email authentication
-
-## 📱 Mobile Support
-
-- **Responsive design** for all screen sizes
-- **Touch-friendly** interface
-- **Fast loading** on mobile networks
-- **Offline capabilities** (PWA ready)
-- **Hamburger navigation** for mobile
-
-## 🚀 Deployment
-
-### Azure Web App
+### Using PM2 (Recommended)
 ```bash
 # Build the application
 npm run build
 
-# Deploy to Azure Web App
-# The app is ready for Azure deployment
+# Start in production mode
+npm start
+
+# Monitor the application
+npm run monitor
+
+# View logs
+npm run logs
 ```
 
-### Other Platforms
-- **Railway**: $5/month (recommended)
-- **Render**: Free tier available
-- **Heroku**: Free tier available
-- **Vercel**: Frontend only (requires backend)
+### Manual Deployment
+```bash
+# Build the application
+npm run build
 
-## 💾 Database & Storage
+# Start the server
+npm run start:single
+```
 
-### Current: File-based (JSON)
-- **Single file** storage (`data.json`)
-- **File locking** for concurrent access
-- **In-memory caching** for performance
-- **Easy backup** and restore
+## 📊 Current Data Statistics
 
-### Future: SQLite Migration
-- **Single file** database
-- **Better concurrent access**
-- **ACID transactions**
-- **No additional costs**
+- **95 Curriculum Rows** across 10 grades and 14 subjects
+- **8 Educational Standards** in 3 categories
+- **Complete Biblical Integration** throughout all content
+- **Comprehensive Assessment Strategies** for each curriculum item
 
-## 📈 Roadmap
+## 🔧 Development Scripts
 
-- [ ] **SQLite migration** for better concurrent access
-- [ ] **Azure AD integration** for school authentication
-- [ ] **Advanced reporting** and analytics
-- [ ] **Bulk import/export** functionality
-- [ ] **Real-time collaboration** features
-- [ ] **Offline mode** with sync
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run start` - Start production server with PM2
+- `npm run check` - TypeScript type checking
+- `npm run db:push` - Push database schema changes
 
 ## 🤝 Contributing
 
@@ -210,21 +179,17 @@ npm run build
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 
-For support, email support@yourschool.edu or create an issue in this repository.
-
-## 🙏 Acknowledgments
-
-- Built for educational institutions
-- Optimized for school environments
-- Designed with teachers and administrators in mind
-- Mobile-first approach for modern education
+For support and questions:
+- Create an issue in the GitHub repository
+- Check the [CHANGELOG.md](CHANGELOG.md) for recent updates
+- Review the [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
 
 ---
 
-**Built with ❤️ for schools and education** 
+**Built with ❤️ for educational excellence and biblical integration** 
