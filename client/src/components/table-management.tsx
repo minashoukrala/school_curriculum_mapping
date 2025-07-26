@@ -23,6 +23,27 @@ export default function TableManagement() {
   const [expandedTabs, setExpandedTabs] = useState<Set<number>>(new Set());
   const [expandedDropdowns, setExpandedDropdowns] = useState<Set<number>>(new Set());
 
+  // Function to invalidate all navigation-related queries
+  const invalidateNavigationCache = () => {
+    // Immediately invalidate and remove from cache
+    queryClient.invalidateQueries({ queryKey: ['navigation-tabs'] });
+    queryClient.invalidateQueries({ queryKey: ['navigation-tabs', 'active'] });
+    queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
+    queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+    
+    // Force refetch by removing from cache
+    queryClient.removeQueries({ queryKey: ['navigation-tabs'] });
+    queryClient.removeQueries({ queryKey: ['navigation-tabs', 'active'] });
+    queryClient.removeQueries({ queryKey: ['dropdown-items'] });
+    queryClient.removeQueries({ queryKey: ['table-configs'] });
+    
+    // Force immediate refetch after a small delay
+    setTimeout(() => {
+      queryClient.refetchQueries({ queryKey: ['navigation-tabs', 'active'] });
+      queryClient.refetchQueries({ queryKey: ['dropdown-items'] });
+    }, 100);
+  };
+
   // Queries
   const { data: navigationTabs = [], isLoading: isLoadingTabs } = useQuery({
     queryKey: ['navigation-tabs'],
@@ -44,7 +65,7 @@ export default function TableManagement() {
     mutationFn: (data: CreateNavigationTab) => 
       apiRequest('POST', '/api/navigation-tabs', data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['navigation-tabs'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -52,7 +73,7 @@ export default function TableManagement() {
     mutationFn: ({ id, data }: { id: number; data: UpdateNavigationTab }) => 
       apiRequest('PATCH', `/api/navigation-tabs/${id}`, data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['navigation-tabs'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -60,8 +81,7 @@ export default function TableManagement() {
     mutationFn: (id: number) => 
       apiRequest('DELETE', `/api/navigation-tabs/${id}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['navigation-tabs'] });
-      queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -69,7 +89,7 @@ export default function TableManagement() {
     mutationFn: (data: CreateDropdownItem) => 
       apiRequest('POST', '/api/dropdown-items', data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -77,7 +97,7 @@ export default function TableManagement() {
     mutationFn: ({ id, data }: { id: number; data: UpdateDropdownItem }) => 
       apiRequest('PATCH', `/api/dropdown-items/${id}`, data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -85,8 +105,7 @@ export default function TableManagement() {
     mutationFn: (id: number) => 
       apiRequest('DELETE', `/api/dropdown-items/${id}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['dropdown-items'] });
-      queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -94,7 +113,7 @@ export default function TableManagement() {
     mutationFn: (data: CreateTableConfig) => 
       apiRequest('POST', '/api/table-configs', data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -102,7 +121,7 @@ export default function TableManagement() {
     mutationFn: ({ id, data }: { id: number; data: UpdateTableConfig }) => 
       apiRequest('PATCH', `/api/table-configs/${id}`, data).then(res => res.json()),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+      invalidateNavigationCache();
     }
   });
 
@@ -110,7 +129,7 @@ export default function TableManagement() {
     mutationFn: (id: number) => 
       apiRequest('DELETE', `/api/table-configs/${id}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['table-configs'] });
+      invalidateNavigationCache();
     }
   });
 
