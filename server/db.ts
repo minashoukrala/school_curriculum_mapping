@@ -697,6 +697,17 @@ export class SQLiteStorage {
     return stmt.all() as NavigationTab[];
   }
 
+  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
+    const stmt = this.db.prepare(`
+      SELECT id, name, display_name as displayName, order_index as "order", 
+             is_active as isActive, created_at as createdAt, updated_at as updatedAt
+      FROM navigation_tabs 
+      WHERE id = ?
+    `);
+    const result = stmt.get(id) as NavigationTab | undefined;
+    return result || null;
+  }
+
   async createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab> {
     const stmt = this.db.prepare(`
       INSERT INTO navigation_tabs (name, display_name, order_index, is_active)

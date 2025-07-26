@@ -47,6 +47,7 @@ export interface IStorage {
   // Navigation tab methods
   getAllNavigationTabs(): Promise<NavigationTab[]>;
   getActiveNavigationTabs(): Promise<NavigationTab[]>;
+  getNavigationTabById(id: number): Promise<NavigationTab | null>;
   createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab>;
   updateNavigationTab(id: number, data: UpdateNavigationTab): Promise<NavigationTab | null>;
   deleteNavigationTab(id: number): Promise<boolean>;
@@ -152,6 +153,10 @@ export class SQLiteStorageAdapter implements IStorage {
     return sqliteStorage.getActiveNavigationTabs();
   }
 
+  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
+    return sqliteStorage.getNavigationTabById(id);
+  }
+
   async createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab> {
     return sqliteStorage.createNavigationTab(data);
   }
@@ -162,10 +167,6 @@ export class SQLiteStorageAdapter implements IStorage {
 
   async deleteNavigationTab(id: number): Promise<boolean> {
     return sqliteStorage.deleteNavigationTab(id);
-  }
-
-  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
-    return sqliteStorage.getNavigationTabById(id);
   }
 
   // Dropdown item methods

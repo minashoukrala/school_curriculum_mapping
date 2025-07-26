@@ -249,6 +249,22 @@ app.get('/api/standards/categories', async (req, res) => {
     }
   });
 
+  app.get('/api/navigation-tabs/:id(\\d+)', async (req, res) => {
+    try {
+      const { storage } = await import('./storage');
+      const id = parseInt(req.params.id);
+      const tab = await storage.getNavigationTabById(id);
+      if (!tab) {
+        res.status(404).json({ message: "Navigation tab not found" });
+      } else {
+        res.json(tab);
+      }
+    } catch (error) {
+      console.error('Get navigation tab by ID error:', error);
+      res.status(500).json({ message: "Failed to fetch navigation tab" });
+    }
+  });
+
   app.post('/api/navigation-tabs', async (req, res) => {
     try {
       const { storage } = await import('./storage');
