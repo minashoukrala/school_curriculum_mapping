@@ -8,21 +8,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- SQLite database migration support
-- Azure AD authentication integration
-- Advanced reporting and analytics
-- Bulk import/export functionality
-- Real-time collaboration features
+- School year management feature with database persistence
+- Editable school year in admin page
+- Global school year display on all curriculum pages
+- SQLite database implementation (sqllit branch)
+- Enhanced admin interface with school year controls
 
 ### Changed
-- Improved mobile responsiveness
-- Enhanced performance optimizations
-- Updated UI components
+- Migrated from JSON file storage to SQLite database
+- Improved database performance and reliability
+- Enhanced admin page with school year management section
+- Updated API endpoints for school year operations
 
 ### Fixed
-- Concurrent access issues
-- Mobile navigation improvements
-- Data validation enhancements
+- Database update logic for standards-only updates
+- API route registration and consistency
+- Frontend state management for school year editing
+
+## [1.1.0] - 2024-01-20
+
+### Added
+- **School Year Management System**
+  - New `school_year` table in SQLite database
+  - `GET /api/school-year` and `PATCH /api/school-year` endpoints
+  - Editable school year input in admin page
+  - Real-time school year updates across all pages
+  - Database persistence for school year changes
+  - Admin-only access to school year editing
+
+- **SQLite Database Implementation**
+  - Complete migration from JSON to SQLite
+  - Better-sqlite3 for high-performance database operations
+  - Automatic database schema creation
+  - Enhanced data integrity and concurrent access
+  - Improved query performance
+
+- **Enhanced Admin Features**
+  - School year management section in admin page
+  - Real-time database statistics
+  - Improved export/import functionality
+  - Better error handling and validation
+
+### Changed
+- **Database Architecture**: Replaced JSON file storage with SQLite
+- **API Structure**: Consolidated API routes for better consistency
+- **Frontend State Management**: Enhanced React Query integration
+- **Error Handling**: Improved validation and error messages
+
+### Technical Improvements
+- **Performance**: Faster database queries and data operations
+- **Reliability**: Better data integrity with SQLite transactions
+- **Scalability**: Support for larger datasets and concurrent users
+- **Maintainability**: Cleaner code structure and better separation of concerns
 
 ## [1.0.0] - 2024-01-15
 
@@ -131,18 +168,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.1.0**: SQLite implementation with school year management
 - **1.0.0**: Production-ready release with full feature set
 - **0.9.0**: Beta version with core functionality
 - **0.8.0**: Alpha version with basic features
 
 ## Future Roadmap
 
-### Version 1.1.0 (Planned)
-- SQLite database migration
+### Version 1.2.0 (Planned)
 - Enhanced mobile performance
 - Additional reporting features
+- Advanced search capabilities
 
-### Version 1.2.0 (Planned)
+### Version 1.3.0 (Planned)
 - Azure AD integration
 - Advanced analytics
 - Bulk operations

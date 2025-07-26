@@ -11,13 +11,14 @@ A comprehensive curriculum management system built with React, TypeScript, and S
 - **Biblical Integration**: Incorporate biblical principles and values into curriculum content
 - **Real-time Editing**: Inline editing capabilities for quick content updates
 - **Mobile Responsive**: Fully responsive design that works on all devices
+- **School Year Management**: Editable school year that appears on all curriculum pages (Admin feature)
 
 ### Database Features
 - **SQLite Database**: Fast, reliable, and file-based database storage
-- **Automatic Migration**: Seamless migration from JSON to SQLite on first run
 - **Data Export/Import**: Full database export and import functionality
 - **Search Capabilities**: Full-text search across curriculum content
 - **Database Statistics**: Real-time statistics and analytics
+- **School Year Persistence**: Global school year setting with database storage
 
 ### API Endpoints
 
@@ -33,6 +34,10 @@ A comprehensive curriculum management system built with React, TypeScript, and S
 - `GET /api/standards/category/:category` - Get standards by category
 - `GET /api/standards/categories` - Get all standard categories
 - `POST /api/standards` - Create new standard
+
+#### School Year Management
+- `GET /api/school-year` - Get current school year
+- `PATCH /api/school-year` - Update school year
 
 #### Data Operations
 - `GET /api/export/full-database` - Export full database as JSON
@@ -86,13 +91,13 @@ A comprehensive curriculum management system built with React, TypeScript, and S
 4. **Open your browser**
    Navigate to `http://localhost:3000`
 
-## 🗄️ Database Migration
+## 🗄️ Database
 
 The application uses SQLite as the primary database:
 
 1. **SQLite Database**: All data is stored in `curriculum.db`
 2. **Automatic Schema**: Database schema is created automatically on first run
-3. **Data Persistence**: All curriculum rows and standards are stored in SQLite
+3. **Data Persistence**: All curriculum rows, standards, and school year are stored in SQLite
 4. **Performance**: Fast queries and efficient data storage
 
 ### Database Schema
@@ -128,6 +133,13 @@ CREATE TABLE curriculum_standards (
   FOREIGN KEY (curriculum_id) REFERENCES curriculum_rows(id) ON DELETE CASCADE,
   FOREIGN KEY (standard_code) REFERENCES standards(code) ON DELETE CASCADE
 );
+
+-- School year table
+CREATE TABLE school_year (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  year TEXT NOT NULL,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
 ## 🚀 Production Deployment
@@ -162,6 +174,7 @@ npm run start:single
 - **8 Educational Standards** in 3 categories
 - **Complete Biblical Integration** throughout all content
 - **Comprehensive Assessment Strategies** for each curriculum item
+- **Global School Year Management** with database persistence
 
 ## 🔧 Development Scripts
 
@@ -170,6 +183,20 @@ npm run start:single
 - `npm run start` - Start production server with PM2
 - `npm run check` - TypeScript type checking
 - `npm run db:push` - Push database schema changes
+
+## 🎯 Admin Features
+
+### School Year Management
+- **Edit School Year**: Change the school year that appears on all curriculum pages
+- **Database Persistence**: School year changes are saved to SQLite database
+- **Real-time Updates**: Changes reflect immediately across all pages
+- **Admin Only Access**: School year editing is restricted to admin users
+
+### Database Operations
+- **Export Database**: Download complete database as JSON backup
+- **Import Database**: Restore database from JSON backup file
+- **Database Statistics**: View real-time statistics about curriculum data
+- **Search Functionality**: Full-text search across all curriculum content
 
 ## 🤝 Contributing
 
