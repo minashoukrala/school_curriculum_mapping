@@ -402,14 +402,7 @@ export class SQLiteStorage {
     console.log(`Database imported successfully: ${data.curriculumRows.length} curriculum rows, ${data.standards.length} standards`);
   }
 
-  // Migration helper
-  async migrateFromJson(jsonData: any): Promise<void> {
-    await this.importFullDatabase({
-      curriculumRows: jsonData.curriculumRows || [],
-      standards: jsonData.standards || [],
-      metadata: jsonData.metadata || {}
-    });
-  }
+
 
   // Close database connection
   close(): void {

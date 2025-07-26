@@ -88,12 +88,12 @@ A comprehensive curriculum management system built with React, TypeScript, and S
 
 ## 🗄️ Database Migration
 
-The application automatically migrates from JSON to SQLite on first run:
+The application uses SQLite as the primary database:
 
-1. **Automatic Migration**: On startup, the system checks for existing `data.json`
-2. **Data Transfer**: All curriculum rows and standards are migrated to SQLite
-3. **Backup Creation**: Original `data.json` is backed up as `data.json.backup`
-4. **Database Creation**: New `curriculum.db` file is created with proper schema
+1. **SQLite Database**: All data is stored in `curriculum.db`
+2. **Automatic Schema**: Database schema is created automatically on first run
+3. **Data Persistence**: All curriculum rows and standards are stored in SQLite
+4. **Performance**: Fast queries and efficient data storage
 
 ### Database Schema
 

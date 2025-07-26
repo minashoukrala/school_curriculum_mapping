@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 import compression from 'compression';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { migrateFromJsonToSQLite } from "./storage";
+
 
 const app = express();
 
@@ -354,13 +354,6 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Run migration from JSON to SQLite on startup
-  try {
-    await migrateFromJsonToSQLite();
-  } catch (error) {
-    console.error('Migration failed:', error);
-    // Continue running the server even if migration fails
-  }
 
   const server = await registerRoutes(app);
 

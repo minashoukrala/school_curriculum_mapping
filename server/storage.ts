@@ -4,8 +4,8 @@ import {
   type Standard,
   type InsertStandard
 } from "@shared/schema";
-import * as fs from 'fs/promises';
-import * as path from 'path';
+
+
 import { sqliteStorage } from './db';
 
 export interface IStorage {
@@ -108,37 +108,7 @@ export class SQLiteStorageAdapter implements IStorage {
   }
 }
 
-// Migration function to move data from JSON to SQLite
-export async function migrateFromJsonToSQLite(): Promise<void> {
-  try {
-    const jsonPath = path.join(process.cwd(), 'data.json');
-    
-    // Check if JSON file exists
-    try {
-      await fs.access(jsonPath);
-    } catch {
-      console.log('No data.json file found, skipping migration');
-      return;
-    }
 
-    // Read JSON data
-    const jsonData = JSON.parse(await fs.readFile(jsonPath, 'utf-8'));
-    
-    // Migrate to SQLite
-    await sqliteStorage.migrateFromJson(jsonData);
-    
-    console.log('Migration from JSON to SQLite completed successfully');
-    
-    // Optionally backup the old JSON file
-    const backupPath = path.join(process.cwd(), 'data.json.backup');
-    await fs.copyFile(jsonPath, backupPath);
-    console.log(`Original data.json backed up to ${backupPath}`);
-    
-  } catch (error) {
-    console.error('Error during migration:', error);
-    throw error;
-  }
-}
 
 // Export the SQLite storage instance
 export const storage = new SQLiteStorageAdapter();

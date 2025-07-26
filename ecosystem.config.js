@@ -19,7 +19,7 @@ module.exports = {
     node_args: '--max-old-space-size=1024',
     // Auto-restart settings
     watch: false,
-    ignore_watch: ['node_modules', 'data.json'],
+    ignore_watch: ['node_modules'],
     // Logging
     log_file: './logs/combined.log',
     out_file: './logs/out.log',
