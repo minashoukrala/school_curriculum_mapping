@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Phone, Mail, Landmark, Calendar, Facebook, Instagram, Youtube, X as XIcon, BookOpen, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
-import { CurriculumRow, Standard } from "@shared/schema";
+import { CurriculumRow, Standard, NavigationTab, DropdownItem } from "@shared/schema";
 import GradeNavigation from "@/components/grade-navigation";
 import SubjectNavigation from "@/components/subject-navigation";
 import CurriculumTable from "@/components/curriculum-table";
@@ -13,19 +13,7 @@ import EditModal from "@/components/edit-modal";
 import TableManagement from "@/components/table-management";
 
 
-const grades = [
-  "KG",
-  "Grade 1",
-  "Grade 2",
-  "Grade 3",
-  "Grade 4",
-  "Grade 5",
-  "Grade 6",
-  "Grade 7",
-  "Grade 8",
-  "Specialists",
-  "Admin",
-];
+// Dynamic navigation data will be fetched from database
   const getSpecialistSubjects = () => {
     return [
       "Art",
@@ -36,73 +24,7 @@ const grades = [
     ];
   };
 
-  const getSubjectsForGrade = (grade: string) => {
-  if (grade === "KG") {
-    return [
-      "Bible Study",
-      "Reading",
-      "Math",
-      "Science",
-      "Social Studies",
-      "Visual Art"
-    ];
-  }
-  if (grade === "Grade 1") {
-    return [
-      "Bible Study",
-      "Reading",
-      "Writing",
-      "Math",
-      "Social Studies",
-      "Science"
-    ];
-  }
-  if (grade === "Grade 2") {
-    return [
-      "Bible Study",
-      "Reading",
-      "Writing",
-      "Math",
-      "Social Studies",
-      "Science"
-    ];
-  }
-  if (grade === "Grade 3" || grade === "Grade 4" || grade === "Grade 5") {
-    return [
-      "Bible Study",
-      "Reading",
-      "Writing",
-      "Math",
-      "Social Studies",
-      "Science"
-    ];
-  }
-  if (grade === "Grade 6" || grade === "Grade 7" || grade === "Grade 8") {
-    return [
-      "Bible Study",
-      "English",
-      "Math",
-      "Science",
-      "History"
-    ];
-  }
-  if (grade === "Specialists") {
-    return [
-      "Art",
-      "Spanish",
-      "Music",
-      "Technology",
-      "PE"
-    ];
-  }
-  if (grade === "Admin") {
-    return [
-      "Database Export",
-      "Table Management"
-    ];
-  }
-  return [];
-};
+
 
 export default function CurriculumBuilder() {
   // URL state management functions
@@ -200,6 +122,54 @@ export default function CurriculumBuilder() {
       return response.json();
     },
   });
+
+  // Fetch dynamic navigation data
+  const { data: navigationTabs = [] } = useQuery<NavigationTab[]>({
+    queryKey: ['navigation-tabs'],
+    queryFn: () => apiRequest('GET', '/api/navigation-tabs/active').then(res => res.json()),
+  });
+
+  const { data: dropdownItems = [] } = useQuery<DropdownItem[]>({
+    queryKey: ['dropdown-items'],
+    queryFn: () => apiRequest('GET', '/api/dropdown-items').then(res => res.json()),
+  });
+
+  // Get active grades from navigation tabs
+  const grades = navigationTabs
+    .filter((tab: NavigationTab) => tab.isActive)
+    .sort((a: NavigationTab, b: NavigationTab) => a.order - b.order)
+    .map((tab: NavigationTab) => tab.name);
+
+  // Fallback grades if navigation data is not loaded yet
+  const fallbackGrades = [
+    "KG", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", 
+    "Grade 6", "Grade 7", "Grade 8", "Specialists", "Admin"
+  ];
+
+  const displayGrades = grades.length > 0 ? grades : fallbackGrades;
+
+  // Get subjects for a specific grade
+  const getSubjectsForGrade = (grade: string): string[] => {
+    const gradeTab = navigationTabs.find((tab: NavigationTab) => tab.name === grade);
+    if (!gradeTab) return [];
+
+    const subjects = dropdownItems
+      .filter((item: DropdownItem) => item.tabId === gradeTab.id && item.isActive)
+      .sort((a: DropdownItem, b: DropdownItem) => a.order - b.order)
+      .map((item: DropdownItem) => item.name);
+
+    return subjects;
+  };
+
+  // Update selected subject when grades change and current subject is not available
+  useEffect(() => {
+    if (navigationTabs.length > 0 && dropdownItems.length > 0) {
+      const availableSubjects = getSubjectsForGrade(selectedGrade);
+      if (availableSubjects.length > 0 && !availableSubjects.includes(selectedSubject)) {
+        setSelectedSubject(availableSubjects[0]);
+      }
+    }
+  }, [navigationTabs, dropdownItems, selectedGrade, selectedSubject]);
 
   // Create curriculum row mutation
   const createRowMutation = useMutation({
@@ -652,7 +622,7 @@ export default function CurriculumBuilder() {
             Home
           </a>
           <div className="hidden lg:flex items-center space-x-4 flex-1">
-            {grades.map((grade) => (
+            {displayGrades.map((grade) => (
               <div
                 key={grade}
                 className="relative group"
@@ -726,7 +696,7 @@ export default function CurriculumBuilder() {
               </div>
               <div className="flex flex-col space-y-2">
                 <span className="text-xs text-gray-500 mb-1">Grades</span>
-                {grades.map((grade) => (
+                {displayGrades.map((grade) => (
                   <button
                     key={grade}
                     onClick={() => {
