@@ -23,13 +23,19 @@ export class SQLiteStorage {
   private dbPath: string;
 
   constructor() {
-    // Use current working directory which definitely exists
-    this.dbPath = path.join(process.cwd(), 'curriculum.db');
+    // Use a more explicit path that should work on Render
+    const dbDir = process.env.NODE_ENV === 'production' ? '/tmp' : process.cwd();
+    this.dbPath = path.join(dbDir, 'curriculum.db');
+    
+    // Log the path before creating database
+    console.log(`Attempting to create database at: ${this.dbPath}`);
+    console.log(`Current working directory: ${process.cwd()}`);
+    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+    
     this.db = new Database(this.dbPath);
     this.initializeDatabase();
     
-    // Log database path for debugging
-    console.log(`Database initialized at: ${this.dbPath}`);
+    console.log(`Database initialized successfully at: ${this.dbPath}`);
   }
 
   private initializeDatabase() {
