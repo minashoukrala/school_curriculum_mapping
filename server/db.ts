@@ -23,8 +23,8 @@ export class SQLiteStorage {
   private dbPath: string;
 
   constructor() {
-    // Use a more explicit path that should work on Render
-    const dbDir = process.env.NODE_ENV === 'production' ? '/tmp' : process.cwd();
+    // Use persistent directory on Render, fallback to current directory
+    const dbDir = process.env.NODE_ENV === 'production' ? process.cwd() : process.cwd();
     this.dbPath = path.join(dbDir, 'curriculum.db');
     
     // Log the path before creating database
