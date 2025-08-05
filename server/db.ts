@@ -23,9 +23,8 @@ export class SQLiteStorage {
   private dbPath: string;
 
   constructor() {
-    // Use persistent directory on Render, fallback to current directory
-    const persistentDir = process.env.DATABASE_PATH || process.env.RENDER_PROJECT_DIR || '/opt/render/project/src' || process.cwd();
-    this.dbPath = path.join(persistentDir, 'curriculum.db');
+    // Use current working directory which definitely exists
+    this.dbPath = path.join(process.cwd(), 'curriculum.db');
     this.db = new Database(this.dbPath);
     this.initializeDatabase();
     
