@@ -1039,7 +1039,7 @@ export class PostgreSQLStorage {
       
       await client.query('COMMIT');
       
-      return result.rowCount > 0;
+      return (result.rowCount || 0) > 0;
     } catch (error) {
       await client.query('ROLLBACK');
       throw error;
@@ -1173,7 +1173,7 @@ export class PostgreSQLStorage {
       
       await client.query('COMMIT');
       
-      return result.rowCount > 0;
+      return (result.rowCount || 0) > 0;
     } catch (error) {
       await client.query('ROLLBACK');
       throw error;
@@ -1320,7 +1320,7 @@ export class PostgreSQLStorage {
       
       await client.query('COMMIT');
       
-      return deleteTableConfigResult.rowCount > 0;
+      return (deleteTableConfigResult.rowCount || 0) > 0;
     } catch (error) {
       await client.query('ROLLBACK');
       throw error;
@@ -1356,7 +1356,7 @@ export class PostgreSQLStorage {
         DELETE FROM curriculum_rows 
         WHERE table_name NOT IN (SELECT table_name FROM table_configs)
       `);
-      return result.rowCount;
+      return result.rowCount || 0;
     } finally {
       client.release();
     }
