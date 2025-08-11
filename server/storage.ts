@@ -414,8 +414,8 @@ export class PostgreSQLStorageAdapter implements IStorage {
   }
 }
 
-// Choose storage based on environment variable
-const usePostgreSQL = process.env.DB_TYPE === 'postgres' || process.env.USE_POSTGRES === 'true';
+// Default to PostgreSQL, fallback to SQLite only if explicitly disabled
+const useSQLite = process.env.USE_SQLITE === 'true' || process.env.DB_TYPE === 'sqlite';
 
-export const storage = usePostgreSQL ? new PostgreSQLStorageAdapter() : new SQLiteStorageAdapter();
+export const storage = useSQLite ? new SQLiteStorageAdapter() : new PostgreSQLStorageAdapter();
 

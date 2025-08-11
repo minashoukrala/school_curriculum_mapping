@@ -13,14 +13,14 @@ The application now supports both SQLite and PostgreSQL databases. The migration
 
 ## Environment Variables
 
-To use PostgreSQL, set one of these environment variables:
+PostgreSQL is now the default database. To use SQLite instead, set one of these environment variables:
 
 ```bash
-# Option 1: Use the USE_POSTGRES flag
-USE_POSTGRES=true
+# Option 1: Use the USE_SQLITE flag
+USE_SQLITE=true
 
 # Option 2: Use the DB_TYPE flag
-DB_TYPE=postgres
+DB_TYPE=sqlite
 ```
 
 ### PostgreSQL Configuration
@@ -74,14 +74,15 @@ This script will:
 - Create a backup of your SQLite data
 - Verify the migration was successful
 
-### 4. Switch to PostgreSQL
+### 4. PostgreSQL is Now Default
 
-Set the environment variable to use PostgreSQL:
+PostgreSQL is now the default database. No additional configuration needed unless you want to use SQLite:
 
 ```bash
-export USE_POSTGRES=true
+# Only if you want to use SQLite instead
+export USE_SQLITE=true
 # or
-export DB_TYPE=postgres
+export DB_TYPE=sqlite
 ```
 
 ### 5. Test the Application
@@ -141,10 +142,11 @@ All API endpoints remain exactly the same:
 
 If you need to rollback to SQLite:
 
-1. **Remove PostgreSQL environment variables**:
+1. **Set SQLite environment variables**:
    ```bash
-   unset USE_POSTGRES
-   unset DB_TYPE
+   export USE_SQLITE=true
+   # or
+   export DB_TYPE=sqlite
    ```
 
 2. **Restore from backup** (if needed):

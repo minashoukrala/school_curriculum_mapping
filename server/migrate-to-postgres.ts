@@ -7,8 +7,11 @@ async function migrateToPostgreSQL() {
   console.log('Starting migration from SQLite to PostgreSQL...');
   
   try {
-    // Initialize PostgreSQL storage
-    const postgresStorage = new PostgreSQLStorage();
+    // Temporarily unset PostgreSQL environment variables to use SQLite for export
+    const originalUsePostgres = process.env.USE_POSTGRES;
+    const originalDbType = process.env.DB_TYPE;
+    delete process.env.USE_POSTGRES;
+    delete process.env.DB_TYPE;
     
     // Export all data from SQLite
     console.log('Exporting data from SQLite...');
@@ -18,6 +21,13 @@ async function migrateToPostgreSQL() {
     const dropdownItems = await sqliteStorage.getAllDropdownItems();
     const tableConfigs = await sqliteStorage.getAllTableConfigs();
     const schoolYear = await sqliteStorage.getSchoolYear();
+    
+    // Restore PostgreSQL environment variables
+    if (originalUsePostgres) process.env.USE_POSTGRES = originalUsePostgres;
+    if (originalDbType) process.env.DB_TYPE = originalDbType;
+    
+    // Initialize PostgreSQL storage
+    const postgresStorage = new PostgreSQLStorage();
     
     console.log(`Exported ${allRows.length} curriculum rows`);
     console.log(`Exported ${standards.length} standards`);
@@ -98,7 +108,7 @@ async function migrateToPostgreSQL() {
 }
 
 // Run migration if this file is executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   migrateToPostgreSQL();
 }
 

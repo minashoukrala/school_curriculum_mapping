@@ -1,6 +1,6 @@
 # CurriculumCrafter
 
-A simple, modern curriculum management system built with React, TypeScript, and SQLite. This system allows educators to create, manage, and organize curriculum content with a dynamic navigation structure.
+A simple, modern curriculum management system built with React, TypeScript, and PostgreSQL. This system allows educators to create, manage, and organize curriculum content with a dynamic navigation structure.
 
 ## Features
 
@@ -35,7 +35,7 @@ A simple, modern curriculum management system built with React, TypeScript, and 
 
 - **Frontend**: React 18, TypeScript, Vite
 - **Backend**: Node.js, Express.js
-- **Database**: SQLite with better-sqlite3
+- **Database**: PostgreSQL with pg
 - **UI Components**: Tailwind CSS, shadcn/ui
 - **State Management**: TanStack Query (React Query)
 - **Validation**: Zod schema validation
@@ -68,7 +68,7 @@ A simple, modern curriculum management system built with React, TypeScript, and 
    Navigate to `http://localhost:3000`
 
 ### Database Setup
-The system automatically creates and initializes the SQLite database on first run. No additional setup required.
+The system uses PostgreSQL by default. Make sure PostgreSQL is installed and running, then create a database named `curriculum_crafter`. The system will automatically create all required tables on first run.
 
 ## Project Structure
 
@@ -85,7 +85,7 @@ CurriculumCrafter/
 │   ├── storage.ts        # Data storage interface
 │   └── index.ts          # Server entry point
 ├── shared/               # Shared TypeScript interfaces and schemas
-└── curriculum.db         # SQLite database file
+└── server/               # Server files including database configuration
 ```
 
 ## Usage
