@@ -1,176 +1,256 @@
-# CurriculumCrafter
+# Curriculum Crafter
 
-A simple, modern curriculum management system built with React, TypeScript, and PostgreSQL. This system allows educators to create, manage, and organize curriculum content with a dynamic navigation structure.
+A comprehensive curriculum management system built with a modern, decoupled architecture.
 
-## Features
+## 🏗️ Architecture
 
-### 🎯 Core Functionality
-- **Dynamic Navigation Management**: Create and manage navigation tabs, dropdown items, and table configurations through an intuitive admin interface
-- **Curriculum Management**: Add, edit, and delete curriculum entries with support for objectives, assessments, materials, and biblical integration
-- **Standards Integration**: Link curriculum entries to educational standards with search and filtering capabilities
-- **School Year Management**: Set and update the school year that appears across all curriculum pages
+This project is structured as three independent services that can be deployed separately:
 
-### 🛠️ Admin Features
-- **Table Management**: Dynamically create and configure tables for each subject with automatic system name conversion
-- **Database Export/Import**: Full database backup and restore functionality including navigation structure
-- **Real-time Updates**: Changes in admin interface immediately reflect across the application
-- **Automatic Data Setup**: Creating table configurations automatically generates sample curriculum rows
-- **Cascade Deletion**: Deleting tabs, dropdowns, or tables automatically removes all associated data
-- **Orphaned Data Cleanup**: Automatic cleanup of curriculum entries without table configurations
-- **Admin Tab Protection**: Admin tab is immutable and always positioned last in navigation
+- **Frontend** (`/frontend`) - React + Vite application
+- **Backend** (`/backend`) - Express.js API server  
+- **Database** (`/database`) - PostgreSQL database with shared schemas
 
-### 📱 User Experience
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Modern UI**: Clean, intuitive interface built with Tailwind CSS and shadcn/ui components
-- **Fast Performance**: Optimized with React Query for efficient data fetching and caching
-- **Accessibility**: Built with accessibility best practices in mind
-
-### 🔧 System Features
-- **Data Integrity**: Transaction-based operations ensure data consistency
-- **Automatic Cleanup**: Orphaned data is automatically detected and cleaned
-- **Performance Optimized**: Supports 5-15 concurrent users efficiently
-- **Scalable Architecture**: Ready for migration to PostgreSQL for larger deployments
-
-## Technology Stack
-
-- **Frontend**: React 18, TypeScript, Vite
-- **Backend**: Node.js, Express.js
-- **Database**: PostgreSQL with pg
-- **UI Components**: Tailwind CSS, shadcn/ui
-- **State Management**: TanStack Query (React Query)
-- **Validation**: Zod schema validation
-
-## Quick Start
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/minashoukrala/school_curriculum_mapping.git
-   cd school_curriculum_mapping
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
-
-### Database Setup
-The system uses PostgreSQL by default. Make sure PostgreSQL is installed and running, then create a database named `curriculum_crafter`. The system will automatically create all required tables on first run.
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 CurriculumCrafter/
-├── client/                 # React frontend
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Main application pages
-│   │   ├── hooks/         # Custom React hooks
-│   │   └── lib/           # Utility functions and configurations
-├── server/                # Express.js backend
-│   ├── db.ts             # Database operations
-│   ├── storage.ts        # Data storage interface
-│   └── index.ts          # Server entry point
-├── shared/               # Shared TypeScript interfaces and schemas
-└── server/               # Server files including database configuration
+├── frontend/                 # React frontend application
+│   ├── src/                 # React source code
+│   ├── public/              # Static assets
+│   ├── package.json         # Frontend dependencies
+│   └── vite.config.ts       # Vite configuration
+├── backend/                  # Express.js API server
+│   ├── index.ts             # Main server file
+│   ├── postgres-db.ts       # PostgreSQL database layer
+│   ├── storage.ts           # Storage abstraction
+│   ├── routes.ts            # API routes
+│   └── package.json         # Backend dependencies
+├── database/                 # Database and schemas
+│   ├── shared/              # Shared TypeScript schemas
+│   ├── drizzle.config.ts    # Database migration config
+│   └── migrations/          # Database migrations
+└── package.json             # Root package.json for orchestration
 ```
 
-## Usage
+## 🚀 Quick Start
 
-### Navigation Management
-1. Navigate to **Admin → Table Management**
-2. Create navigation tabs for different grade levels
-3. Add dropdown items for subjects under each tab
-4. Configure tables for each subject with custom display names
+### Prerequisites
 
-### Curriculum Management
-1. Select a grade and subject from the navigation
-2. Add curriculum entries using the "Add Curriculum Row" button within each table card
-3. Edit entries inline or through the edit modal
-4. Link entries to educational standards as needed
+- Node.js 18+ 
+- PostgreSQL 15+
+- npm or yarn
 
-### Database Operations
-- **Export**: Download a complete backup of all data and structure
-- **Import**: Restore from a previous backup (completely replaces current data)
-- **Cleanup**: Automatically remove orphaned curriculum entries
+### 1. Install Dependencies
 
-### Admin Operations
-- **Protected Admin Tab**: Admin tab cannot be deleted or modified
-- **Cascade Deletion**: Deleting a tab removes all its dropdowns, tables, and curriculum data
-- **Automatic Cleanup**: System automatically maintains data integrity
+```bash
+# Install all dependencies for frontend, backend, and root
+npm run install:all
+```
 
-## Performance & Scaling
+### 2. Database Setup
 
-### Current Capacity
-- **Optimal**: 5-15 concurrent users
-- **Maximum**: 20-25 concurrent users
-- **Recommended**: Small to medium schools (5-15 teachers + 1-2 admins)
+```bash
+# Make sure PostgreSQL is running
+brew services start postgresql@15
 
-### Performance Characteristics
-- **Fast Response Times**: < 100ms for most operations
-- **Efficient Caching**: React Query with aggressive cache invalidation
-- **Database Optimized**: Proper indexing and transaction management
-- **Real-time Updates**: Immediate UI updates across all users
+# Create the database
+createdb curriculum_crafter
+```
 
-### Scaling Considerations
-- **SQLite Limitations**: Single-write operations limit concurrent admin users
-- **Migration Path**: Ready for PostgreSQL migration for larger deployments
-- **Horizontal Scaling**: Architecture supports multiple server instances
+### 3. Environment Configuration
 
-## Development
+```bash
+# Backend environment
+cd backend
+cp env.example .env
+# Edit .env with your database credentials
 
-### Available Scripts
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
+# Frontend environment  
+cd ../frontend
+cp env.example .env
+# Edit .env to point to your backend URL
+```
 
-### Database Schema
-The system uses the following main tables:
-- `curriculum_rows` - Curriculum entries
-- `standards` - Educational standards
-- `navigation_tabs` - Main navigation structure
-- `dropdown_items` - Subject dropdowns
-- `table_configs` - Table configurations
-- `school_year` - School year setting
+### 4. Start Development Servers
 
-### API Endpoints
-- `GET /api/curriculum/:grade/:subject` - Get curriculum for grade/subject
-- `POST /api/curriculum` - Create new curriculum entry
-- `PATCH /api/curriculum/:id` - Update curriculum entry
-- `DELETE /api/curriculum/:id` - Delete curriculum entry
-- `GET /api/export/full-database` - Export complete database
-- `POST /api/import/full-database` - Import complete database
-- `POST /api/cleanup-orphaned-data` - Clean up orphaned entries
+```bash
+# Start both frontend and backend simultaneously
+npm run dev
 
-## Contributing
+# Or start them separately:
+npm run dev:frontend  # Frontend on http://localhost:5173
+npm run dev:backend   # Backend on http://localhost:3000
+```
+
+## 🔧 Development
+
+### Frontend Development
+
+```bash
+cd frontend
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+```
+
+### Backend Development
+
+```bash
+cd backend
+npm run dev          # Start development server
+npm run build        # Build for production
+npm start           # Start production server
+```
+
+### Database Development
+
+```bash
+cd database
+# Edit shared schemas in shared/schema.ts
+# Run migrations with drizzle-kit
+```
+
+## 🚀 Production Deployment
+
+### Frontend Deployment
+
+1. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
+
+2. Deploy the `frontend/dist/` folder to any static hosting service:
+   - Vercel
+   - Netlify
+   - AWS S3 + CloudFront
+   - GitHub Pages
+
+### Backend Deployment
+
+1. Build the backend:
+```bash
+cd backend
+npm run build
+```
+
+2. Deploy to any Node.js hosting service:
+   - Railway
+   - Render
+   - Heroku
+   - AWS EC2
+   - DigitalOcean App Platform
+
+### Database Deployment
+
+1. Set up PostgreSQL database:
+   - AWS RDS
+   - Railway PostgreSQL
+   - Supabase
+   - Neon
+
+2. Update backend environment variables with production database URL
+
+## 🔌 API Endpoints
+
+The backend provides a RESTful API:
+
+- `GET /api/curriculum/:grade/:subject` - Get curriculum rows
+- `POST /api/curriculum` - Create curriculum row
+- `PATCH /api/curriculum/:id` - Update curriculum row
+- `DELETE /api/curriculum/:id` - Delete curriculum row
+- `GET /api/standards` - Get all standards
+- `GET /api/navigation-tabs/active` - Get active navigation tabs
+- `GET /api/dropdown-items` - Get dropdown items
+- `GET /api/table-configs` - Get table configurations
+- `GET /api/export/full-database` - Export full database
+- `POST /api/import/full-database` - Import full database
+- `GET /health` - Health check
+
+## 🌐 Environment Variables
+
+### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+### Backend (.env)
+```env
+# Database Configuration
+DB_TYPE=postgres
+USE_POSTGRES=true
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=curriculum_crafter
+DB_USER=your_username
+DB_PASSWORD=your_password
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# CORS Configuration
+FRONTEND_URL=http://localhost:5173
+```
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **React 18** - UI framework
+- **Vite** - Build tool and dev server
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **React Query** - Data fetching
+- **Wouter** - Routing
+
+### Backend
+- **Express.js** - Web framework
+- **TypeScript** - Type safety
+- **PostgreSQL** - Database
+- **Drizzle ORM** - Database ORM
+- **Zod** - Schema validation
+- **CORS** - Cross-origin resource sharing
+
+### Database
+- **PostgreSQL** - Primary database
+- **Drizzle Kit** - Database migrations
+- **Shared Schemas** - TypeScript schemas shared between frontend and backend
+
+## 📝 Scripts
+
+### Root Level Scripts
+```bash
+npm run dev              # Start both frontend and backend
+npm run dev:frontend     # Start only frontend
+npm run dev:backend      # Start only backend
+npm run build            # Build both frontend and backend
+npm run install:all      # Install all dependencies
+npm run clean            # Clean all node_modules and dist folders
+npm run setup            # Complete setup including database
+```
+
+## 🔒 Security
+
+- CORS configured for cross-origin requests
+- Rate limiting on API endpoints
+- Input validation with Zod schemas
+- SQL injection protection via parameterized queries
+- Environment variable configuration
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🆘 Support
 
-For support, please open an issue on GitHub or contact the development team.
-
----
-
-**CurriculumCrafter** - Simplifying curriculum management for educators. 
+For support and questions:
+- Review the [POSTGRES_MIGRATION.md](POSTGRES_MIGRATION.md) for database migration details
+- Check the [DEPLOYMENT.md](DEPLOYMENT.md) for deployment guides 

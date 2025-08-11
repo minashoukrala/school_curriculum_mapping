@@ -50,7 +50,7 @@ app.use('/attached_assets', express.static('attached_assets'));
 // Add specific route for full database export before Vite middleware
 app.get('/api/export/full-database', async (req, res) => {
   try {
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const allRows = await storage.getAllCurriculumRows();
     const standards = await storage.getAllStandards();
     const navigationTabs = await storage.getAllNavigationTabs();
@@ -89,7 +89,7 @@ app.get('/api/export/full-database', async (req, res) => {
 // Add specific route for full database import before Vite middleware
 app.post('/api/import/full-database', async (req, res) => {
       try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
 
       const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
     
@@ -133,7 +133,7 @@ app.post('/api/import/full-database', async (req, res) => {
 // Get database statistics
 app.get('/api/stats', async (req, res) => {
   try {
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const stats = await storage.getDatabaseStats();
     res.json(stats);
   } catch (error) {
@@ -145,7 +145,7 @@ app.get('/api/stats', async (req, res) => {
 // Get all grades
 app.get('/api/grades', async (req, res) => {
   try {
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const grades = await storage.getGrades();
     res.json(grades);
   } catch (error) {
@@ -157,7 +157,7 @@ app.get('/api/grades', async (req, res) => {
 // Get all subjects
 app.get('/api/subjects', async (req, res) => {
   try {
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const subjects = await storage.getSubjects();
     res.json(subjects);
   } catch (error) {
@@ -170,7 +170,7 @@ app.get('/api/subjects', async (req, res) => {
 app.get('/api/subjects/:grade', async (req, res) => {
   try {
     const { grade } = req.params;
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const subjects = await storage.getSubjectsByGrade(grade);
     res.json(subjects);
   } catch (error) {
@@ -182,7 +182,7 @@ app.get('/api/subjects/:grade', async (req, res) => {
 // Get standard categories
 app.get('/api/standards/categories', async (req, res) => {
   try {
-    const { storage } = await import('./storage');
+    const { storage } = await import('../database/storage');
     const categories = await storage.getStandardCategories();
     res.json(categories);
   } catch (error) {
@@ -199,7 +199,7 @@ app.get('/api/standards/categories', async (req, res) => {
         return res.status(400).json({ message: "Search query is required" });
       }
       
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const results = await storage.searchCurriculumRows(q);
       res.json(results);
     } catch (error) {
@@ -211,7 +211,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Get school year
   app.get('/api/school-year', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const schoolYear = await storage.getSchoolYear();
       res.json(schoolYear);
     } catch (error) {
@@ -223,7 +223,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Update school year
   app.patch('/api/school-year', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { updateSchoolYearSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = updateSchoolYearSchema.parse(req.body);
@@ -243,7 +243,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Added: Navigation tabs endpoints
   app.get('/api/navigation-tabs', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const tabs = await storage.getAllNavigationTabs();
       res.json(tabs);
     } catch (error) {
@@ -254,7 +254,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.get('/api/navigation-tabs/active', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const tabs = await storage.getActiveNavigationTabs();
       
       // Set cache control headers to prevent caching
@@ -279,7 +279,7 @@ app.get('/api/standards/categories', async (req, res) => {
       return res.status(404).json({ message: "Navigation tab not found" });
     }
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const tab = await storage.getNavigationTabById(id);
       if (!tab) {
         res.status(404).json({ message: "Navigation tab not found" });
@@ -300,7 +300,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.post('/api/navigation-tabs', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { createNavigationTabSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = createNavigationTabSchema.parse(req.body);
@@ -320,7 +320,7 @@ app.get('/api/standards/categories', async (req, res) => {
   app.patch('/api/navigation-tabs/:id', async (req, res) => {
     console.log(`[DEBUG] PATCH /api/navigation-tabs/${req.params.id} called`);
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { updateNavigationTabSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const id = parseInt(req.params.id);
@@ -344,7 +344,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.delete('/api/navigation-tabs/:id', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const id = parseInt(req.params.id);
       const success = await storage.deleteNavigationTab(id);
       if (success) {
@@ -361,7 +361,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Added: Dropdown items endpoints
   app.get('/api/dropdown-items', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const items = await storage.getAllDropdownItems();
       
       // Set cache control headers to prevent caching
@@ -380,7 +380,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.get('/api/dropdown-items/tab/:tabId', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const tabId = parseInt(req.params.tabId);
       const items = await storage.getDropdownItemsByTabId(tabId);
       res.json(items);
@@ -392,7 +392,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.post('/api/dropdown-items', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { createDropdownItemSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = createDropdownItemSchema.parse(req.body);
@@ -411,7 +411,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.patch('/api/dropdown-items/:id', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { updateDropdownItemSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const id = parseInt(req.params.id);
@@ -435,7 +435,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.delete('/api/dropdown-items/:id', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const id = parseInt(req.params.id);
       const success = await storage.deleteDropdownItem(id);
       if (success) {
@@ -452,7 +452,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Added: Table configs endpoints
   app.get('/api/table-configs', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const configs = await storage.getAllTableConfigs();
       
       // Set cache control headers to prevent caching
@@ -471,7 +471,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.get('/api/table-configs/dropdown/:dropdownId', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const dropdownId = parseInt(req.params.dropdownId);
       const configs = await storage.getTableConfigsByDropdownId(dropdownId);
       res.json(configs);
@@ -483,7 +483,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.post('/api/table-configs', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { createTableConfigSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = createTableConfigSchema.parse(req.body);
@@ -535,7 +535,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.patch('/api/table-configs/:id', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { updateTableConfigSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const id = parseInt(req.params.id);
@@ -559,7 +559,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.delete('/api/table-configs/:id', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const id = parseInt(req.params.id);
       
       const success = await storage.deleteTableConfig(id);
@@ -577,7 +577,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Cleanup orphaned curriculum rows
   app.post('/api/cleanup-orphaned-data', async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const deletedCount = await storage.cleanupOrphanedCurriculumRows();
       res.json({ 
         message: "Cleanup completed successfully", 
@@ -593,7 +593,7 @@ app.get('/api/standards/categories', async (req, res) => {
   app.get("/api/curriculum/:grade/:subject", async (req, res) => {
     try {
       const { grade, subject } = req.params;
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const rows = await storage.getCurriculumRows(grade, subject);
       // Add cache control headers to prevent browser caching
       res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -608,7 +608,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Get all curriculum rows (for admin)
   app.get("/api/curriculum/all", async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const rows = await storage.getAllCurriculumRows();
       // Add cache control headers to prevent browser caching
       res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
@@ -623,7 +623,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Create a new curriculum row
   app.post("/api/curriculum", async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { insertCurriculumRowSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = insertCurriculumRowSchema.parse(req.body);
@@ -644,7 +644,7 @@ app.get('/api/standards/categories', async (req, res) => {
   app.patch("/api/curriculum/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const { insertCurriculumRowSchema } = await import('@shared/schema');
       const { z } = await import('zod');
       const validatedData = insertCurriculumRowSchema.partial().parse(req.body);
@@ -664,7 +664,7 @@ app.get('/api/standards/categories', async (req, res) => {
   app.delete("/api/curriculum/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       await storage.deleteCurriculumRow(id);
       res.status(204).send();
     } catch (error) {
@@ -675,7 +675,7 @@ app.get('/api/standards/categories', async (req, res) => {
   // Get all standards
   app.get("/api/standards", async (req, res) => {
     try {
-      const { storage } = await import('./storage');
+      const { storage } = await import('../database/storage');
       const standards = await storage.getAllStandards();
       res.json(standards);
     } catch (error) {

@@ -43,8 +43,10 @@ export default function CurriculumBuilder() {
     window.history.replaceState({}, '', url.toString());
   };
 
-  const [selectedGrade, setSelectedGrade] = useState(() => getUrlParams().grade);
-  const [selectedSubject, setSelectedSubject] = useState(() => getUrlParams().subject);
+  // Initialize state with URL parameters
+  const urlParams = getUrlParams();
+  const [selectedGrade, setSelectedGrade] = useState(urlParams.grade);
+  const [selectedSubject, setSelectedSubject] = useState(urlParams.subject);
   const [hoveredGrade, setHoveredGrade] = useState<string | null>(null);
 
   // Update URL when state changes
@@ -53,13 +55,6 @@ export default function CurriculumBuilder() {
   }, [selectedGrade, selectedSubject]);
 
   // Wrapper functions to update both state and URL
-  const handleGradeChange = (grade: string) => {
-    setSelectedGrade(grade);
-    // Reset subject to first available subject for the new grade
-    const subjects = getSubjectsForGrade(grade);
-    setSelectedSubject(subjects[0]);
-  };
-
   const handleSubjectChange = (subject: string) => {
     setSelectedSubject(subject);
   };
@@ -168,6 +163,19 @@ export default function CurriculumBuilder() {
       .map((item: DropdownItem) => item.name);
 
     return subjects;
+  };
+
+  // Wrapper function to update both state and URL for grade changes
+  const handleGradeChange = (grade: string) => {
+    setSelectedGrade(grade);
+    // Reset subject to first available subject for the new grade
+    // Only call getSubjectsForGrade if navigationTabs and dropdownItems are loaded
+    if (navigationTabs.length > 0 && dropdownItems.length > 0) {
+      const subjects = getSubjectsForGrade(grade);
+      if (subjects.length > 0) {
+        setSelectedSubject(subjects[0]);
+      }
+    }
   };
 
   // Update selected subject when grades change and current subject is not available
