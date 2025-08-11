@@ -1,6 +1,6 @@
-# Render Deployment Guide
+# Render Deployment Guide (Combined Approach)
 
-This guide will help you deploy your CurriculumCrafter application on Render with the decoupled frontend/backend architecture.
+This guide will help you deploy your CurriculumCrafter application on Render with a combined frontend/backend service and PostgreSQL database, staying within the 2 free service limit.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ This guide will help you deploy your CurriculumCrafter application on Render wit
      - **Username**
      - **Password**
 
-## Step 2: Deploy the Backend API
+## Step 2: Deploy Combined Frontend + Backend Service
 
 1. **Create a new Web Service**:
    - Go to your Render dashboard
@@ -35,12 +35,12 @@ This guide will help you deploy your CurriculumCrafter application on Render wit
    - Connect your GitHub repository
    - Choose the repository containing your code
 
-2. **Configure the Backend Service**:
+2. **Configure the Combined Service**:
    ```
-   Name: curriculum-crafter-backend
-   Root Directory: backend
+   Name: curriculum-crafter-app
+   Root Directory: render-deploy
    Runtime: Node
-   Build Command: npm install
+   Build Command: npm install && npm run build
    Start Command: npm start
    ```
 
@@ -53,91 +53,63 @@ This guide will help you deploy your CurriculumCrafter application on Render wit
    DB_NAME=your-database-name
    DB_USER=your-username
    DB_PASSWORD=your-password
-   FRONTEND_URL=https://your-frontend-app.onrender.com
+   FRONTEND_URL=https://your-app-url.onrender.com
    ```
 
-4. **Deploy the Backend**:
+4. **Deploy the Combined Service**:
    - Click "Create Web Service"
    - Wait for the build to complete
-   - Note the URL (e.g., `https://curriculum-crafter-backend.onrender.com`)
+   - Note the URL (e.g., `https://curriculum-crafter-app.onrender.com`)
 
-## Step 3: Deploy the Frontend
+## How It Works
 
-1. **Create another Web Service**:
-   - Go to your Render dashboard
-   - Click "New" → "Web Service"
-   - Connect the same GitHub repository
+The combined service:
+- **Builds the frontend** into static files during deployment
+- **Serves the API** at `/api/*` endpoints
+- **Serves the frontend** at all other routes
+- **Handles SPA routing** by serving `index.html` for non-API routes
 
-2. **Configure the Frontend Service**:
-   ```
-   Name: curriculum-crafter-frontend
-   Root Directory: frontend
-   Runtime: Node
-   Build Command: npm install && npm run build
-   Start Command: npm run preview
-   ```
+## Environment Variables
 
-3. **Set Environment Variables**:
-   ```
-   VITE_API_URL=https://your-backend-url.onrender.com
-   ```
-
-4. **Deploy the Frontend**:
-   - Click "Create Web Service"
-   - Wait for the build to complete
-   - Note the URL (e.g., `https://curriculum-crafter-frontend.onrender.com`)
-
-## Step 4: Update Environment Variables
-
-After both services are deployed, update the environment variables:
-
-### Backend Environment Variables:
+### Combined Service Environment Variables:
 ```
 NODE_ENV=production
 PORT=10000
-DB_HOST=your-postgres-host.render.com
+DB_HOST=dpg-d2cn5a3uibrs738lgm40-a
 DB_PORT=5432
-DB_NAME=your-database-name
-DB_USER=your-username
-DB_PASSWORD=your-password
-FRONTEND_URL=https://your-frontend-app.onrender.com
+DB_NAME=curriculum_crafter
+DB_USER=curriculum_user
+DB_PASSWORD=S1uSM90oEdpwT6bnMZWUi4hGhx8fOz6j
+FRONTEND_URL=https://your-app-url.onrender.com
 ```
 
-### Frontend Environment Variables:
-```
-VITE_API_URL=https://your-backend-url.onrender.com
-```
+## Step 3: Test Your Deployment
 
-## Step 5: Database Initialization
-
-1. **Access your PostgreSQL database**:
-   - Go to your database dashboard on Render
-   - Use the "Connect" button to get connection details
-   - You can use a tool like pgAdmin or DBeaver to connect
-
-2. **Initialize the database**:
-   - The backend will automatically create tables on first run
-   - Or you can run the migration scripts manually
-
-## Step 6: Test Your Deployment
-
-1. **Test the Backend API**:
+1. **Test the API**:
    ```
-   curl https://your-backend-url.onrender.com/health
+   curl https://your-app-url.onrender.com/health
+   curl https://your-app-url.onrender.com/api/curriculum/all
    ```
 
 2. **Test the Frontend**:
-   - Visit your frontend URL in a browser
-   - Check that it can communicate with the backend
+   - Visit your app URL in a browser
+   - The frontend should load and communicate with the API
+
+## Benefits of This Approach
+
+1. **Uses only 2 free services**: PostgreSQL + Combined App
+2. **Simpler deployment**: One service to manage
+3. **Better performance**: No CORS issues between frontend/backend
+4. **Cost-effective**: Stays within free tier limits
 
 ## Important Notes
 
 ### CORS Configuration
-The backend is already configured to accept requests from the frontend URL. Make sure the `FRONTEND_URL` environment variable is set correctly.
+The combined service doesn't need CORS since everything is served from the same origin.
 
 ### Database Connection
-- Use the **Internal Database URL** for the backend (faster, more secure)
-- Use the **External Database URL** for local development
+- Use the **Internal Database URL** for faster, more secure connections
+- The database credentials are ready to use from your PostgreSQL setup
 
 ### Environment Variables Priority
 1. Render environment variables (production)
@@ -163,18 +135,19 @@ The backend is already configured to accept requests from the frontend URL. Make
    - Check if the database is accessible from your service
    - Ensure the database is running
 
-3. **CORS Errors**:
-   - Verify `FRONTEND_URL` is set correctly
-   - Check that the frontend URL matches exactly
+3. **Frontend Not Loading**:
+   - Check if the build completed successfully
+   - Verify the static files are being served
+   - Check the server logs
 
 4. **API Communication Issues**:
-   - Verify `VITE_API_URL` is set correctly
-   - Check that the backend is running
    - Test the API endpoints directly
+   - Check that the routes are properly registered
+   - Monitor server logs
 
 ### Logs and Debugging:
 - Use Render's built-in logging to debug issues
-- Check both frontend and backend logs
+- Check both frontend and backend logs in the same service
 - Monitor database connections
 
 ## Production Considerations
@@ -185,7 +158,7 @@ The backend is already configured to accept requests from the frontend URL. Make
    - Consider adding authentication
 
 2. **Performance**:
-   - Enable caching where appropriate
+   - Enable compression (already configured)
    - Monitor database performance
    - Consider CDN for static assets
 
@@ -202,4 +175,4 @@ If you encounter issues:
 3. Test locally to isolate issues
 4. Contact Render support if needed
 
-Your application should now be fully deployed and accessible via the frontend URL!
+Your application should now be fully deployed and accessible via the combined service URL!
