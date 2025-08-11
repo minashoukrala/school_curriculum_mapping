@@ -15,6 +15,7 @@ import {
   type UpdateTableConfig
 } from "@shared/schema";
 import { sqliteStorage } from './db';
+import { PostgreSQLStorage } from './postgres-db';
 
 export interface IStorage {
   // Curriculum methods
@@ -244,5 +245,177 @@ export class SQLiteStorageAdapter implements IStorage {
   }
 }
 
-export const storage = new SQLiteStorageAdapter();
+export class PostgreSQLStorageAdapter implements IStorage {
+  private postgresStorage: PostgreSQLStorage;
+
+  constructor() {
+    this.postgresStorage = new PostgreSQLStorage();
+  }
+
+  // Curriculum methods
+  async getCurriculumRows(grade: string, subject: string): Promise<CurriculumRow[]> {
+    return this.postgresStorage.getCurriculumRows(grade, subject);
+  }
+
+  async getAllCurriculumRows(): Promise<CurriculumRow[]> {
+    return this.postgresStorage.getAllCurriculumRows();
+  }
+
+  async createCurriculumRow(data: InsertCurriculumRow): Promise<CurriculumRow> {
+    return this.postgresStorage.createCurriculumRow(data);
+  }
+
+  async updateCurriculumRow(id: number, data: Partial<InsertCurriculumRow>): Promise<CurriculumRow> {
+    return this.postgresStorage.updateCurriculumRow(id, data);
+  }
+
+  async deleteCurriculumRow(id: number): Promise<void> {
+    return this.postgresStorage.deleteCurriculumRow(id);
+  }
+
+  // Standards methods
+  async getAllStandards(): Promise<Standard[]> {
+    return this.postgresStorage.getAllStandards();
+  }
+
+  async getStandardsByCategory(category: string): Promise<Standard[]> {
+    return this.postgresStorage.getStandardsByCategory(category);
+  }
+
+  async createStandard(data: InsertStandard): Promise<Standard> {
+    return this.postgresStorage.createStandard(data);
+  }
+
+  // Database operations
+  async importFullDatabase(data: { 
+    curriculumRows: CurriculumRow[]; 
+    standards: Standard[]; 
+    navigationTabs?: NavigationTab[];
+    dropdownItems?: DropdownItem[];
+    tableConfigs?: TableConfig[];
+    schoolYear?: SchoolYear;
+    metadata: any 
+  }): Promise<void> {
+    return this.postgresStorage.importFullDatabase(data);
+  }
+
+  // Additional utility methods
+  async getDatabaseStats(): Promise<{ totalCurriculumRows: number; totalStandards: number; totalGrades: number; totalSubjects: number; totalCategories: number }> {
+    return this.postgresStorage.getDatabaseStats();
+  }
+
+  async getGrades(): Promise<string[]> {
+    return this.postgresStorage.getGrades();
+  }
+
+  async getSubjects(): Promise<string[]> {
+    return this.postgresStorage.getSubjects();
+  }
+
+  async getSubjectsByGrade(grade: string): Promise<string[]> {
+    return this.postgresStorage.getSubjectsByGrade(grade);
+  }
+
+  async getStandardCategories(): Promise<string[]> {
+    return this.postgresStorage.getStandardCategories();
+  }
+
+  async searchCurriculumRows(query: string): Promise<CurriculumRow[]> {
+    return this.postgresStorage.searchCurriculumRows(query);
+  }
+
+  // School year methods
+  async getSchoolYear(): Promise<SchoolYear> {
+    return this.postgresStorage.getSchoolYear();
+  }
+
+  async updateSchoolYear(year: string): Promise<SchoolYear> {
+    return this.postgresStorage.updateSchoolYear(year);
+  }
+
+  // Navigation tab methods
+  async getAllNavigationTabs(): Promise<NavigationTab[]> {
+    return this.postgresStorage.getAllNavigationTabs();
+  }
+
+  async getActiveNavigationTabs(): Promise<NavigationTab[]> {
+    return this.postgresStorage.getActiveNavigationTabs();
+  }
+
+  async getNavigationTabById(id: number): Promise<NavigationTab | null> {
+    return this.postgresStorage.getNavigationTabById(id);
+  }
+
+  async createNavigationTab(data: CreateNavigationTab): Promise<NavigationTab> {
+    return this.postgresStorage.createNavigationTab(data);
+  }
+
+  async updateNavigationTab(id: number, data: UpdateNavigationTab): Promise<NavigationTab | null> {
+    return this.postgresStorage.updateNavigationTab(id, data);
+  }
+
+  async deleteNavigationTab(id: number): Promise<boolean> {
+    return this.postgresStorage.deleteNavigationTab(id);
+  }
+
+  // Dropdown item methods
+  async getDropdownItemsByTabId(tabId: number): Promise<DropdownItem[]> {
+    return this.postgresStorage.getDropdownItemsByTabId(tabId);
+  }
+
+  async getAllDropdownItems(): Promise<DropdownItem[]> {
+    return this.postgresStorage.getAllDropdownItems();
+  }
+
+  async createDropdownItem(data: CreateDropdownItem): Promise<DropdownItem> {
+    return this.postgresStorage.createDropdownItem(data);
+  }
+
+  async updateDropdownItem(id: number, data: UpdateDropdownItem): Promise<DropdownItem | null> {
+    return this.postgresStorage.updateDropdownItem(id, data);
+  }
+
+  async deleteDropdownItem(id: number): Promise<boolean> {
+    return this.postgresStorage.deleteDropdownItem(id);
+  }
+
+  async getDropdownItemById(id: number): Promise<DropdownItem | null> {
+    return this.postgresStorage.getDropdownItemById(id);
+  }
+
+  // Table config methods
+  async getTableConfigsByDropdownId(dropdownId: number): Promise<TableConfig[]> {
+    return this.postgresStorage.getTableConfigsByDropdownId(dropdownId);
+  }
+
+  async getAllTableConfigs(): Promise<TableConfig[]> {
+    return this.postgresStorage.getAllTableConfigs();
+  }
+
+  async createTableConfig(data: CreateTableConfig): Promise<TableConfig> {
+    return this.postgresStorage.createTableConfig(data);
+  }
+
+  async updateTableConfig(id: number, data: UpdateTableConfig): Promise<TableConfig | null> {
+    return this.postgresStorage.updateTableConfig(id, data);
+  }
+
+  async deleteTableConfig(id: number): Promise<boolean> {
+    return this.postgresStorage.deleteTableConfig(id);
+  }
+
+  async getTableConfigById(id: number): Promise<TableConfig | null> {
+    return this.postgresStorage.getTableConfigById(id);
+  }
+
+  // Utility methods
+  async cleanupOrphanedCurriculumRows(): Promise<number> {
+    return this.postgresStorage.cleanupOrphanedCurriculumRows();
+  }
+}
+
+// Choose storage based on environment variable
+const usePostgreSQL = process.env.DB_TYPE === 'postgres' || process.env.USE_POSTGRES === 'true';
+
+export const storage = usePostgreSQL ? new PostgreSQLStorageAdapter() : new SQLiteStorageAdapter();
 
