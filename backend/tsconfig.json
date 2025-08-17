@@ -27,7 +27,6 @@
   },
   "include": [
     "routes.ts",
-    "index.ts",
     "index-standalone.ts",
     "../database/shared/**/*.ts"
   ],
