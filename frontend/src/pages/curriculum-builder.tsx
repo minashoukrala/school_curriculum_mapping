@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Phone, Mail, Landmark, Calendar, Facebook, Instagram, Youtube, X as XIcon, BookOpen, User, Menu, X } from "lucide-react";
+import { Phone, Mail, Landmark, Calendar, Facebook, Instagram, Youtube, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/queryClient";
 import { CurriculumRow, Standard, NavigationTab, DropdownItem, TableConfig } from "@shared/schema";
-import GradeNavigation from "@/components/grade-navigation";
-import SubjectNavigation from "@/components/subject-navigation";
+
 import CurriculumTable from "@/components/curriculum-table";
 
 import StandardsModal from "@/components/standards-modal";
@@ -14,7 +13,7 @@ import TableManagement from "@/components/table-management";
 
 
 // Dynamic navigation data will be fetched from database
-  const getSpecialistSubjects = () => {
+  const _getSpecialistSubjects = () => {
     return [
       "Art",
       "Spanish", 

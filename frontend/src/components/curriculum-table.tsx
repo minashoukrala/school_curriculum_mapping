@@ -25,7 +25,7 @@ export default function CurriculumTable({
   const standardsMap = new Map(standards.map(s => [s.code, s.description]));
 
   // Get the primary table config (first one, or default if none)
-  const primaryTableConfig = tableConfigs.length > 0 ? tableConfigs[0] : null;
+  const _primaryTableConfig = tableConfigs.length > 0 ? tableConfigs[0] : null;
 
   if (isLoading) {
     return (
