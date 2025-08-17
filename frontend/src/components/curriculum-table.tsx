@@ -75,7 +75,7 @@ export default function CurriculumTable({
       <div className="hidden lg:block w-full overflow-x-auto">
         {/* Table Header */}
         <div className="curriculum-table-header">
-          <div className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_1.5fr_60px] gap-4 p-3 text-sm font-medium text-gray-700 w-full">
+          <div className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 text-sm font-medium text-gray-700 w-full">
             <div className="text-center">KEY COURSE OBJECTIVES</div>
             <div className="text-center">UNIT PACING</div>
             <div className="text-center">ASSESSMENTS</div>
@@ -95,7 +95,7 @@ export default function CurriculumTable({
             </div>
           ) : (
             rows.map((row) => (
-              <div key={row.id} className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_1.5fr_60px] gap-4 p-3 hover:bg-gray-50 transition-colors w-full">
+              <div key={row.id} className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 hover:bg-gray-50 transition-colors w-full">
                 <div>
                   <div 
                     className="editable-cell"
@@ -149,9 +149,9 @@ export default function CurriculumTable({
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center justify-center">
-                  <Button size="icon" variant="ghost" onClick={() => onDeleteRow(row.id)} className="h-8 w-8">
-                    <Trash2 className="w-3 h-3 text-red-500" />
+                <div className="flex items-center space-x-2">
+                  <Button size="icon" variant="ghost" onClick={() => onDeleteRow(row.id)}>
+                    <Trash2 className="w-4 h-4 text-red-500" />
                   </Button>
                 </div>
               </div>
