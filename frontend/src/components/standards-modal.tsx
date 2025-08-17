@@ -31,7 +31,7 @@ export default function StandardsModal({
 
   const filteredStandards = standards.filter(
     (standard) =>
-      standard.description.toLowerCase().includes(searchTerm.toLowerCase())
+      standard.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const standardsByCategory = filteredStandards.reduce((acc, standard) => {
@@ -89,7 +89,7 @@ export default function StandardsModal({
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
           <Input
-            placeholder="Search standards by title..."
+            placeholder="Search by category (e.g., English Language Arts, Mathematics, Science)..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 text-base"
