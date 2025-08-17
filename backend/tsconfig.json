@@ -26,7 +26,6 @@
     }
   },
   "include": [
-    "*.ts",
     "routes.ts",
     "index.ts",
     "index-standalone.ts",
