@@ -26,9 +26,11 @@
   ],
   "author": "Your Name",
   "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.2",
+  "dependencies": {
     "tsx": "^4.6.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   },
   "workspaces": [
     "frontend",
