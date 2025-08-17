@@ -26,12 +26,16 @@
     }
   },
   "include": [
-    "**/*.ts",
+    "*.ts",
+    "routes.ts",
+    "index.ts",
+    "index-standalone.ts",
     "../database/shared/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "vite.ts"
+    "vite.ts",
+    "../vite.config.ts"
   ]
 }
