@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "noEmit": false,
     "outDir": "dist",
-    "rootDir": ".",
+    "rootDir": "../",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
@@ -31,6 +31,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "vite.ts"
   ]
 }
