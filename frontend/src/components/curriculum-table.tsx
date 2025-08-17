@@ -75,7 +75,7 @@ export default function CurriculumTable({
       <div className="hidden lg:block w-full overflow-x-auto">
         {/* Table Header */}
         <div className="curriculum-table-header">
-          <div className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 text-sm font-medium text-gray-700 w-full">
+          <div className="grid [grid-template-columns:minmax(0,1fr)_90px_repeat(4,minmax(0,1fr))_90px] gap-4 p-3 text-xs font-medium text-gray-700 w-full">
             <div className="text-center">KEY COURSE OBJECTIVES</div>
             <div className="text-center">UNIT PACING</div>
             <div className="text-center">ASSESSMENTS</div>
@@ -101,7 +101,7 @@ export default function CurriculumTable({
                     className="editable-cell"
                     onClick={() => onEditCell(row, "objectives")}
                   >
-                    <div className="text-sm whitespace-pre-wrap">{row.objectives || "Click to add objectives..."}</div>
+                    <div className="text-xs whitespace-pre-wrap">{row.objectives || "Click to add objectives..."}</div>
                   </div>
                 </div>
                 <div>
@@ -109,7 +109,7 @@ export default function CurriculumTable({
                     className="editable-cell"
                     onClick={() => onEditCell(row, "unitPacing")}
                   >
-                    <div className="text-sm whitespace-pre-wrap">{row.unitPacing || "Click to add pacing..."}</div>
+                    <div className="text-xs whitespace-pre-wrap">{row.unitPacing || "Click to add pacing..."}</div>
                   </div>
                 </div>
                 <div>
@@ -117,7 +117,7 @@ export default function CurriculumTable({
                     className="editable-cell"
                     onClick={() => onEditCell(row, "assessments")}
                   >
-                    <div className="text-sm whitespace-pre-wrap">{row.assessments || "Click to add assessments..."}</div>
+                    <div className="text-xs whitespace-pre-wrap">{row.assessments || "Click to add assessments..."}</div>
                   </div>
                 </div>
                 <div>
@@ -125,7 +125,7 @@ export default function CurriculumTable({
                     className="editable-cell"
                     onClick={() => onEditCell(row, "materialsAndDifferentiation")}
                   >
-                    <div className="text-sm whitespace-pre-wrap">{row.materialsAndDifferentiation || "Click to add materials & differentiation..."}</div>
+                    <div className="text-xs whitespace-pre-wrap">{row.materialsAndDifferentiation || "Click to add materials & differentiation..."}</div>
                   </div>
                 </div>
                 <div>
@@ -133,12 +133,12 @@ export default function CurriculumTable({
                     className="editable-cell"
                     onClick={() => onEditCell(row, "biblical")}
                   >
-                    <div className="text-sm whitespace-pre-wrap">{row.biblical || "Click to add biblical..."}</div>
+                    <div className="text-xs whitespace-pre-wrap">{row.biblical || "Click to add biblical..."}</div>
                   </div>
                 </div>
                 <div>
                   <div className="editable-cell" onClick={() => onEditStandards(row.id)}>
-                    <span className="text-sm">
+                    <span className="text-xs">
                       {row.standards && row.standards.length > 0
                         ? row.standards.map((code) => (
                             <div key={code} className="block">
