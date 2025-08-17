@@ -259,17 +259,17 @@ export default function TableManagement() {
 
   // State for new items
   const [newTab, setNewTab] = useState({ name: '', order: 0 });
-  const [newDropdown, setNewDropdown] = useState({ tabId: 0, name: '', order: 0 });
-  const [newTableConfig, setNewTableConfig] = useState({ tabId: 0, dropdownId: 0, tableName: '', order: 0 });
+  // const [newDropdown, setNewDropdown] = useState({ tabId: 0, name: '', order: 0 });
+  // const [newTableConfig, setNewTableConfig] = useState({ tabId: 0, dropdownId: 0, tableName: '', order: 0 });
 
   // Helper functions
   const getDropdownItemsForTab = (tabId: number) => {
     return dropdownItems.filter((item: DropdownItem) => item.tabId === tabId);
   };
 
-  const getTableConfigsForDropdown = (dropdownId: number) => {
-    return tableConfigs.filter((config: TableConfig) => config.dropdownId === dropdownId);
-  };
+  // const getTableConfigsForDropdown = (dropdownId: number) => {
+  //   return tableConfigs.filter((config: TableConfig) => config.dropdownId === dropdownId);
+  // };
 
   const toggleTabExpansion = (tabId: number) => {
     const newExpanded = new Set(expandedTabs);

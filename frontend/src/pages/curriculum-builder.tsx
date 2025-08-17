@@ -13,15 +13,15 @@ import TableManagement from "@/components/table-management";
 
 
 // Dynamic navigation data will be fetched from database
-  const _getSpecialistSubjects = () => {
-    return [
-      "Art",
-      "Spanish", 
-      "Music",
-      "Technology",
-      "PE"
-    ];
-  };
+  // const getSpecialistSubjects = () => {
+  //   return [
+  //     "Art",
+  //     "Spanish", 
+  //     "Music",
+  //     "Technology",
+  //     "PE"
+  //   ];
+  // };
 
 
 
@@ -109,7 +109,7 @@ export default function CurriculumBuilder() {
   });
 
   // Fetch school year
-  const { data: schoolYear, isLoading: isLoadingSchoolYear } = useQuery<{ id: number; year: string; updatedAt: string }>({
+  const { data: schoolYear } = useQuery<{ id: number; year: string; updatedAt: string }>({
     queryKey: ["/api/school-year"],
     queryFn: async () => {
       const response = await fetch("/api/school-year");
@@ -276,19 +276,19 @@ export default function CurriculumBuilder() {
     }
   }, [schoolYear, isEditingSchoolYear]);
 
-  const handleAddRow = () => {
-    const newRow = {
-      grade: selectedGrade,
-      subject: selectedSubject,
-      objectives: "",
-      unitPacing: "",
-      assessments: "",
-      materialsAndDifferentiation: "",
-      biblical: "",
-      standards: [],
-    };
-    createRowMutation.mutate(newRow);
-  };
+  // const handleAddRow = () => {
+  //   const newRow = {
+  //     grade: selectedGrade,
+  //     subject: selectedSubject,
+  //     objectives: "",
+  //     unitPacing: "",
+  //     assessments: "",
+  //     materialsAndDifferentiation: "",
+  //     biblical: "",
+  //     standards: [],
+  //   };
+  //   createRowMutation.mutate(newRow);
+  // };
 
   const handleEditCell = (row: CurriculumRow, field: string) => {
     setEditingRow(row);
@@ -368,7 +368,7 @@ export default function CurriculumBuilder() {
       }, 100);
       
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      // const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     }
   };
 
@@ -436,7 +436,7 @@ export default function CurriculumBuilder() {
 
       event.target.value = '';
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      // const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     }
   };
 
@@ -641,7 +641,7 @@ export default function CurriculumBuilder() {
   }, []);
 
   // Fetch table configs for the current subject
-  const { data: tableConfigs = [], isLoading: isLoadingTableConfigs } = useQuery<TableConfig[]>({
+  const { data: tableConfigs = [] } = useQuery<TableConfig[]>({
     queryKey: ['table-configs', 'subject', selectedGrade, selectedSubject],
     queryFn: async () => {
       // Get the dropdown item ID for the current subject
@@ -912,7 +912,7 @@ export default function CurriculumBuilder() {
         {selectedGrade === "Specialists" && (
           <div className="space-y-8">
             {tableConfigs.length > 0 ? (
-              tableConfigs.map((config, idx) => {
+              tableConfigs.map((config) => {
                 // Filter rows for this table config
                 const filteredRows = curriculumRows.filter(row => row.subject === selectedSubject && row.grade === "Specialists" && row.tableName === config.tableName);
                 return (
@@ -1092,7 +1092,7 @@ export default function CurriculumBuilder() {
         {selectedGrade !== "Specialists" && selectedGrade !== "Admin" && (
           <div className="w-full space-y-8">
             {tableConfigs.length > 0 ? (
-              tableConfigs.map((config, idx) => {
+              tableConfigs.map((config) => {
                 // Filter rows for this table config
                 const filteredRows = curriculumRows.filter(row => row.subject === selectedSubject && row.grade === selectedGrade && row.tableName === config.tableName);
                 return (
