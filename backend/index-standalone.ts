@@ -82,10 +82,14 @@ app.get('/health', (req, res) => {
 
 // Serve static files from the built frontend (if it exists)
 const frontendDistPath = path.join(__dirname, '../frontend/dist');
-try {
+const indexPath = path.join(frontendDistPath, 'index.html');
+
+// Check if frontend dist exists
+const fs = await import('fs');
+if (fs.existsSync(frontendDistPath)) {
   app.use(express.static(frontendDistPath));
   log(`Serving frontend from: ${frontendDistPath}`);
-} catch (error) {
+} else {
   log(`Frontend dist not found: ${frontendDistPath}`);
 }
 
@@ -96,15 +100,15 @@ app.get('*', (req, res) => {
     return res.status(404).json({ message: 'API endpoint not found' });
   }
   
-  // Try to serve frontend index.html
-  const indexPath = path.join(frontendDistPath, 'index.html');
-  try {
+  // Check if frontend index.html exists
+  if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
-  } catch (error) {
+  } else {
     res.json({ 
       message: 'Frontend not built yet. Please build the frontend first.',
       api: 'Available at /api/*',
-      health: 'Available at /health'
+      health: 'Available at /health',
+      status: 'Backend is running successfully!'
     });
   }
 });
