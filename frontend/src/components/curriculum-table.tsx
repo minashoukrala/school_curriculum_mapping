@@ -16,7 +16,7 @@ interface CurriculumTableProps {
 export default function CurriculumTable({
   rows,
   standards = [],
-  tableConfigs,
+  // tableConfigs,
   isLoading,
   onEditCell,
   onEditStandards,

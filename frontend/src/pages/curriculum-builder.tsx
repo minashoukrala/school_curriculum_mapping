@@ -209,7 +209,7 @@ export default function CurriculumBuilder() {
       const response = await apiRequest("POST", "/api/curriculum", data);
       return response.json();
     },
-    onSuccess: (newRow) => {
+    onSuccess: () => {
       // Simple invalidation approach - more reliable
       queryClient.invalidateQueries({
         queryKey: ["/api/curriculum"],
