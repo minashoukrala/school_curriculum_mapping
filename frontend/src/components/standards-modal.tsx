@@ -81,7 +81,7 @@ export default function StandardsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl mx-4 sm:mx-auto max-h-[90vh] sm:max-h-[80vh] overflow-hidden w-full sm:w-auto sm:max-w-4xl p-2 sm:p-6">
+      <DialogContent className="w-[95vw] max-w-[95vw] sm:max-w-4xl mx-2 sm:mx-auto max-h-[95vh] sm:max-h-[80vh] overflow-hidden p-3 sm:p-6">
         <DialogHeader>
           <DialogTitle className="text-base sm:text-xl">Select Standards</DialogTitle>
         </DialogHeader>
@@ -98,7 +98,7 @@ export default function StandardsModal({
         </div>
 
         {/* Standards List */}
-        <ScrollArea className="flex-1 max-h-[60vh] sm:max-h-[50vh]">
+        <ScrollArea className="flex-1 max-h-[65vh] sm:max-h-[50vh]">
           <div className="space-y-3 sm:space-y-4">
             {Object.entries(standardsByCategory).map(([category, categoryStandards]) => {
               const allSelected = categoryStandards.every(s => localSelectedStandards.includes(s.code));
@@ -106,13 +106,13 @@ export default function StandardsModal({
 
               return (
                 <div key={category} className="border border-gray-200 rounded-lg p-2 sm:p-4">
-                  <div className="flex items-center space-x-3 mb-2 sm:mb-3">
+                  <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3">
                     <Checkbox
                       checked={allSelected}
                       onCheckedChange={() => handleCategoryToggle(category)}
-                      className={`min-w-[20px] min-h-[20px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                      className={`min-w-[18px] min-h-[18px] sm:min-w-[20px] sm:min-h-[20px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
                     />
-                    <h4 className="font-medium text-gray-900 text-xs sm:text-base">{category}</h4>
+                    <h4 className="font-medium text-gray-900 text-sm sm:text-base">{category}</h4>
                   </div>
                   
                   <div className="pl-2 sm:pl-6 space-y-2">
@@ -124,11 +124,11 @@ export default function StandardsModal({
                         <Checkbox
                           checked={localSelectedStandards.includes(standard.code)}
                           onCheckedChange={() => handleStandardToggle(standard.code)}
-                          className="mt-1 min-w-[20px] min-h-[20px]"
+                          className="mt-1 min-w-[18px] min-h-[18px] sm:min-w-[20px] sm:min-h-[20px]"
                         />
-                        <div className="flex-1">
-                          <div className="font-medium text-xs sm:text-sm">{standard.code}</div>
-                          <div className="text-xs text-gray-600">{standard.description}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-sm sm:text-sm break-words">{standard.code}</div>
+                          <div className="text-sm text-gray-600 break-words">{standard.description}</div>
                         </div>
                       </label>
                     ))}
