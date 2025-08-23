@@ -23,19 +23,34 @@ export class PostgreSQLStorage {
 
   constructor() {
     // Get database configuration from environment variables
-    const config = {
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT || '5432'),
-      database: process.env.DB_NAME || 'curriculum_crafter',
-      user: process.env.DB_USER || process.env.USER || 'minashoukrala',
-      password: process.env.DB_PASSWORD || '',
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-      max: 20, // Maximum number of clients in the pool
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
-    };
+    let config;
+    
+    // Check if DATABASE_URL is provided (recommended for Aiven)
+    if (process.env.DATABASE_URL) {
+      console.log('Using DATABASE_URL for PostgreSQL connection');
+      config = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+        max: 20, // Maximum number of clients in the pool
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+      };
+    } else {
+      // Fallback to individual environment variables
+      config = {
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DB_PORT || '5432'),
+        database: process.env.DB_NAME || 'curriculum_crafter',
+        user: process.env.DB_USER || process.env.USER || 'minashoukrala',
+        password: process.env.DB_PASSWORD || '',
+        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+        max: 20, // Maximum number of clients in the pool
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 2000,
+      };
+    }
 
-    console.log(`Connecting to PostgreSQL database: ${config.database} on ${config.host}:${config.port}`);
+    console.log(`Connecting to PostgreSQL database: ${config.database || 'via DATABASE_URL'} on ${config.host || 'via connection string'}:${config.port || 'via connection string'}`);
     console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
     
     this.pool = new Pool(config);
