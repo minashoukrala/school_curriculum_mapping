@@ -2,6 +2,21 @@
 
 This guide will help you migrate your CurriculumCrafter application from Render PostgreSQL to Aiven PostgreSQL.
 
+## ✅ Your Aiven Database Details
+
+**Service Name**: `ecscurriculumdb`  
+**Host**: `ecscurriculumdb-ecsdb.h.aivencloud.com`  
+**Port**: `11045`  
+**Database**: `defaultdb`  
+**User**: `avnadmin`  
+**Password**: `[Your Aiven Password]`  
+**SSL**: `require`  
+
+**Connection String**: 
+```
+postgresql://avnadmin:[Your Aiven Password]@ecscurriculumdb-ecsdb.h.aivencloud.com:11045/defaultdb?sslmode=require
+```
+
 ## Why Migrate to Aiven?
 
 - **Better free tier**: Aiven offers more generous free tier limits
