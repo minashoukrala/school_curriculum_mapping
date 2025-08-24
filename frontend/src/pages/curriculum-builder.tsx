@@ -7,7 +7,7 @@ import { CurriculumRow, Standard, NavigationTab, DropdownItem, TableConfig } fro
 
 import CurriculumTable from "@/components/curriculum-table";
 
-import StandardsModal from "@/components/standards-modal";
+import { StandardsModal } from "@/components/standards-modal";
 import EditModal from "@/components/edit-modal";
 import TableManagement from "@/components/table-management";
 
@@ -1175,7 +1175,6 @@ export default function CurriculumBuilder() {
       <StandardsModal
         isOpen={isStandardsModalOpen}
         onClose={() => setIsStandardsModalOpen(false)}
-        standards={standards}
         selectedStandards={currentEditingRowStandards}
         onSave={handleSaveStandards}
       />

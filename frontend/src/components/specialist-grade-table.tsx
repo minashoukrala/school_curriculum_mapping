@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import CurriculumTable from "./curriculum-table";
 import EditModal from "./edit-modal";
-import StandardsModal from "./standards-modal";
+import { StandardsModal } from "./standards-modal";
 import { useState } from "react";
 
 interface SpecialistGradeTableProps {
@@ -182,7 +182,6 @@ export default function SpecialistGradeTable({ grade, subject }: SpecialistGrade
       <StandardsModal
         isOpen={isStandardsModalOpen}
         onClose={() => setIsStandardsModalOpen(false)}
-        standards={standards}
         selectedStandards={currentEditingRowStandards}
         onSave={handleSaveStandards}
       />
