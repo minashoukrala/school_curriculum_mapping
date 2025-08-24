@@ -119,27 +119,7 @@ export default function StandardsModal({
     }
   };
 
-  const handleSubjectToggle = (subject: string) => {
-    const subjectStandards = Object.values(standardsBySubject[subject])
-      .flat()
-      .filter(Array.isArray)
-      .flat();
-    
-    const allSelected = subjectStandards.every(s => localSelectedStandards.includes(s.code));
-    
-    if (allSelected) {
-      // Deselect all in subject
-      setLocalSelectedStandards(prev =>
-        prev.filter(code => !subjectStandards.some(s => s.code === code))
-      );
-    } else {
-      // Select all in subject
-      const newCodes = subjectStandards.map(s => s.code);
-      setLocalSelectedStandards(prev => 
-        Array.from(new Set([...prev, ...newCodes]))
-      );
-    }
-  };
+
 
   const toggleSubjectExpanded = (subject: string) => {
     setExpandedSubjects(prev => {
@@ -197,23 +177,12 @@ export default function StandardsModal({
         <ScrollArea className="flex-1 max-h-[65vh] sm:max-h-[50vh]">
           <div className="space-y-3 sm:space-y-4">
             {Object.entries(standardsBySubject).map(([subject, subjectData]) => {
-              const subjectStandards = Object.values(subjectData)
-                .flat()
-                .filter(Array.isArray)
-                .flat();
-              const allSelected = subjectStandards.every(s => localSelectedStandards.includes(s.code));
-              const someSelected = subjectStandards.some(s => localSelectedStandards.includes(s.code));
               const isExpanded = expandedSubjects.has(subject);
 
               return (
                 <div key={subject} className="border border-gray-200 rounded-lg p-2 sm:p-4">
                   {/* Subject Header */}
                   <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3">
-                    <Checkbox
-                      checked={allSelected}
-                      onCheckedChange={() => handleSubjectToggle(subject)}
-                      className={`min-w-[18px] min-h-[18px] sm:min-w-[20px] sm:min-h-[20px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
-                    />
                     <button
                       onClick={() => toggleSubjectExpanded(subject)}
                       className="flex-1 text-left font-semibold text-gray-900 text-sm sm:text-base hover:text-blue-600"
