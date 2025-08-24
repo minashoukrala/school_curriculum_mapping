@@ -27,7 +27,6 @@ export class PostgreSQLStorage {
     
     // Check if DATABASE_URL is provided (recommended for Aiven)
     if (process.env.DATABASE_URL) {
-      console.log('Using DATABASE_URL for PostgreSQL connection');
       config = {
         connectionString: process.env.DATABASE_URL,
         ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
@@ -50,13 +49,8 @@ export class PostgreSQLStorage {
       };
     }
 
-    console.log(`Connecting to PostgreSQL database: ${config.database || 'via DATABASE_URL'} on ${config.host || 'via connection string'}:${config.port || 'via connection string'}`);
-    console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-    
     this.pool = new Pool(config);
     this.initializeDatabase();
-    
-    console.log('PostgreSQL database initialized successfully');
   }
 
   private async initializeDatabase() {

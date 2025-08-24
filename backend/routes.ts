@@ -53,9 +53,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/curriculum/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      console.log('PATCH body:', req.body);
       const validatedData = insertCurriculumRowSchema.partial().parse(req.body);
-      console.log('PATCH validatedData:', validatedData);
       const row = await storage.updateCurriculumRow(id, validatedData);
       res.json(row);
     } catch (error) {
@@ -119,7 +117,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Export full database as JSON
   app.get("/api/export/full-database", async (req, res) => {
     try {
-      console.log('Full database export requested');
+  
       const allRows = await storage.getAllCurriculumRows();
       const standards = await storage.getAllStandards();
       
@@ -138,7 +136,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.setHeader('Content-Type', 'application/json');
       res.setHeader('Content-Disposition', `attachment; filename=full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
       res.json(exportData);
-      console.log('Full database export completed successfully');
+      
     } catch (error) {
       console.error('Full database export error:', error);
       res.status(500).json({ message: "Failed to export full database" });

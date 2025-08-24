@@ -273,9 +273,9 @@ app.get('/api/standards/categories', async (req, res) => {
 
   app.get('/api/navigation-tabs/:id', async (req, res) => {
     const id = Number(req.params.id);
-    console.log(`[DEBUG] typeof id: ${typeof id}, id:`, id, 'raw:', req.params.id);
+
     if (!id || isNaN(id) || id < 1) {
-      console.log(`[WARN] Invalid navigation tab ID requested: "${req.params.id}" from ${req.headers.referer || 'unknown'}`);
+
       return res.status(404).json({ message: "Navigation tab not found" });
     }
     try {
@@ -294,7 +294,7 @@ app.get('/api/standards/categories', async (req, res) => {
 
   // Catch-all for unmatched navigation-tabs requests
   app.get('/api/navigation-tabs/*', (req, res) => {
-    console.log(`[WARN] Unmatched navigation-tabs route: ${req.originalUrl}`);
+
     res.status(404).json({ message: "Navigation tab not found" });
   });
 
@@ -318,7 +318,7 @@ app.get('/api/standards/categories', async (req, res) => {
   });
 
   app.patch('/api/navigation-tabs/:id', async (req, res) => {
-    console.log(`[DEBUG] PATCH /api/navigation-tabs/${req.params.id} called`);
+
     try {
       const { storage } = await import('../database/storage');
       const { updateNavigationTabSchema } = await import('@shared/schema');
