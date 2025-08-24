@@ -80,6 +80,56 @@ export default function StandardsModal({
         };
       }
       
+      // For Grade 4 Math standards
+      if (standard.code.startsWith('4.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 4',
+          subjectArea: standard.category
+        };
+      }
+      
+      // For Grade 5 Math standards
+      if (standard.code.startsWith('5.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 5',
+          subjectArea: standard.category
+        };
+      }
+      
+      // For Grade 6 Math standards
+      if (standard.code.startsWith('6.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 6',
+          subjectArea: standard.category
+        };
+      }
+      
+      // For Grade 7 Math standards
+      if (standard.code.startsWith('7.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 7',
+          subjectArea: standard.category
+        };
+      }
+      
+      // For Grade 8 Math standards
+      if (standard.code.startsWith('8.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 8',
+          subjectArea: standard.category
+        };
+      }
+      
       // For Mathematical Practices, place them directly under Math (not under KG)
       if (standard.code.startsWith('MP')) {
         return {
