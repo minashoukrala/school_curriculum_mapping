@@ -83,6 +83,12 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         grade = '';
         subjectArea = 'Mathematical Practices';
       }
+      
+      // Parse Science standards
+      if (standard.code.startsWith('K-')) {
+        subject = 'Science';
+        grade = 'KG';
+      }
 
       return {
         ...standard,
