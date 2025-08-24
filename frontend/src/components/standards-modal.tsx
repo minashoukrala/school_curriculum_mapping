@@ -70,6 +70,16 @@ export default function StandardsModal({
         };
       }
       
+      // For Grade 3 Math standards
+      if (standard.code.startsWith('3.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 3',
+          subjectArea: standard.category
+        };
+      }
+      
       // For Mathematical Practices, place them directly under Math (not under KG)
       if (standard.code.startsWith('MP')) {
         return {
