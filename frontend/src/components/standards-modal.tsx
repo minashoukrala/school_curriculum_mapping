@@ -106,15 +106,11 @@ export default function StandardsModal({
     }
     
     if (standard.grade) {
-      // Standards with grade level (like KG)
+      // Standards with grade level (like KG, Grade 1, Grade 2)
       if (!acc[standard.subject][standard.grade]) {
-        acc[standard.subject][standard.grade] = {};
+        acc[standard.subject][standard.grade] = [];
       }
-      
-      if (!acc[standard.subject][standard.grade][standard.subjectArea]) {
-        acc[standard.subject][standard.grade][standard.subjectArea] = [];
-      }
-      acc[standard.subject][standard.grade][standard.subjectArea].push(standard);
+      acc[standard.subject][standard.grade].push(standard);
     } else if (standard.subjectArea) {
       // Standards without grade but with subject area (like Mathematical Practices)
       if (!acc[standard.subject]['subjectAreas']) {
@@ -310,61 +306,48 @@ export default function StandardsModal({
                          }
 
                          // Grade level (Math)
-                         const gradeStandards = sectionData as Record<string, Standard[]>;
+                         const gradeStandards = sectionData as Standard[];
                          const isGradeExpanded = expandedGrades.has(section);
+                         const allSelected = gradeStandards.every(s => localSelectedStandards.includes(s.code));
+                         const someSelected = gradeStandards.some(s => localSelectedStandards.includes(s.code));
 
                          return (
                            <div key={section} className="border-l-2 border-gray-200 pl-3">
                              {/* Grade Header */}
-                             <button
-                               onClick={() => toggleGradeExpanded(section)}
-                               className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600 mb-2"
-                             >
-                               <span>{section}</span>
-                               <span>{isGradeExpanded ? '▼' : '▶'}</span>
-                             </button>
+                             <div className="flex items-center space-x-2 mb-2">
+                               <Checkbox
+                                 checked={allSelected}
+                                 onCheckedChange={() => handleSubjectAreaToggle(gradeStandards)}
+                                 className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                               />
+                               <button
+                                 onClick={() => toggleGradeExpanded(section)}
+                                 className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600"
+                               >
+                                 <span>{section}</span>
+                                 <span>{isGradeExpanded ? '▼' : '▶'}</span>
+                               </button>
+                             </div>
                              
                              {/* Grade Content */}
                              {isGradeExpanded && (
-                               <div className="space-y-3">
-                                 {Object.entries(gradeStandards).map(([subjectArea, standards]) => {
-                                   const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
-                                   const someSelected = standards.some(s => localSelectedStandards.includes(s.code));
-
-                                   return (
-                                     <div key={subjectArea} className="border border-gray-100 rounded p-2">
-                                       {/* Subject Area Header */}
-                                       <div className="flex items-center space-x-2 mb-2">
-                                         <Checkbox
-                                           checked={allSelected}
-                                           onCheckedChange={() => handleSubjectAreaToggle(standards)}
-                                           className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
-                                         />
-                                         <h5 className="font-medium text-gray-700 text-sm">{subjectArea}</h5>
-                                       </div>
-                                       
-                                       {/* Standards */}
-                                       <div className="pl-4 space-y-1">
-                                         {standards.map((standard) => (
-                                           <label
-                                             key={standard.code}
-                                             className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
-                                           >
-                                             <Checkbox
-                                               checked={localSelectedStandards.includes(standard.code)}
-                                               onCheckedChange={() => handleStandardToggle(standard.code)}
-                                               className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
-                                             />
-                                             <div className="flex-1 min-w-0">
-                                               <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
-                                               <div className="text-xs text-gray-600 break-words">{standard.description}</div>
-                                             </div>
-                                           </label>
-                                         ))}
-                                       </div>
+                               <div className="pl-4 space-y-1">
+                                 {gradeStandards.map((standard) => (
+                                   <label
+                                     key={standard.code}
+                                     className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
+                                   >
+                                     <Checkbox
+                                       checked={localSelectedStandards.includes(standard.code)}
+                                       onCheckedChange={() => handleStandardToggle(standard.code)}
+                                       className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
+                                     />
+                                     <div className="flex-1 min-w-0">
+                                       <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
+                                       <div className="text-xs text-gray-600 break-words">{standard.description}</div>
                                      </div>
-                                   );
-                                 })}
+                                   </label>
+                                 ))}
                                </div>
                              )}
                            </div>
