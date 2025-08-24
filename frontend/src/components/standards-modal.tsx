@@ -296,7 +296,29 @@ export default function StandardsModal({
                                      {/* Subject Content */}
                    {isExpanded && (
                      <div className="pl-2 sm:pl-6 space-y-3">
-                       {Object.entries(subjectData).map(([section, sectionData]) => {
+                       {(() => {
+                         // Sort sections to ensure proper order: KG, Grade 1-8, then others
+                         const sortedSections = Object.entries(subjectData).sort(([a], [b]) => {
+                           // KG comes first
+                           if (a === 'KG') return -1;
+                           if (b === 'KG') return 1;
+                           
+                           // Then Grade 1-8 in order
+                           if (a.startsWith('Grade ') && b.startsWith('Grade ')) {
+                             const gradeA = parseInt(a.replace('Grade ', ''));
+                             const gradeB = parseInt(b.replace('Grade ', ''));
+                             return gradeA - gradeB;
+                           }
+                           
+                           // Grade levels come before other sections
+                           if (a.startsWith('Grade ')) return -1;
+                           if (b.startsWith('Grade ')) return 1;
+                           
+                           // Other sections (subjectAreas, standards) come last
+                           return a.localeCompare(b);
+                         });
+                         
+                         return sortedSections.map(([section, sectionData]) => {
                          if (section === 'standards') {
                            // Direct standards (non-Math)
                            const standards = sectionData as Standard[];
@@ -439,7 +461,7 @@ export default function StandardsModal({
                              )}
                            </div>
                          );
-                       })}
+                       })()}
                      </div>
                    )}
                 </div>
