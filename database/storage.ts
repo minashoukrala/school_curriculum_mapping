@@ -28,6 +28,7 @@ export interface IStorage {
   getAllStandards(): Promise<Standard[]>;
   getStandardsByCategory(category: string): Promise<Standard[]>;
   createStandard(data: InsertStandard): Promise<Standard>;
+  updateStandard(id: number, data: Partial<InsertStandard>): Promise<Standard | null>;
 
   // Database operations
   importFullDatabase(data: { 
@@ -122,6 +123,10 @@ export class PostgreSQLStorageAdapter implements IStorage {
 
   async createStandard(data: InsertStandard): Promise<Standard> {
     return this.postgresStorage.createStandard(data);
+  }
+
+  async updateStandard(id: number, data: Partial<InsertStandard>): Promise<Standard | null> {
+    return this.postgresStorage.updateStandard(id, data);
   }
 
   // Database operations

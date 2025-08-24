@@ -112,6 +112,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update a standard
+  app.patch("/api/standards/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (!id || isNaN(id)) {
+        return res.status(400).json({ message: "Invalid standard ID" });
+      }
+      
+      const validatedData = insertStandardSchema.partial().parse(req.body);
+      const standard = await storage.updateStandard(id, validatedData);
+      
+      if (!standard) {
+        return res.status(404).json({ message: "Standard not found" });
+      }
+      
+      res.json(standard);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to update standard" });
+      }
+    }
+  });
+
 
 
   // Export full database as JSON

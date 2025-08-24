@@ -583,6 +583,45 @@ export class PostgreSQLStorage {
     }
   }
 
+  async updateStandard(id: number, data: Partial<InsertStandard>): Promise<Standard | null> {
+    const client = await this.pool.connect();
+    
+    try {
+      const updates: string[] = [];
+      const values: any[] = [];
+      let paramIndex = 1;
+      
+      if (data.code !== undefined) {
+        updates.push(`code = $${paramIndex++}`);
+        values.push(data.code);
+      }
+      
+      if (data.description !== undefined) {
+        updates.push(`description = $${paramIndex++}`);
+        values.push(data.description);
+      }
+      
+      if (data.category !== undefined) {
+        updates.push(`category = $${paramIndex++}`);
+        values.push(data.category);
+      }
+      
+      if (updates.length === 0) {
+        return null;
+      }
+      
+      values.push(id);
+      const result = await client.query(`
+        UPDATE standards SET ${updates.join(', ')} WHERE id = $${paramIndex}
+        RETURNING id, code, description, category
+      `, values);
+      
+      return result.rows[0] || null;
+    } finally {
+      client.release();
+    }
+  }
+
   // Close database connection
   async close(): Promise<void> {
     await this.pool.end();
