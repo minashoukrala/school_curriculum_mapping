@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
 import { Checkbox } from './ui/checkbox';
-import { ScrollArea } from './ui/scroll-area';
+
 import { Standard } from '../../../database/shared/schema';
 
 interface StandardsModalProps {
@@ -208,8 +208,8 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         </div>
 
         {/* Standards List */}
-        <ScrollArea className="flex-1">
-          <div className="space-y-3 sm:space-y-4">
+        <div className="flex-1 overflow-y-auto max-h-[60vh]">
+          <div className="space-y-3 sm:space-y-4 p-4">
             {Object.entries(standardsBySubject).map(([subject, subjectData]) => {
               const isExpanded = expandedSubjects.has(subject);
               
@@ -386,7 +386,7 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
               );
             })}
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Footer */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between space-y-2 sm:space-y-0 pt-3 sm:pt-4 border-t">
