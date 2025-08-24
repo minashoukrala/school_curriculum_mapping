@@ -97,6 +97,12 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       } else if (standard.code.startsWith('3-')) {
         subject = 'Science';
         grade = 'Grade 3';
+      } else if (standard.code.startsWith('4-')) {
+        subject = 'Science';
+        grade = 'Grade 4';
+      } else if (standard.code.startsWith('5-')) {
+        subject = 'Science';
+        grade = 'Grade 5';
       }
 
       return {
