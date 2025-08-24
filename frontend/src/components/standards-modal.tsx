@@ -88,6 +88,9 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       if (standard.code.startsWith('K-')) {
         subject = 'Science';
         grade = 'KG';
+      } else if (standard.code.startsWith('1-')) {
+        subject = 'Science';
+        grade = 'Grade 1';
       }
 
       return {
