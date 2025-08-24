@@ -151,13 +151,26 @@ export default function CurriculumBuilder() {
 
   const displayGrades = grades.length > 0 ? grades : fallbackGrades;
 
+  // Create a mapping from grade names to tab IDs for more reliable lookups
+  const gradeToTabIdMap = new Map<string, number>();
+  navigationTabs.forEach((tab: NavigationTab) => {
+    gradeToTabIdMap.set(tab.name, tab.id);
+    gradeToTabIdMap.set(tab.displayName, tab.id);
+  });
+
   // Get subjects for a specific grade
   const getSubjectsForGrade = (grade: string): string[] => {
-    const gradeTab = navigationTabs.find((tab: NavigationTab) => tab.name === grade);
-    if (!gradeTab) return [];
+    // Use the mapping to find the tab ID
+    const tabId = gradeToTabIdMap.get(grade);
+    
+    if (tabId === undefined) {
+      console.warn(`[WARNING] Could not find tab for grade: ${grade}`);
+      console.log(`[DEBUG] Available tabs:`, navigationTabs.map(t => ({ id: t.id, name: t.name, displayName: t.displayName })));
+      return [];
+    }
 
     const subjects = dropdownItems
-      .filter((item: DropdownItem) => item.tabId === gradeTab.id && item.isActive)
+      .filter((item: DropdownItem) => item.tabId === tabId && item.isActive)
       .sort((a: DropdownItem, b: DropdownItem) => a.order - b.order)
       .map((item: DropdownItem) => item.name);
 
@@ -181,7 +194,11 @@ export default function CurriculumBuilder() {
   useEffect(() => {
     if (navigationTabs.length > 0 && dropdownItems.length > 0) {
       const availableSubjects = getSubjectsForGrade(selectedGrade);
+      console.log(`[DEBUG] Grade: ${selectedGrade}, Available subjects:`, availableSubjects);
+      console.log(`[DEBUG] Current subject: ${selectedSubject}, Included: ${availableSubjects.includes(selectedSubject)}`);
+      
       if (availableSubjects.length > 0 && !availableSubjects.includes(selectedSubject)) {
+        console.log(`[DEBUG] Setting subject to: ${availableSubjects[0]}`);
         setSelectedSubject(availableSubjects[0]);
       }
     }
