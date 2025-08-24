@@ -60,6 +60,16 @@ export default function StandardsModal({
         };
       }
       
+      // For Grade 2 Math standards
+      if (standard.code.startsWith('2.')) {
+        return {
+          ...standard,
+          subject: 'Math',
+          grade: 'Grade 2',
+          subjectArea: standard.category
+        };
+      }
+      
       // For Mathematical Practices, place them directly under Math (not under KG)
       if (standard.code.startsWith('MP')) {
         return {
