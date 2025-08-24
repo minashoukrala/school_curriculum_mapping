@@ -299,23 +299,20 @@ export default function StandardsModal({
                        {(() => {
                          // Sort sections to ensure proper order: KG, Grade 1-8, then others
                          const sortedSections = Object.entries(subjectData).sort(([a], [b]) => {
-                           // KG comes first
-                           if (a === 'KG') return -1;
-                           if (b === 'KG') return 1;
+                           // Extract grade numbers for comparison
+                           const getGradeNumber = (str: string) => {
+                             if (str === 'KG') return 0;
+                             if (str.startsWith('Grade ')) {
+                               const num = parseInt(str.replace('Grade ', ''));
+                               return isNaN(num) ? 999 : num;
+                             }
+                             return 999; // Other sections come last
+                           };
                            
-                           // Then Grade 1-8 in order
-                           if (a.startsWith('Grade ') && b.startsWith('Grade ')) {
-                             const gradeA = parseInt(a.replace('Grade ', ''));
-                             const gradeB = parseInt(b.replace('Grade ', ''));
-                             return gradeA - gradeB;
-                           }
+                           const gradeA = getGradeNumber(a);
+                           const gradeB = getGradeNumber(b);
                            
-                           // Grade levels come before other sections
-                           if (a.startsWith('Grade ')) return -1;
-                           if (b.startsWith('Grade ')) return 1;
-                           
-                           // Other sections (subjectAreas, standards) come last
-                           return a.localeCompare(b);
+                           return gradeA - gradeB;
                          });
                          
                          return sortedSections.map(([section, sectionData]) => {
