@@ -458,7 +458,7 @@ export default function StandardsModal({
                              )}
                            </div>
                          );
-                       })()}
+                       });
                      </div>
                    )}
                 </div>
