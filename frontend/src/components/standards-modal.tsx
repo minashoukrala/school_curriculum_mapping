@@ -148,6 +148,34 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Economy
         subjectArea = 'Economy';
+      } else if (standard.code.startsWith('H')) {
+        subject = 'Social Studies';
+        // Extract grade from H code (e.g., H1.K.1 -> K, H1.1.1 -> 1)
+        const gradeMatch = standard.code.match(/H\d+\.([K1-5])\./);
+        if (gradeMatch) {
+          const gradeNum = gradeMatch[1];
+          if (gradeNum === 'K') {
+            grade = 'KG';
+          } else {
+            grade = `Grade ${gradeNum}`;
+          }
+        }
+        // Set subjectArea to History
+        subjectArea = 'History';
+      } else if (standard.code.startsWith('G')) {
+        subject = 'Social Studies';
+        // Extract grade from G code (e.g., G1.K.1 -> K, G1.1.1 -> 1)
+        const gradeMatch = standard.code.match(/G\d+\.([K1-5])\./);
+        if (gradeMatch) {
+          const gradeNum = gradeMatch[1];
+          if (gradeNum === 'K') {
+            grade = 'KG';
+          } else {
+            grade = `Grade ${gradeNum}`;
+          }
+        }
+        // Set subjectArea to Geography
+        subjectArea = 'Geography';
       }
 
       return {
