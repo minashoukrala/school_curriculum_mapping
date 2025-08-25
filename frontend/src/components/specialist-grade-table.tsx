@@ -98,6 +98,7 @@ export default function SpecialistGradeTable({ grade, subject }: SpecialistGrade
       materialsAndDifferentiation: "",
       biblical: "",
       standards: [],
+      tableName: subject.toLowerCase().replace(/\s+/g, '-'), // Convert subject to kebab-case
     };
     createRowMutation.mutate(newRow);
   };
