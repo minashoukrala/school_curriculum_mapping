@@ -186,6 +186,26 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Geography
         subjectArea = 'Geography';
+      } else if (standard.code.startsWith('WA.ELA-LITERACY')) {
+        subject = 'English Language Arts';
+        // Extract grade from WA.ELA-LITERACY code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.R(\d+[a-z]+)\./);
+        if (gradeMatch) {
+          const gradeText = gradeMatch[1];
+          if (gradeText === '1st') {
+            grade = 'Grade 1';
+          } else if (gradeText === '2nd') {
+            grade = 'Grade 2';
+          } else if (gradeText === '3rd') {
+            grade = 'Grade 3';
+          } else if (gradeText === '4th') {
+            grade = 'Grade 4';
+          } else if (gradeText === '5th') {
+            grade = 'Grade 5';
+          }
+        }
+        // Set subjectArea to Reading
+        subjectArea = 'Reading';
       }
 
       return {
