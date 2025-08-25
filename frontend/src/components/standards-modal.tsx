@@ -108,12 +108,14 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         grade = 'MS';
       } else if (standard.code.startsWith('SSS')) {
         subject = 'Social Studies';
-        // Extract grade from SSS code (e.g., SSS1.K.1 -> K, SSS1.1.1 -> 1)
-        const gradeMatch = standard.code.match(/SSS\d+\.([K1-5])\./);
+        // Extract grade from SSS code (e.g., SSS1.K.1 -> K, SSS1.1.1 -> 1, SSS1.6-8.1 -> MS)
+        const gradeMatch = standard.code.match(/SSS\d+\.([K1-5]|6-8)\./);
         if (gradeMatch) {
           const gradeNum = gradeMatch[1];
           if (gradeNum === 'K') {
             grade = 'KG';
+          } else if (gradeNum === '6-8') {
+            grade = 'MS';
           } else {
             grade = `Grade ${gradeNum}`;
           }
