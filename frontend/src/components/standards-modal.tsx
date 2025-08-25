@@ -103,15 +103,9 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       } else if (standard.code.startsWith('5-')) {
         subject = 'Science';
         grade = 'Grade 5';
-      } else if (standard.code.startsWith('MS-PS') || standard.code.startsWith('MS-ETS')) {
+      } else if (standard.code.startsWith('MS-')) {
         subject = 'Science';
-        grade = 'Grade 6';
-      } else if (standard.code.startsWith('MS-LS')) {
-        subject = 'Science';
-        grade = 'Grade 7';
-      } else if (standard.code.startsWith('MS-ESS')) {
-        subject = 'Science';
-        grade = 'Grade 8';
+        grade = 'MS';
       }
 
       return {
