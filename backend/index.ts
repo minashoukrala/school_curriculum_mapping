@@ -41,94 +41,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// Increase JSON body size limit for large database imports
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
 // Serve attached_assets as static before other routes
 app.use('/attached_assets', express.static('attached_assets'));
 
-// Add specific route for full database export before Vite middleware
-app.get('/api/export/full-database', async (req, res) => {
-  try {
-    const { storage } = await import('../database/storage');
-    const allRows = await storage.getAllCurriculumRows();
-    const standards = await storage.getAllStandards();
-    const navigationTabs = await storage.getAllNavigationTabs();
-    const dropdownItems = await storage.getAllDropdownItems();
-    const tableConfigs = await storage.getAllTableConfigs();
-    const schoolYear = await storage.getSchoolYear();
-    
-    const exportData = {
-      curriculumRows: allRows,
-      standards,
-      navigationTabs,
-      dropdownItems,
-      tableConfigs,
-      schoolYear,
-      metadata: {
-        totalCurriculumEntries: allRows.length,
-        totalStandards: standards.length,
-        totalNavigationTabs: navigationTabs.length,
-        totalDropdownItems: dropdownItems.length,
-        totalTableConfigs: tableConfigs.length,
-        exportDate: new Date().toISOString(),
-        version: "2.0"
-      }
-    };
-    
-    // Set headers for direct download
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Content-Disposition', `attachment; filename=full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
-    res.json(exportData);
-  } catch (error) {
-    console.error('Full database export error:', error);
-    res.status(500).json({ message: "Failed to export full database" });
-  }
-});
 
-// Add specific route for full database import before Vite middleware
-app.post('/api/import/full-database', async (req, res) => {
-      try {
-      const { storage } = await import('../database/storage');
-
-      const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
-    
-    // Comprehensive server-side validation
-    const validationResult = validateImportDataServer(curriculumRows, standards, metadata);
-    if (!validationResult.isValid) {
-      return res.status(400).json({ 
-        message: "Import validation failed", 
-        error: validationResult.error 
-      });
-    }
-    
-    // Import the data using the storage method
-    await storage.importFullDatabase({ 
-      curriculumRows, 
-      standards, 
-      navigationTabs, 
-      dropdownItems, 
-      tableConfigs, 
-      schoolYear, 
-      metadata 
-    });
-    res.json({ 
-      message: "Database imported successfully",
-      summary: {
-        curriculumRows: curriculumRows.length,
-        standards: standards.length,
-        navigationTabs: navigationTabs?.length || 0,
-        dropdownItems: dropdownItems?.length || 0,
-        tableConfigs: tableConfigs?.length || 0,
-        grades: validationResult.gradeCount,
-        subjects: validationResult.subjectCount
-      }
-    });
-  } catch (error) {
-    console.error('Full database import error:', error);
-    res.status(500).json({ message: "Failed to import database" });
-  }
-});
 
 // Get database statistics
 app.get('/api/stats', async (req, res) => {
