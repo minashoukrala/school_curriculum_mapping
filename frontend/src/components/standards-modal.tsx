@@ -206,6 +206,46 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Reading
         subjectArea = 'Reading';
+      } else if (standard.code.startsWith('WA.ELA-LITERACY.W')) {
+        subject = 'English Language Arts';
+        // Extract grade from WA.ELA-LITERACY.W code (e.g., WA.ELA-LITERACY.W1st.1 -> 1st)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.W(\d+[a-z]+)\./);
+        if (gradeMatch) {
+          const gradeText = gradeMatch[1];
+          if (gradeText === '1st') {
+            grade = 'Grade 1';
+          } else if (gradeText === '2nd') {
+            grade = 'Grade 2';
+          } else if (gradeText === '3rd') {
+            grade = 'Grade 3';
+          } else if (gradeText === '4th') {
+            grade = 'Grade 4';
+          } else if (gradeText === '5th') {
+            grade = 'Grade 5';
+          }
+        }
+        // Set subjectArea to Writing
+        subjectArea = 'Writing';
+      } else if (standard.code.startsWith('WA.ELA-LITERACY.SLDF')) {
+        subject = 'English Language Arts';
+        // Extract grade from WA.ELA-LITERACY.SLDF code (e.g., WA.ELA-LITERACY.SLDF1st.1 -> 1st)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.SLDF(\d+[a-z]+)\./);
+        if (gradeMatch) {
+          const gradeText = gradeMatch[1];
+          if (gradeText === '1st') {
+            grade = 'Grade 1';
+          } else if (gradeText === '2nd') {
+            grade = 'Grade 2';
+          } else if (gradeText === '3rd') {
+            grade = 'Grade 3';
+          } else if (gradeText === '4th') {
+            grade = 'Grade 4';
+          } else if (gradeText === '5th') {
+            grade = 'Grade 5';
+          }
+        }
+        // Set subjectArea to Speaking/Listening
+        subjectArea = 'Speaking/Listening';
       }
 
       return {
