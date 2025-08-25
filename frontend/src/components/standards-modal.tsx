@@ -351,7 +351,7 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
     }
 
     // Special handling for Social Studies and English Language Arts to organize by category first
-    if (standard.subject === 'Social Studies' || standard.subject === 'English Language Arts') {
+    if (standard.subject === 'Social Studies') {
       if (!acc[standard.subject][standard.subjectArea]) {
         acc[standard.subject][standard.subjectArea] = {};
       }
@@ -365,6 +365,17 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
           acc[standard.subject][standard.subjectArea][standard.grade][originalCategory] = [];
         }
         acc[standard.subject][standard.subjectArea][standard.grade][originalCategory].push(standard);
+      }
+    } else if (standard.subject === 'English Language Arts') {
+      // For ELA, organize by subjectArea (category) first, then grade, then standards directly
+      if (!acc[standard.subject][standard.subjectArea]) {
+        acc[standard.subject][standard.subjectArea] = {};
+      }
+      if (standard.grade) {
+        if (!acc[standard.subject][standard.subjectArea][standard.grade]) {
+          acc[standard.subject][standard.subjectArea][standard.grade] = [];
+        }
+        acc[standard.subject][standard.subjectArea][standard.grade].push(standard);
       }
     } else {
       // Original logic for other subjects
@@ -595,7 +606,7 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
                         }
 
                         // Handle different structures based on subject
-                        if (subject === 'Social Studies' || subject === 'English Language Arts') {
+                        if (subject === 'Social Studies') {
                           // Social Studies: Category -> Grade -> Subject Areas -> Standards
                           const categoryData = sectionData as Record<string, Record<string, Standard[]>>;
                           const isCategoryExpanded = expandedGrades.has(section);
@@ -697,6 +708,92 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
                                                 </div>
                                               );
                                             })}
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        } else if (subject === 'English Language Arts') {
+                          // English Language Arts: Category -> Grade -> Standards
+                          const categoryData = sectionData as Record<string, Standard[]>;
+                          const isCategoryExpanded = expandedGrades.has(section);
+                          const allCategoryStandards = Object.values(categoryData).flat();
+                          const allSelected = allCategoryStandards.every(s => localSelectedStandards.includes(s.code));
+                          const someSelected = allCategoryStandards.some(s => localSelectedStandards.includes(s.code));
+
+                          return (
+                            <div key={section} className="border-l-2 border-gray-200 pl-3">
+                              {/* Category Header */}
+                              <div className="flex items-center space-x-2 mb-2">
+                                <Checkbox
+                                  checked={allSelected}
+                                  onCheckedChange={() => handleSubjectAreaToggle(allCategoryStandards)}
+                                  className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                />
+                                <button
+                                  onClick={() => toggleGradeExpanded(section)}
+                                  className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600"
+                                >
+                                  <span>{section}</span>
+                                  <span>{isCategoryExpanded ? '▼' : '▶'}</span>
+                                </button>
+                              </div>
+                              
+                              {/* Category Content */}
+                              {isCategoryExpanded && (
+                                <div className="space-y-3">
+                                  {Object.entries(categoryData)
+                                    .sort(([a], [b]) => {
+                                      const gradeA = getGradeNumber(a);
+                                      const gradeB = getGradeNumber(b);
+                                      return gradeA - gradeB;
+                                    })
+                                    .map(([grade, standards]) => {
+                                    const isGradeExpanded = expandedGrades.has(`${section}-${grade}`);
+                                    const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
+                                    const someSelected = standards.some(s => localSelectedStandards.includes(s.code));
+
+                                    return (
+                                      <div key={grade} className="border-l-2 border-gray-200 pl-3">
+                                        {/* Grade Header */}
+                                        <div className="flex items-center space-x-2 mb-2">
+                                          <Checkbox
+                                            checked={allSelected}
+                                            onCheckedChange={() => handleSubjectAreaToggle(standards)}
+                                            className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                          />
+                                          <button
+                                            onClick={() => toggleGradeExpanded(`${section}-${grade}`)}
+                                            className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm hover:text-blue-600"
+                                          >
+                                            <span>{grade}</span>
+                                            <span>{isGradeExpanded ? '▼' : '▶'}</span>
+                                          </button>
+                                        </div>
+                                        
+                                        {/* Grade Content */}
+                                        {isGradeExpanded && (
+                                          <div className="space-y-1">
+                                            {standards.map((standard) => (
+                                              <label
+                                                key={standard.code}
+                                                className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
+                                              >
+                                                <Checkbox
+                                                  checked={localSelectedStandards.includes(standard.code)}
+                                                  onCheckedChange={() => handleStandardToggle(standard.code)}
+                                                  className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
+                                                />
+                                                <div className="flex-1 min-w-0">
+                                                  <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
+                                                  <div className="text-xs text-gray-600 break-words">{standard.description}</div>
+                                                </div>
+                                              </label>
+                                            ))}
                                           </div>
                                         )}
                                       </div>
