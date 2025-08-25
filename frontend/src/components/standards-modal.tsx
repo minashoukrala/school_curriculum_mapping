@@ -313,6 +313,7 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
 
   const getGradeNumber = (str: string) => {
     if (str === 'KG') return 0;
+    if (str === 'MS') return 6; // MS comes after Grade 5
     if (str.startsWith('Grade ')) {
       const num = parseInt(str.replace('Grade ', ''));
       return isNaN(num) ? 999 : num;
