@@ -124,12 +124,14 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         subjectArea = 'Social Studies Skills';
       } else if (standard.code.startsWith('C')) {
         subject = 'Social Studies';
-        // Extract grade from C code (e.g., C1.K.1 -> K, C1.1.1 -> 1)
-        const gradeMatch = standard.code.match(/C\d+\.([K1-5])\./);
+        // Extract grade from C code (e.g., C1.K.1 -> K, C1.1.1 -> 1, C1.6-8.1 -> MS)
+        const gradeMatch = standard.code.match(/C\d+\.([K1-5]|6-8)\./);
         if (gradeMatch) {
           const gradeNum = gradeMatch[1];
           if (gradeNum === 'K') {
             grade = 'KG';
+          } else if (gradeNum === '6-8') {
+            grade = 'MS';
           } else {
             grade = `Grade ${gradeNum}`;
           }
@@ -138,12 +140,14 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         subjectArea = 'Civics';
       } else if (standard.code.startsWith('E')) {
         subject = 'Social Studies';
-        // Extract grade from E code (e.g., E1.K.1 -> K, E1.1.1 -> 1)
-        const gradeMatch = standard.code.match(/E\d+\.([K1-5])\./);
+        // Extract grade from E code (e.g., E1.K.1 -> K, E1.1.1 -> 1, E1.6-8.1 -> MS)
+        const gradeMatch = standard.code.match(/E\d+\.([K1-5]|6-8)\./);
         if (gradeMatch) {
           const gradeNum = gradeMatch[1];
           if (gradeNum === 'K') {
             grade = 'KG';
+          } else if (gradeNum === '6-8') {
+            grade = 'MS';
           } else {
             grade = `Grade ${gradeNum}`;
           }
@@ -152,12 +156,14 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         subjectArea = 'Economy';
       } else if (standard.code.startsWith('H')) {
         subject = 'Social Studies';
-        // Extract grade from H code (e.g., H1.K.1 -> K, H1.1.1 -> 1)
-        const gradeMatch = standard.code.match(/H\d+\.([K1-5])\./);
+        // Extract grade from H code (e.g., H1.K.1 -> K, H1.1.1 -> 1, H1.6-8.1 -> MS)
+        const gradeMatch = standard.code.match(/H\d+\.([K1-5]|6-8)\./);
         if (gradeMatch) {
           const gradeNum = gradeMatch[1];
           if (gradeNum === 'K') {
             grade = 'KG';
+          } else if (gradeNum === '6-8') {
+            grade = 'MS';
           } else {
             grade = `Grade ${gradeNum}`;
           }
@@ -166,12 +172,14 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         subjectArea = 'History';
       } else if (standard.code.startsWith('G')) {
         subject = 'Social Studies';
-        // Extract grade from G code (e.g., G1.K.1 -> K, G1.1.1 -> 1)
-        const gradeMatch = standard.code.match(/G\d+\.([K1-5])\./);
+        // Extract grade from G code (e.g., G1.K.1 -> K, G1.1.1 -> 1, G1.6-8.1 -> MS)
+        const gradeMatch = standard.code.match(/G\d+\.([K1-5]|6-8)\./);
         if (gradeMatch) {
           const gradeNum = gradeMatch[1];
           if (gradeNum === 'K') {
             grade = 'KG';
+          } else if (gradeNum === '6-8') {
+            grade = 'MS';
           } else {
             grade = `Grade ${gradeNum}`;
           }
