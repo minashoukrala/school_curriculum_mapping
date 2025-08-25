@@ -118,8 +118,8 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             grade = `Grade ${gradeNum}`;
           }
         }
-        // Set category to Social Studies Skills
-        standard.category = 'Social Studies Skills';
+        // Set subjectArea to Social Studies Skills
+        subjectArea = 'Social Studies Skills';
       } else if (standard.code.startsWith('C')) {
         subject = 'Social Studies';
         // Extract grade from C code (e.g., C1.K.1 -> K, C1.1.1 -> 1)
@@ -132,8 +132,8 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             grade = `Grade ${gradeNum}`;
           }
         }
-        // Set category to Civics
-        standard.category = 'Civics';
+        // Set subjectArea to Civics
+        subjectArea = 'Civics';
       }
 
       return {
