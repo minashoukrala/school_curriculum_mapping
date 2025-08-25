@@ -106,6 +106,18 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       } else if (standard.code.startsWith('MS-')) {
         subject = 'Science';
         grade = 'MS';
+      } else if (standard.code.startsWith('SSS')) {
+        subject = 'Social Studies Skills';
+        // Extract grade from SSS code (e.g., SSS1.K.1 -> K, SSS1.1.1 -> 1)
+        const gradeMatch = standard.code.match(/SSS\d+\.([K1-5])\./);
+        if (gradeMatch) {
+          const gradeNum = gradeMatch[1];
+          if (gradeNum === 'K') {
+            grade = 'KG';
+          } else {
+            grade = `Grade ${gradeNum}`;
+          }
+        }
       }
 
       return {
