@@ -9,13 +9,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/curriculum/:grade/:subject", async (req, res) => {
     try {
       const { grade, subject } = req.params;
-      const rows = await storage.getCurriculumRows(grade, subject);
+      // Decode URL parameters to handle spaces and special characters
+      const decodedGrade = decodeURIComponent(grade);
+      const decodedSubject = decodeURIComponent(subject);
+      
+      console.log('Fetching curriculum for:', decodedGrade, decodedSubject);
+      
+      let rows = await storage.getCurriculumRows(decodedGrade, decodedSubject);
+      
+      // If no rows found, try with the original parameters (in case they weren't encoded)
+      if (rows.length === 0) {
+        console.log('No rows found with decoded params, trying original params');
+        rows = await storage.getCurriculumRows(grade, subject);
+      }
+      
+      console.log('Found rows:', rows.length);
+      
       // Add cache control headers to prevent browser caching
       res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.set('Pragma', 'no-cache');
       res.set('Expires', '0');
       res.json(rows);
     } catch (error) {
+      console.error('Error fetching curriculum rows:', error);
       res.status(500).json({ message: "Failed to fetch curriculum rows" });
     }
   });

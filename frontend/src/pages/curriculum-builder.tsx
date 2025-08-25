@@ -76,13 +76,16 @@ export default function CurriculumBuilder() {
   >({
     queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
     queryFn: async () => {
-      const response = await fetch(
-        `/api/curriculum/${selectedGrade}/${selectedSubject}`,
-      );
+      console.log('Fetching curriculum for:', selectedGrade, selectedSubject);
+      const url = `/api/curriculum/${encodeURIComponent(selectedGrade)}/${encodeURIComponent(selectedSubject)}`;
+      console.log('Fetching URL:', url);
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch curriculum rows");
-      return response.json();
+      const data = await response.json();
+      console.log('Received curriculum data:', data);
+      return data;
     },
-    enabled: selectedGrade !== "Admin", // Don't fetch for Admin section
+    enabled: selectedGrade !== "Admin" && selectedGrade && selectedSubject, // Don't fetch for Admin section
   });
 
   // Fetch all curriculum rows for admin section
