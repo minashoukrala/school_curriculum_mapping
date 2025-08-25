@@ -80,6 +80,7 @@ export interface IStorage {
 
   // Utility methods
   cleanupOrphanedCurriculumRows(): Promise<number>;
+  fixEmptyTableNames(): Promise<number>;
 }
 
 
@@ -254,6 +255,10 @@ export class PostgreSQLStorageAdapter implements IStorage {
   // Utility methods
   async cleanupOrphanedCurriculumRows(): Promise<number> {
     return this.postgresStorage.cleanupOrphanedCurriculumRows();
+  }
+
+  async fixEmptyTableNames(): Promise<number> {
+    return this.postgresStorage.fixEmptyTableNames();
   }
 }
 

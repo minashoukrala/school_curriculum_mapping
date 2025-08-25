@@ -254,6 +254,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Utility endpoint to fix empty tableName fields
+  app.post("/api/fix-empty-table-names", async (req, res) => {
+    try {
+      const updatedCount = await storage.fixEmptyTableNames();
+      res.json({ 
+        message: `Fixed ${updatedCount} entries with empty tableName fields`,
+        updatedCount 
+      });
+    } catch (error) {
+      console.error('Error fixing empty table names:', error);
+      res.status(500).json({ message: "Failed to fix empty table names" });
+    }
+  });
+
   // Get all grades
   app.get("/api/grades", async (req, res) => {
     try {

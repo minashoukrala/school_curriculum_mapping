@@ -70,7 +70,8 @@ export class PostgreSQLStorage {
           biblical TEXT NOT NULL DEFAULT '',
           materials TEXT NOT NULL DEFAULT '',
           differentiator TEXT NOT NULL DEFAULT '',
-          table_name TEXT NOT NULL DEFAULT ''
+          table_name TEXT NOT NULL DEFAULT '',
+          CONSTRAINT table_name_not_empty CHECK (table_name != '')
         )
       `);
 
@@ -100,6 +101,17 @@ export class PostgreSQLStorage {
         CREATE INDEX IF NOT EXISTS idx_curriculum_grade_subject 
         ON curriculum_rows(grade, subject)
       `);
+
+      // Add constraint to ensure table_name is never empty (migration for existing databases)
+      try {
+        await client.query(`
+          ALTER TABLE curriculum_rows 
+          ADD CONSTRAINT table_name_not_empty CHECK (table_name != '')
+        `);
+      } catch (error) {
+        // Constraint might already exist, ignore error
+        console.log('Table name constraint already exists or could not be added');
+      }
 
       await client.query(`
         CREATE INDEX IF NOT EXISTS idx_standards_category 
@@ -1405,6 +1417,44 @@ export class PostgreSQLStorage {
         WHERE table_name NOT IN (SELECT table_name FROM table_configs)
       `);
       return result.rowCount || 0;
+    } finally {
+      client.release();
+    }
+  }
+
+  // Utility method to fix empty tableName fields
+  async fixEmptyTableNames(): Promise<number> {
+    const client = await this.pool.connect();
+    
+    try {
+      // Get all curriculum rows with empty tableName
+      const emptyTableNameRows = await client.query(`
+        SELECT id, subject FROM curriculum_rows 
+        WHERE table_name = '' OR table_name IS NULL
+      `);
+      
+      let updatedCount = 0;
+      
+      for (const row of emptyTableNameRows.rows) {
+        // Convert subject name to kebab-case tableName
+        const tableName = row.subject
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, '')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '');
+        
+        // Update the row with the correct tableName
+        await client.query(`
+          UPDATE curriculum_rows 
+          SET table_name = $1 
+          WHERE id = $2
+        `, [tableName, row.id]);
+        
+        updatedCount++;
+      }
+      
+      return updatedCount;
     } finally {
       client.release();
     }
