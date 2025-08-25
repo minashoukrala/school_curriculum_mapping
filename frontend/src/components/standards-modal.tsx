@@ -486,7 +486,13 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
                               {/* Category Content */}
                               {isCategoryExpanded && (
                                 <div className="space-y-3">
-                                  {Object.entries(categoryData).map(([grade, gradeData]) => {
+                                  {Object.entries(categoryData)
+                                    .sort(([a], [b]) => {
+                                      const gradeA = getGradeNumber(a);
+                                      const gradeB = getGradeNumber(b);
+                                      return gradeA - gradeB;
+                                    })
+                                    .map(([grade, gradeData]) => {
                                     const isGradeExpanded = expandedGrades.has(`${section}-${grade}`);
                                     const allGradeStandards = Object.values(gradeData).flat();
                                     const allSelected = allGradeStandards.every(s => localSelectedStandards.includes(s.code));
