@@ -85,7 +85,7 @@ export default function CurriculumBuilder() {
       console.log('Received curriculum data:', data);
       return data;
     },
-    enabled: selectedGrade !== "Admin" && selectedGrade && selectedSubject, // Don't fetch for Admin section
+    enabled: selectedGrade !== "Admin" && Boolean(selectedGrade) && Boolean(selectedSubject), // Don't fetch for Admin section
   });
 
   // Fetch all curriculum rows for admin section
