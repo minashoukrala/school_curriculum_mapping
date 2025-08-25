@@ -3,6 +3,12 @@ import { createServer, type Server } from "http";
 import { storage } from "../database/storage";
 import { insertCurriculumRowSchema, insertStandardSchema } from "@shared/schema";
 import { z } from "zod";
+import multer from "multer";
+import { spawn } from "child_process";
+import fs from "fs";
+
+// Configure multer for file uploads
+const upload = multer({ dest: '/tmp/' });
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get curriculum rows for a specific grade and subject
@@ -155,32 +161,220 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
-  // Export full database as JSON
+  // PostgreSQL-based database backup (replaces JSON export)
   app.get("/api/export/full-database", async (req, res) => {
     try {
-  
+      console.log('Starting PostgreSQL database backup...');
+      
+      // Get database connection details from environment
+      const dbUrl = process.env.DATABASE_URL;
+      if (!dbUrl) {
+        return res.status(500).json({ message: "Database URL not configured" });
+      }
+      
+      // Create a unique backup filename
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const backupFilename = `curriculum_backup_${timestamp}.sql`;
+      
+      // Set headers for file download
+      res.setHeader('Content-Type', 'application/sql');
+      res.setHeader('Content-Disposition', `attachment; filename="${backupFilename}"`);
+      
+      // Use pg_dump to create a complete backup
+      const { spawn } = require('child_process');
+      const pgDump = spawn('pg_dump', [
+        '--dbname=' + dbUrl,
+        '--no-owner',
+        '--no-privileges',
+        '--clean',
+        '--if-exists',
+        '--create',
+        '--verbose'
+      ]);
+      
+      // Pipe the pg_dump output directly to the response
+      pgDump.stdout.pipe(res);
+      
+      // Handle errors
+      pgDump.stderr.on('data', (data: Buffer) => {
+        console.error('pg_dump error:', data.toString());
+      });
+      
+      pgDump.on('error', (error: Error) => {
+        console.error('pg_dump process error:', error);
+        if (!res.headersSent) {
+          res.status(500).json({ message: "Failed to create database backup" });
+        }
+      });
+      
+      pgDump.on('close', (code: number) => {
+        if (code !== 0) {
+          console.error('pg_dump exited with code:', code);
+          if (!res.headersSent) {
+            res.status(500).json({ message: "Database backup failed" });
+          }
+        } else {
+          console.log('Database backup completed successfully');
+        }
+      });
+      
+    } catch (error) {
+      console.error('Database backup error:', error);
+      res.status(500).json({ message: "Failed to create database backup" });
+    }
+  });
+
+  // PostgreSQL-based database restore (replaces JSON import)
+  app.post('/api/import/full-database', upload.single('backup'), async (req: any, res) => {
+    try {
+      console.log('Starting PostgreSQL database restore...');
+      
+      if (!req.file) {
+        return res.status(400).json({ message: "No backup file provided" });
+      }
+      
+      const dbUrl = process.env.DATABASE_URL;
+      if (!dbUrl) {
+        return res.status(500).json({ message: "Database URL not configured" });
+      }
+      
+      // Create a temporary file path for the uploaded backup
+      const backupPath = req.file.path;
+      
+      // Use pg_restore to restore the database
+      const { spawn } = require('child_process');
+      const pgRestore = spawn('pg_restore', [
+        '--dbname=' + dbUrl,
+        '--clean',
+        '--if-exists',
+        '--verbose',
+        backupPath
+      ]);
+      
+      let restoreOutput = '';
+      let restoreError = '';
+      
+      pgRestore.stdout.on('data', (data: Buffer) => {
+        restoreOutput += data.toString();
+      });
+      
+      pgRestore.stderr.on('data', (data: Buffer) => {
+        restoreError += data.toString();
+      });
+      
+      pgRestore.on('close', (code: number) => {
+        // Clean up the uploaded file
+        try {
+          fs.unlinkSync(backupPath);
+        } catch (cleanupError) {
+          console.error('Failed to clean up backup file:', cleanupError);
+        }
+        
+        if (code !== 0) {
+          console.error('pg_restore exited with code:', code);
+          console.error('Restore error output:', restoreError);
+          return res.status(500).json({ 
+            message: "Database restore failed", 
+            error: restoreError 
+          });
+        }
+        
+        console.log('Database restore completed successfully');
+        res.json({ 
+          message: "Database restored successfully",
+          output: restoreOutput
+        });
+      });
+      
+      pgRestore.on('error', (error: Error) => {
+        console.error('pg_restore process error:', error);
+        res.status(500).json({ message: "Failed to restore database" });
+      });
+      
+    } catch (error) {
+      console.error('Database restore error:', error);
+      res.status(500).json({ message: "Failed to restore database" });
+    }
+  });
+
+  // Alternative: JSON export with complete data (for compatibility)
+  app.get("/api/export/json", async (req, res) => {
+    try {
+      console.log('Starting JSON export with complete data...');
+      
       const allRows = await storage.getAllCurriculumRows();
       const standards = await storage.getAllStandards();
+      const navigationTabs = await storage.getAllNavigationTabs();
+      const dropdownItems = await storage.getAllDropdownItems();
+      const tableConfigs = await storage.getAllTableConfigs();
+      const schoolYear = await storage.getSchoolYear();
       
       const exportData = {
         curriculumRows: allRows,
         standards,
+        navigationTabs,
+        dropdownItems,
+        tableConfigs,
+        schoolYear,
         metadata: {
           totalCurriculumEntries: allRows.length,
           totalStandards: standards.length,
+          totalNavigationTabs: navigationTabs.length,
+          totalDropdownItems: dropdownItems.length,
+          totalTableConfigs: tableConfigs.length,
           exportDate: new Date().toISOString(),
-          version: "1.0"
+          version: "2.0",
+          description: "Complete database export including all navigation structure and relationships"
         }
       };
       
-      // Set headers for direct download
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', `attachment; filename=full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
+      res.setHeader('Content-Disposition', `attachment; filename=complete-curriculum-export-${new Date().toISOString().split('T')[0]}.json`);
       res.json(exportData);
       
     } catch (error) {
-      console.error('Full database export error:', error);
-      res.status(500).json({ message: "Failed to export full database" });
+      console.error('JSON export error:', error);
+      res.status(500).json({ message: "Failed to export database as JSON" });
+    }
+  });
+
+  // Alternative: JSON import with complete data (for compatibility)
+  app.post('/api/import/json', async (req, res) => {
+    try {
+      console.log('Starting JSON import with complete data...');
+      
+      const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
+      
+      // Validate the import data
+      if (!Array.isArray(curriculumRows) || !Array.isArray(standards)) {
+        return res.status(400).json({ message: "Invalid import data format" });
+      }
+      
+      // Import using the storage method with complete data
+      await storage.importFullDatabase({ 
+        curriculumRows, 
+        standards, 
+        navigationTabs, 
+        dropdownItems, 
+        tableConfigs, 
+        schoolYear, 
+        metadata 
+      });
+      
+      res.json({ 
+        message: "Database imported successfully from JSON",
+        summary: {
+          curriculumRows: curriculumRows.length,
+          standards: standards.length,
+          navigationTabs: navigationTabs?.length || 0,
+          dropdownItems: dropdownItems?.length || 0,
+          tableConfigs: tableConfigs?.length || 0
+        }
+      });
+      
+    } catch (error) {
+      console.error('JSON import error:', error);
+      res.status(500).json({ message: "Failed to import database from JSON" });
     }
   });
 
@@ -523,175 +717,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Import full database
-  app.post('/api/import/full-database', async (req, res) => {
-    try {
-      const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
-    
-      // Comprehensive server-side validation
-      const validationResult = validateImportDataServer(curriculumRows, standards, metadata);
-      if (!validationResult.isValid) {
-        return res.status(400).json({ 
-          message: "Import validation failed", 
-          error: validationResult.error 
-        });
-      }
-      
-      // Import the data using the storage method
-      await storage.importFullDatabase({ 
-        curriculumRows, 
-        standards, 
-        navigationTabs, 
-        dropdownItems, 
-        tableConfigs, 
-        schoolYear, 
-        metadata 
-      });
-      res.json({ 
-        message: "Database imported successfully",
-        summary: {
-          curriculumRows: curriculumRows.length,
-          standards: standards.length,
-          navigationTabs: navigationTabs?.length || 0,
-          dropdownItems: dropdownItems?.length || 0,
-          tableConfigs: tableConfigs?.length || 0,
-          grades: validationResult.gradeCount,
-          subjects: validationResult.subjectCount
-        }
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to import database" });
-    }
-  });
 
-  // Server-side validation function
-  function validateImportDataServer(curriculumRows: any[], standards: any[], metadata: any) {
-    // Check arrays exist and are arrays
-    if (!Array.isArray(curriculumRows)) {
-      return { isValid: false, error: "curriculumRows must be an array" };
-    }
-    
-    if (!Array.isArray(standards)) {
-      return { isValid: false, error: "standards must be an array" };
-    }
-    
-    if (!metadata || typeof metadata !== 'object') {
-      return { isValid: false, error: "metadata must be an object" };
-    }
-    
-    // Check for reasonable limits
-    if (curriculumRows.length > 10000) {
-      return { isValid: false, error: "Too many curriculum rows (max 10,000)" };
-    }
-    
-    if (standards.length > 1000) {
-      return { isValid: false, error: "Too many standards (max 1,000)" };
-    }
-    
-    // Validate curriculum rows
-    const requiredCurriculumFields = ['id', 'grade', 'subject', 'objectives', 'unitPacing', 'assessments', 'materialsAndDifferentiation', 'biblical', 'standards'];
-    const grades = new Set();
-    const subjects = new Set();
-    const curriculumIds = new Set();
-    
-    for (let i = 0; i < curriculumRows.length; i++) {
-      const row = curriculumRows[i];
-      
-      if (!row || typeof row !== 'object') {
-        return { isValid: false, error: `Curriculum row ${i + 1} is not a valid object` };
-      }
-      
-      // Check required fields
-      for (const field of requiredCurriculumFields) {
-        if (!(field in row)) {
-          return { isValid: false, error: `Curriculum row ${i + 1} missing required field: ${field}` };
-        }
-      }
-      
-      // Validate field types
-      if (typeof row.id !== 'number' || row.id <= 0) {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid ID: must be a positive number` };
-      }
-      
-      if (curriculumIds.has(row.id)) {
-        return { isValid: false, error: `Duplicate curriculum row ID: ${row.id}` };
-      }
-      curriculumIds.add(row.id);
-      
-      if (typeof row.grade !== 'string' || row.grade.trim() === '') {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid grade: must be a non-empty string` };
-      }
-      
-      if (typeof row.subject !== 'string' || row.subject.trim() === '') {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid subject: must be a non-empty string` };
-      }
-      
-      if (!Array.isArray(row.standards)) {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid standards: must be an array` };
-      }
-      
-      // Track unique grades and subjects
-      grades.add(row.grade);
-      subjects.add(row.subject);
-    }
-    
-    // Validate standards
-    const requiredStandardFields = ['id', 'code', 'description', 'category'];
-    const standardIds = new Set();
-    
-    for (let i = 0; i < standards.length; i++) {
-      const standard = standards[i];
-      
-      if (!standard || typeof standard !== 'object') {
-        return { isValid: false, error: `Standard ${i + 1} is not a valid object` };
-      }
-      
-      // Check required fields
-      for (const field of requiredStandardFields) {
-        if (!(field in standard)) {
-          return { isValid: false, error: `Standard ${i + 1} missing required field: ${field}` };
-      }
-      }
-      
-      // Validate field types
-      if (typeof standard.id !== 'number' || standard.id <= 0) {
-        return { isValid: false, error: `Standard ${i + 1} has invalid ID: must be a positive number` };
-      }
-      
-      if (standardIds.has(standard.id)) {
-        return { isValid: false, error: `Duplicate standard ID: ${standard.id}` };
-      }
-      standardIds.add(standard.id);
-      
-      if (typeof standard.code !== 'string' || standard.code.trim() === '') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid code: must be a non-empty string` };
-      }
-      
-      if (typeof standard.description !== 'string') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid description: must be a string` };
-      }
-      
-      if (typeof standard.category !== 'string' || standard.category.trim() === '') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid category: must be a non-empty string` };
-      }
-    }
-    
-    // Validate metadata
-    if (metadata.totalCurriculumEntries !== curriculumRows.length) {
-      return { isValid: false, error: "Metadata totalCurriculumEntries doesn't match actual curriculum rows count" };
-    }
-    
-    if (metadata.totalStandards !== standards.length) {
-      return { isValid: false, error: "Metadata totalStandards doesn't match actual standards count" };
-    }
-    
-    return { 
-      isValid: true, 
-      error: null,
-      gradeCount: grades.size,
-      subjectCount: subjects.size
-    };
-  }
 
   const httpServer = createServer(app);
   return httpServer;

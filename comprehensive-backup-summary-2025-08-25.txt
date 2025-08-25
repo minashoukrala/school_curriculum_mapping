@@ -1,0 +1,184 @@
+Comprehensive Backup Summary
+Generated: 2025-08-25T03:38:19.097Z
+Backup File: comprehensive-backup-2025-08-25.json
+
+DESCRIPTION:
+This backup contains ALL data from the curriculum system including:
+- Navigation tabs (grade levels)
+- Dropdown items (subjects)
+- Table configurations
+- Curriculum entries
+- Standards (all, including unused ones)
+- School year
+
+TOTALS:
+- Curriculum Entries: 53
+- Standards: 776
+- Navigation Tabs: 11
+- Dropdown Items: 54
+- Table Configs: 32
+- School Year: 2025-2026
+
+NAVIGATION STRUCTURE:
+KG (KG) - 5 subjects:
+  • Bible Study (Bible Study)
+  • Language Arts (Language Arts)
+  • Math (Math)
+  • Science (Science)
+  • Social Studies (Social Studies)
+
+Grade 1 (Grade 1) - 5 subjects:
+  • Bible Study (Bible Study)
+  • Language Arts (Language Arts)
+  • Math (Math)
+  • Social Studies (Social Studies)
+  • Science (Science)
+
+Grade 2 (Grade 2) - 5 subjects:
+  • Bible Study (Bible Study)
+  • Language Arts (Language Arts)
+  • Math (Math)
+  • Social Studies (Social Studies)
+  • Science (Science)
+
+Grade 3 (Grade 3) - 5 subjects:
+  • Bible Study (Bible Study)
+  • Language Arts (Language Arts)
+  • Math (Math)
+  • Social Studies (Social Studies)
+  • Science (Science)
+
+Grade 4 (Grade 4) - 6 subjects:
+  • Bible Study (Bible Study)
+  • Reading (Reading)
+  • Writing (Writing)
+  • Math (Math)
+  • Social Studies (Social Studies)
+  • Science (Science)
+
+Grade 5 (Grade 5) - 6 subjects:
+  • Bible Study (Bible Study)
+  • Reading (Reading)
+  • Writing (Writing)
+  • Math (Math)
+  • Social Studies (Social Studies)
+  • Science (Science)
+
+Grade 6 (Grade 6) - 5 subjects:
+  • Bible Study (Bible Study)
+  • English (English)
+  • Math (Math)
+  • Science (Science)
+  • History (History)
+
+Grade 7 (Grade 7) - 5 subjects:
+  • Bible Study (Bible Study)
+  • English (English)
+  • Math (Math)
+  • Science (Science)
+  • History (History)
+
+Grade 8 (Grade 8) - 5 subjects:
+  • Bible Study (Bible Study)
+  • English (English)
+  • Math (Math)
+  • Science (Science)
+  • History (History)
+
+Specialists (Specialists) - 5 subjects:
+  • Art (Art)
+  • Spanish (Spanish)
+  • Music (Music)
+  • Technology (Technology)
+  • PE (PE)
+
+Admin (Admin) - 2 subjects:
+  • Database Export (Database Export)
+  • Table Management (Table Management)
+
+TABLE CONFIGURATIONS:
+- Chapel (chapel)
+- Math (math)
+- Science (science)
+- Social Studies (social-studies)
+- Sight/Spelling Words (sightspelling-words)
+- Phonics (phonics)
+- Grammar (grammar)
+- Writing (writing)
+- Chapel (chapel)
+- Math (math)
+- Social Studies (social-studies)
+- Science (science)
+- English (english)
+- ELA Writing (ela-writing)
+- Chapel (chapel)
+- Math (math)
+- Social Studies (social-studies)
+- Science (science)
+- Sight/Spelling Words (sightspelling-words)
+- Reading (reading)
+- Writing (writing)
+- Phonics (phonics)
+- Chapel (chapel)
+- Bible Verses (bible-verses)
+- Devotions (devotions)
+- Math (math)
+- Social Studies (social-studies)
+- Science (science)
+- Grammar (grammar)
+- Writing (writing)
+- Literacy (literacy)
+- Cursive (cursive)
+
+STANDARDS BY CATEGORY:
+- Economics: 87 standards
+- Social Studies Skills: 65 standards
+- History: 64 standards
+- Geography: 60 standards
+- Civics: 57 standards
+- Reading: 47 standards
+- Speaking/Listening: 45 standards
+- Language: 42 standards
+- Research & Media Literacy: 42 standards
+- Writing: 27 standards
+- Measurement & Data: 19 standards
+- Earth's Systems: 17 standards
+- Operations & Algebraic Thinking: 17 standards
+- From Molecules to Organisms: Structures and Processes: 15 standards
+- Geometry: 14 standards
+- Earth and Human Activity: 12 standards
+- Energy: 12 standards
+- Biological Evolution: Unity and Diversity: 11 standards
+- Number & Operations in Base Ten: 11 standards
+- Earth's Place in the Universe: 10 standards
+- Matter and Its Interactions: 10 standards
+- Motion and Stability: Forces and Interactions: 10 standards
+- Ecosystems: Interactions, Energy, and Dynamics: 9 standards
+- Expressions & Equations: 8 standards
+- Mathematical Practices: 8 standards
+- Waves and Their Applications in Technologies for Information Transfer: 7 standards
+- Number & Operations—Fractions: 6 standards
+- Statistics & Probability: 6 standards
+- Heredity: Inheritance and Variation of Traits: 5 standards
+- The Number System: 5 standards
+- Engineering Design: 4 standards
+- Matter and its Interactions: 4 standards
+- Counting & Cardinality: 3 standards
+- Reading Foundational Skills: 3 standards
+- Visual Arts: 3 standards
+- Waves and their Applications in Technologies for Information Transfer: 3 standards
+- Functions: 2 standards
+- Motion and Stability: Forces and interactions: 2 standards
+- Ratios & Proportional Relationships: 2 standards
+- Speaking and Listening: 2 standards
+
+BACKUP CONTENTS:
+This backup includes the complete system state and can be used for full restoration.
+The JSON file contains all data structures needed to rebuild the entire system.
+
+IMPORTANT:
+- This is a COMPREHENSIVE backup
+- Keep this backup file safe
+- Use this file for complete system restoration
+- The backup is timestamped to avoid conflicts
+- This contains ALL data including navigation structure

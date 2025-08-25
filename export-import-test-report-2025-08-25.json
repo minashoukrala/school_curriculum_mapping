@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-08-25T03:41:45.580Z",
+  "testResults": {
+    "exportSuccessful": true,
+    "exportContainsAllFields": true,
+    "importValidationSuccessful": true,
+    "exportFile": "test-export-2025-08-25.json"
+  },
+  "exportData": {
+    "curriculumEntries": 53,
+    "standards": 776,
+    "navigationTabs": 11,
+    "dropdownItems": 54,
+    "tableConfigs": 32,
+    "schoolYear": "2025-2026",
+    "version": "2.0"
+  },
+  "navigationStructure": [
+    {
+      "id": 1,
+      "name": "KG",
+      "displayName": "KG",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 2,
+      "name": "Grade 1",
+      "displayName": "Grade 1",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 3,
+      "name": "Grade 2",
+      "displayName": "Grade 2",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 4,
+      "name": "Grade 3",
+      "displayName": "Grade 3",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 5,
+      "name": "Grade 4",
+      "displayName": "Grade 4",
+      "isActive": true,
+      "dropdownItems": 6
+    },
+    {
+      "id": 6,
+      "name": "Grade 5",
+      "displayName": "Grade 5",
+      "isActive": true,
+      "dropdownItems": 6
+    },
+    {
+      "id": 7,
+      "name": "Grade 6",
+      "displayName": "Grade 6",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 8,
+      "name": "Grade 7",
+      "displayName": "Grade 7",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 9,
+      "name": "Grade 8",
+      "displayName": "Grade 8",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 10,
+      "name": "Specialists",
+      "displayName": "Specialists",
+      "isActive": true,
+      "dropdownItems": 5
+    },
+    {
+      "id": 11,
+      "name": "Admin",
+      "displayName": "Admin",
+      "isActive": true,
+      "dropdownItems": 2
+    }
+  ]
+}

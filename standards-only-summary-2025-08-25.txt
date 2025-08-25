@@ -1,0 +1,63 @@
+Standards-Only Backup Summary
+Generated: 2025-08-25T03:15:44.343Z
+Backup File: standards-only-backup-2025-08-25.json
+
+DESCRIPTION:
+This backup contains ONLY the standards that appear in the "Select Standards" modal.
+These are the standards you can select from the checklist when building curriculum.
+
+TOTALS:
+- Standards: 776
+
+STANDARDS BY CATEGORY (These are the tabs in your Select Standards modal):
+- Economics: 87 standards
+- Social Studies Skills: 65 standards
+- History: 64 standards
+- Geography: 60 standards
+- Civics: 57 standards
+- Reading: 47 standards
+- Speaking/Listening: 45 standards
+- Language: 42 standards
+- Research & Media Literacy: 42 standards
+- Writing: 27 standards
+- Measurement & Data: 19 standards
+- Earth's Systems: 17 standards
+- Operations & Algebraic Thinking: 17 standards
+- From Molecules to Organisms: Structures and Processes: 15 standards
+- Geometry: 14 standards
+- Earth and Human Activity: 12 standards
+- Energy: 12 standards
+- Biological Evolution: Unity and Diversity: 11 standards
+- Number & Operations in Base Ten: 11 standards
+- Earth's Place in the Universe: 10 standards
+- Matter and Its Interactions: 10 standards
+- Motion and Stability: Forces and Interactions: 10 standards
+- Ecosystems: Interactions, Energy, and Dynamics: 9 standards
+- Expressions & Equations: 8 standards
+- Mathematical Practices: 8 standards
+- Waves and Their Applications in Technologies for Information Transfer: 7 standards
+- Number & Operations—Fractions: 6 standards
+- Statistics & Probability: 6 standards
+- Heredity: Inheritance and Variation of Traits: 5 standards
+- The Number System: 5 standards
+- Engineering Design: 4 standards
+- Matter and its Interactions: 4 standards
+- Counting & Cardinality: 3 standards
+- Reading Foundational Skills: 3 standards
+- Visual Arts: 3 standards
+- Waves and their Applications in Technologies for Information Transfer: 3 standards
+- Functions: 2 standards
+- Motion and Stability: Forces and interactions: 2 standards
+- Ratios & Proportional Relationships: 2 standards
+- Speaking and Listening: 2 standards
+
+BACKUP CONTENTS:
+This backup includes ONLY the standards data, not curriculum entries or table data.
+The JSON file contains the standards that appear in the Select Standards modal.
+
+IMPORTANT:
+- This is a STANDARDS-ONLY backup
+- Keep this backup file safe
+- Use this file to restore standards if needed
+- The backup is timestamped to avoid conflicts
+- This contains the standards from the Select Standards modal tabs

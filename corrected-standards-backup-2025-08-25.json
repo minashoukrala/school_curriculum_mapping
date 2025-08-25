@@ -1,0 +1,5396 @@
+{
+  "curriculumRows": [
+    {
+      "id": 1,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "Septemper",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Creation -Genesis 1:1 (p. 1-4)\n- Cain and Abel -Psalm 119:30a (p. 5-8)\n- Noah - Proverbs 3:5-6a (p. 9-12)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 2,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Abraham and Isaac - Psalm 31:14 (p. 13-16)\n- Jacob and Esau - Psalm 34:13 (p. 17-20)\n- Joseph - 1 Thessalonians 5:24 (p. 21-24)\n- Moses – Psalm 50:15 (p. 25-28)\n- Ten Commandments - I John 5:3 (p. 29-32)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 3,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "November",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Joshua and Caleb - Mark 12:30 (p. 33-36)\n- Gideon - Psalm 27:1 (p. 37-40)\n- Ruth - Galatians 5:22-23 (p. 41-44)\n- Thanksgiving - Psalm 106:1 (p. 49-52)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 4,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "December",
+      "assessments": "",
+      "materialsAndDifferentiation": "- The Psalms – Psalms 86:11 (p. 45-48)\n- Christmas - Isaiah 9:6 (p. 65-68)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 5,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "January",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Elijah and the Widow - Philippians 2:4 (p. 53-56)\n- Elijah opposes False Prophets - Psalm 25:4 (p. 57-60)\n- Josiah - Psalm 119:18 (p. 61-64)\n- Boyhood of Jesus - Luke 2:52 (p. 69-72)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 6,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "February",
+      "assessments": "",
+      "materialsAndDifferentiation": "- God's Written Word- Psalm 119:11 (p. 73-76)\n- Following Jesus – John 15:5 (p. 77-80)\n- Loving Others - Psalm 51:10 (p. 81-84)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 7,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "March",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Sharing - Hebrews 13:16 (p. 85-88)\n- Caring for others - Galatians 6:2 (p. 89-92)\n- Being Thankful - Isaiah 63:7 (p. 93-96) \n- Giving - Luke 6:38a (p. 97-100)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 8,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "April",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Trusting God - Deuteronomy 31:18 (p. 101-104)\n- Believing God - John 15:15b (p. 105-108)\n- Accepting forgiveness - 1 John 1:9 (p. 109-112)\n- Easter - Romans 6:23 (p. 113-116)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 9,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "May",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Being a leader - Romans 12:10 (p. 117-120)\n- Witnessing to others - Acts 1:18 (p. 121-124)\n- Pleasing God - Colossians 1:10 (p. 125-128)\n- Serving God and others - 1 Peter 4:10 (p.129-132)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 10,
+      "grade": "Grade 1",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "June",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Knowing God - John 3:16 (p. 133-136)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 47,
+      "grade": "Grade 1",
+      "subject": "Language Arts",
+      "objectives": "- Abeka Letters and Sounds, Language, Penmanship, Spelling, Handbook for Reading, Student reading texts: Fun With Pets\n- Tiptoes: Stepping Stones\n-  Secrets and Surprises\n- Bridge Book\n- Animals in the Great Outdoors\n- Kind and Brave\n- Aesop's Fables",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Letters and Sounds: p. 1-30\n- Chart 6-8\n-  Review short vowels and consonants\n- Blend consonant and vowel; Beginning/ending sounds\n- One vowel rule; Two vowel rule\n- Use of  “u” with “q”; Use of  “k” or “c” with vowel\n- Suffix - s can mean more than one and can say “z”\n- Use of ck or ke at the end of a word\n- Language p. 1-30\n- Rhyming words; Capitalization\n- Telling Sentences\n- Handbook for Reading p. 1-80",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "english"
+    },
+    {
+      "id": 48,
+      "grade": "Grade 1",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Letters and Sounds p. 31-70\n- Chart 6-10\n- Phonetic and sight words\n- Compound words\n- Opposites\n- Syllables\n- Word division between double consonants\n- Root word and suffix\n- Language p. 31-70\n- Compound words\n- Writing alphabet\n- Sentence Structure (Dividing words into syllables between two different consonants) Handbook for Reading p. 1-125",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "english"
+    },
+    {
+      "id": 49,
+      "grade": "Grade 1",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Penmanship - p. 1-18\n- Spelling p. 1-5\n- Short and Long vowel words\n- Writing simple sentences\n- Capitalization and Punctuation",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "ela-writing"
+    },
+    {
+      "id": 50,
+      "grade": "Grade 1",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Penmanship p. 19-36\n- Spelling p. 6-13; K, c, ck, ay, ll, ff\n- Writing in sequence",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "ela-writing"
+    },
+    {
+      "id": 51,
+      "grade": "Grade 1",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Lesson 1-10\nReading and identifying numeral to 100, identifying right to left, identifying one more and one less, telling and showing time to the hour, writing numbers to 100, addition facts for adding 0 and 1 and doubles, identifying attributes of pattern blocks, creating and reading a pattern, identifying and acting out “some some more” stories, comparing and ordering objects by size, identifying addend, sums and communitive property of addition, using logical reasoning to solve a problem",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 52,
+      "grade": "Grade 1",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Lesson 11-30\nIdentifying, sorting, and comparing common shapes by attributes, identifying, act out , and/or draw picture for “some some more” and/or “some went away” stories, Identifying the time one hour ago and one hour from now, telling and showing time to the hour and half hour, identifying even and odd, Identifying ordinal position the 12th, addition facts (adding 2, 9, doubles plus 1, sums of 8 and 9), creating and reading a pattern, identifying polygons, identifying factional parts of a whole and one half, adding 10 to a single-digit number, reading a thermometer to the nearest 10 degrees, writing addition and subtraction fact families, counting pennies, nickels, and dimes",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 53,
+      "grade": "Grade 1",
+      "subject": "Science",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Foundations (Chapter 1: Introduction to Science p. 5-17), Life Science (Chapter 2: Animals p. 23-35), and (Chapter 4: Fish and Birds p. 55-67))",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 54,
+      "grade": "Grade 1",
+      "subject": "Science",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "  Life Science (Chapter 3: Mammals p. 39-51), (Chapter 5: Plants p. 71-87), and  ( Pumpkin Unit- TCC)",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 55,
+      "grade": "Grade 1",
+      "subject": "Social Studies",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Geography and maps - TCC; America Travel map- TCC ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "social-studies"
+    },
+    {
+      "id": 56,
+      "grade": "Grade 2",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Lesson 1 pgs. 1-4\n- Lesson 2 pgs. 5-8\n- Lesson 3 pgs. 9-12",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 57,
+      "grade": "Grade 2",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Lesson 4 pgs. 13-16\n- Lesson 5 pgs.  17-20\n- Lesson 6 pgs.  21-24\n- Lesson 7 pgs. 25-28\n- Lesson 8 pgs. 29-32",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 58,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Reading Groups\n- Fun with Friends",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "reading"
+    },
+    {
+      "id": 59,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Reading Groups\n- Mouse and the motorcycle\n- Fun with Friends\n- Fish Face/The Candy Corn Contest\n- Magic Tree house: Buffalo’s before Breakfast",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "reading"
+    },
+    {
+      "id": 60,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- List 1-3",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "sightspelling-words"
+    },
+    {
+      "id": 61,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Narrative Writing",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "writing"
+    },
+    {
+      "id": 62,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Narrative Writing",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "writing"
+    },
+    {
+      "id": 63,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Phonics lesson 1-11",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "phonics"
+    },
+    {
+      "id": 64,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- List 4-7",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "sightspelling-words"
+    },
+    {
+      "id": 65,
+      "grade": "Grade 2",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Phonics 12-31",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "phonics"
+    },
+    {
+      "id": 66,
+      "grade": "Grade 2",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Lessons 61-73",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 67,
+      "grade": "Grade 2",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Lessons 74-91",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 68,
+      "grade": "Grade 2",
+      "subject": "Science",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "Chap 10- Earth Changes",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 69,
+      "grade": "Grade 2",
+      "subject": "Science",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Chap 11-12-Human body: Hearing/sight/",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 125,
+      "grade": "Grade 3",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "",
+      "assessments": "",
+      "materialsAndDifferentiation": "",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "bible"
+    },
+    {
+      "id": 31,
+      "grade": "KG",
+      "subject": "Bible Study",
+      "objectives": "- following the ACSI- Purposeful Design K table of contents but using the: \n- ABEKA flash cards (p8 of PDF) \n- Children’s Bible ",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- What is the Bible? Who is God? Who is Jesus? What is Prayer?  \n- Creation/Adam & Eve (Lesson 1&2) \n- Noah (Lesson 3) ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 32,
+      "grade": "KG",
+      "subject": "Bible Study",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Tower of Babel  \n- Abraham (Lesson 4) \n- Isaac & Esau (Lesson 5) \n- Jacob, Joseph (Lesson 6) ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "chapel"
+    },
+    {
+      "id": 33,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "*Abeka",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Ii, Uu, Oo, Aa ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "phonics"
+    },
+    {
+      "id": 34,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "-  Ee, Ll, Tt, Bb, Nn, Mm, Hh ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "phonics"
+    },
+    {
+      "id": 35,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Red, I, blue, the, a, green, and, of, yellow, to, in, is ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "sightspelling-words"
+    },
+    {
+      "id": 36,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Orange, you, that, brown, be, he, me, we, black, for, are, been, purple, on, his, it, white, with, at, circle ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "sightspelling-words"
+    },
+    {
+      "id": 37,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "Sensory Words",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "grammar"
+    },
+    {
+      "id": 38,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "",
+      "assessments": "",
+      "materialsAndDifferentiation": "",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "grammar"
+    },
+    {
+      "id": 39,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Labeling pictures \n- Chapel Themed writing \n- Color words \n- My house \n- My family \n- Starting School \n- Grandparents Day \n- Quick as a Cricket \n- I love fall ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "writing"
+    },
+    {
+      "id": 40,
+      "grade": "KG",
+      "subject": "Language Arts",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Chapel Themed writing \n- Fun Run writing \n- Community helper themed stories (If I were...) \n- 5 senses themed writing \n- Fall is as red as \n- Pumpkins \n- Lucy Calkins Unit 1 (Narrative) /Bend 1/ Session 1,3,4,5-action in picture, labeling, sounding out ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "writing"
+    },
+    {
+      "id": 41,
+      "grade": "KG",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Chapel Themed writing \n- Fun Run writing \n- Community helper themed stories (If I were...) \n- 5 senses themed writing \n- Fall is as red as \n- Pumpkins \n- Lucy Calkins Unit 1 (Narrative) /Bend 1/ Session 1,3,4,5-action in picture, labeling, sounding out ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 42,
+      "grade": "KG",
+      "subject": "Math",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- K Lessons 82-112 and My Portfolio Assessments ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "math"
+    },
+    {
+      "id": 43,
+      "grade": "KG",
+      "subject": "Science",
+      "objectives": "*Tree& Weather Foss Kits \n* Scholastics: Let’s Find Out (LFO) ",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- The five Senses (Until Mid Oct)- (TCC) \n- Apples (LFO) ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 44,
+      "grade": "KG",
+      "subject": "Science",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- 5 senses& Fall Weather(FOSS) \n- Pumpkins (LFO) ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "science"
+    },
+    {
+      "id": 45,
+      "grade": "KG",
+      "subject": "Social Studies",
+      "objectives": "*Abeka: Social Studies K5 (2nd Edition) \n*Scholastics: Let’s Find Out (LFO) ",
+      "unitPacing": "September",
+      "assessments": "",
+      "materialsAndDifferentiation": "- School expectations \n- Kinds of Communities: Self, Families (p 1-6) \n",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "social-studies"
+    },
+    {
+      "id": 46,
+      "grade": "KG",
+      "subject": "Social Studies",
+      "objectives": "",
+      "unitPacing": "October",
+      "assessments": "",
+      "materialsAndDifferentiation": "- Community Helpers: (p 7-34) \n- Teacher/ Principal,  \n- Engineer/ Pastor \n- Police Officer/ Firefighter \n- Doctor/ Dentist/Vet ",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "social-studies"
+    },
+    {
+      "id": 122,
+      "grade": "Specialists",
+      "subject": "Art",
+      "objectives": "",
+      "unitPacing": "",
+      "assessments": "",
+      "materialsAndDifferentiation": "",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "grade-1"
+    },
+    {
+      "id": 123,
+      "grade": "Specialists",
+      "subject": "Art",
+      "objectives": "",
+      "unitPacing": "",
+      "assessments": "",
+      "materialsAndDifferentiation": "",
+      "biblical": "",
+      "standards": [],
+      "materials": "",
+      "differentiator": "",
+      "tableName": "grade-2"
+    }
+  ],
+  "standards": [
+    {
+      "id": 958,
+      "code": "2-LS4-1",
+      "description": "Make observations of plants and animals to compare the diversity of life in different habitats.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 971,
+      "code": "3-LS4-1",
+      "description": "Analyze and interpret data from fossils to provide evidence of the organisms and the environments in which they lived long ago.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 972,
+      "code": "3-LS4-2",
+      "description": "Use evidence to construct an explanation for how the variations in characteristics among individuals of the same species may provide advantages in surviving, finding mates, and reproducing.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 973,
+      "code": "3-LS4-3",
+      "description": "Construct an argument with evidence that in a particular habitat some organisms can survive well, some survive less well, and some cannot survive at all.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 974,
+      "code": "3-LS4-4",
+      "description": "Make a claim about the merit of a solution to a problem caused when the environment changes and the types of plants and animals that live there may change.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1043,
+      "code": "MS-LS4-1",
+      "description": "Analyze and interpret data for patterns in the fossil record that document the existence, diversity, extinction, and change of life forms throughout Earth's history under the assumption that natural laws operate today as in the past.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1044,
+      "code": "MS-LS4-2",
+      "description": "Apply scientific ideas to construct an explanation for the anatomical similarities and differences among modern organisms and between modern and fossil organisms to infer evolutionary relationships.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1045,
+      "code": "MS-LS4-3",
+      "description": "Analyze displays of pictorial data to compare patterns of similarities in embryological development across multiple species to identify relationships not evident in the fully formed anatomy.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1046,
+      "code": "MS-LS4-4",
+      "description": "Construct an explanation based on evidence that describes how genetic variations of traits in a population increase some individuals' probability of surviving and reproducing in a specific environment.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1047,
+      "code": "MS-LS4-5",
+      "description": "Gather and synthesize information about the technologies that have changed the way humans influence the inheritance of desired traits in organisms.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1048,
+      "code": "MS-LS4-6",
+      "description": "Use mathematical representations to support explanations of how natural selection may lead to increases and decreases of specific traits in populations over time.",
+      "category": "Biological Evolution: Unity and Diversity"
+    },
+    {
+      "id": 1328,
+      "code": "C1.1.1",
+      "description": "Understand the purpose of rules and laws in the community.",
+      "category": "Civics"
+    },
+    {
+      "id": 1329,
+      "code": "C1.1.2",
+      "description": "Identify the role of authority figures in the community.",
+      "category": "Civics"
+    },
+    {
+      "id": 1334,
+      "code": "C1.2.1",
+      "description": "Understand the purpose of rules and laws in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1335,
+      "code": "C1.2.2",
+      "description": "Identify the role of authority figures in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1340,
+      "code": "C1.3.1",
+      "description": "Understand the purpose of rules and laws in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1341,
+      "code": "C1.3.2",
+      "description": "Identify the role of authority figures in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1346,
+      "code": "C1.4.1",
+      "description": "Understand the purpose of rules and laws in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1347,
+      "code": "C1.4.2",
+      "description": "Identify the role of authority figures in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1352,
+      "code": "C1.5.1",
+      "description": "Understand the purpose of rules and laws in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1353,
+      "code": "C1.5.2",
+      "description": "Identify the role of authority figures in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1447,
+      "code": "C1.6-8.1",
+      "description": "Explain how early works such as the Code of Justinian or the Magna Carta contributed to foundational documents of the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1448,
+      "code": "C1.6-8.2",
+      "description": "Explain the structure of and key ideals set forth in fundamental documents, including the Washington State Constitution and tribal treaties with the United States government.",
+      "category": "Civics"
+    },
+    {
+      "id": 1449,
+      "code": "C1.6-8.3",
+      "description": "Explain key ideals and principles outlined in the Declaration of Independence, the U.S. Constitution (rule of law, separation of powers, representative government, popular sovereignty), and the Bill of Rights.",
+      "category": "Civics"
+    },
+    {
+      "id": 1450,
+      "code": "C1.6-8.4",
+      "description": "Evaluate efforts to reduce discrepancies between key ideals and reality in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1322,
+      "code": "C1.K.1",
+      "description": "Understand the purpose of rules and laws in the classroom and school.",
+      "category": "Civics"
+    },
+    {
+      "id": 1323,
+      "code": "C1.K.2",
+      "description": "Identify the role of authority figures in the classroom and school.",
+      "category": "Civics"
+    },
+    {
+      "id": 1330,
+      "code": "C2.1.1",
+      "description": "Identify symbols of the United States and Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1331,
+      "code": "C2.1.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1336,
+      "code": "C2.2.1",
+      "description": "Identify symbols of the United States and Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1337,
+      "code": "C2.2.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1342,
+      "code": "C2.3.1",
+      "description": "Identify symbols of the United States and Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1343,
+      "code": "C2.3.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1348,
+      "code": "C2.4.1",
+      "description": "Identify symbols of the United States and Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1349,
+      "code": "C2.4.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1354,
+      "code": "C2.5.1",
+      "description": "Identify symbols of the United States and Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1355,
+      "code": "C2.5.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1451,
+      "code": "C2.6-8.1",
+      "description": "Explain a variety of forms of government from the past or present.",
+      "category": "Civics"
+    },
+    {
+      "id": 1452,
+      "code": "C2.6-8.2",
+      "description": "Distinguish the structure, organization, powers, and limits of government at the local, state, and tribal levels.",
+      "category": "Civics"
+    },
+    {
+      "id": 1453,
+      "code": "C2.6-8.3",
+      "description": "Analyze the structure and powers of government at the national level.",
+      "category": "Civics"
+    },
+    {
+      "id": 1454,
+      "code": "C2.6-8.4",
+      "description": "Use knowledge of the function of government to analyze and address a political issue.",
+      "category": "Civics"
+    },
+    {
+      "id": 1455,
+      "code": "C2.6-8.5",
+      "description": "Evaluate the effectiveness of the system of checks and balances in the United States based on an event.",
+      "category": "Civics"
+    },
+    {
+      "id": 1456,
+      "code": "C2.6-8.6",
+      "description": "Demonstrate that the U.S. government includes concepts of both democracy and a republic.",
+      "category": "Civics"
+    },
+    {
+      "id": 1324,
+      "code": "C2.K.1",
+      "description": "Identify symbols of the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1325,
+      "code": "C2.K.2",
+      "description": "Recognize the American flag and the Pledge of Allegiance.",
+      "category": "Civics"
+    },
+    {
+      "id": 1332,
+      "code": "C3.1.1",
+      "description": "Identify ways to participate in the community.",
+      "category": "Civics"
+    },
+    {
+      "id": 1338,
+      "code": "C3.2.1",
+      "description": "Identify ways to participate in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1344,
+      "code": "C3.3.1",
+      "description": "Identify ways to participate in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1350,
+      "code": "C3.4.1",
+      "description": "Identify ways to participate in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1356,
+      "code": "C3.5.1",
+      "description": "Identify ways to participate in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1457,
+      "code": "C3.6-8.1",
+      "description": "Analyze how societies have interacted with one another.",
+      "category": "Civics"
+    },
+    {
+      "id": 1458,
+      "code": "C3.6-8.2",
+      "description": "Analyze how international agreements have affected Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1459,
+      "code": "C3.6-8.3",
+      "description": "Recognize that treaties are \"the supreme law of the land,\" and treaty rights supersede most state laws.",
+      "category": "Civics"
+    },
+    {
+      "id": 1460,
+      "code": "C3.6-8.4",
+      "description": "Explain elements of the agreements contained in one or more treaty agreements between Washington tribes and the U.S.",
+      "category": "Civics"
+    },
+    {
+      "id": 1461,
+      "code": "C3.6-8.5",
+      "description": "Identify early examples of foreign policy between the United States and other nations.",
+      "category": "Civics"
+    },
+    {
+      "id": 1462,
+      "code": "C3.6-8.6",
+      "description": "Analyze how the United States has interacted with other countries.",
+      "category": "Civics"
+    },
+    {
+      "id": 1326,
+      "code": "C3.K.1",
+      "description": "Identify ways to participate in the classroom and school community.",
+      "category": "Civics"
+    },
+    {
+      "id": 1333,
+      "code": "C4.1.1",
+      "description": "Demonstrate respect for others in the community.",
+      "category": "Civics"
+    },
+    {
+      "id": 1339,
+      "code": "C4.2.1",
+      "description": "Demonstrate respect for others in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1345,
+      "code": "C4.3.1",
+      "description": "Demonstrate respect for others in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1351,
+      "code": "C4.4.1",
+      "description": "Demonstrate respect for others in Washington State.",
+      "category": "Civics"
+    },
+    {
+      "id": 1357,
+      "code": "C4.5.1",
+      "description": "Demonstrate respect for others in the United States.",
+      "category": "Civics"
+    },
+    {
+      "id": 1463,
+      "code": "C4.6-8.1",
+      "description": "Describe the historical origins of civic involvement.",
+      "category": "Civics"
+    },
+    {
+      "id": 1464,
+      "code": "C4.6-8.2",
+      "description": "Describe the relationship between the actions of people in Washington State and the ideals outlined in the Washington State Constitution.",
+      "category": "Civics"
+    },
+    {
+      "id": 1465,
+      "code": "C4.6-8.3",
+      "description": "Employ strategies for civic involvement that address a state or local issue.",
+      "category": "Civics"
+    },
+    {
+      "id": 1466,
+      "code": "C4.6-8.4",
+      "description": "Analyze how a claim on an issue attempts to balance individual rights and the common good.",
+      "category": "Civics"
+    },
+    {
+      "id": 1467,
+      "code": "C4.6-8.5",
+      "description": "Employ strategies for civic involvement that address a national issue.",
+      "category": "Civics"
+    },
+    {
+      "id": 1327,
+      "code": "C4.K.1",
+      "description": "Demonstrate respect for others in the classroom and school.",
+      "category": "Civics"
+    },
+    {
+      "id": 840,
+      "code": "K.CC.A",
+      "description": "Know number names and the count sequence.",
+      "category": "Counting & Cardinality"
+    },
+    {
+      "id": 841,
+      "code": "K.CC.B",
+      "description": "Count to tell the number of objects.",
+      "category": "Counting & Cardinality"
+    },
+    {
+      "id": 842,
+      "code": "K.CC.C",
+      "description": "Compare numbers.",
+      "category": "Counting & Cardinality"
+    },
+    {
+      "id": 977,
+      "code": "3-ESS3-1",
+      "description": "Make a claim about the merit of a design solution that reduces the impacts of a weather-related hazard.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 990,
+      "code": "4-ESS3-1",
+      "description": "Obtain and combine information to describe that energy and fuels are derived from natural resources and that their uses affect the environment.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 991,
+      "code": "4-ESS3-2",
+      "description": "Generate and compare multiple solutions to reduce the impacts of natural Earth processes on humans.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1004,
+      "code": "5-ESS3-1",
+      "description": "Obtain and combine information about ways individual communities use science ideas to protect the Earth's resources and environment.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 940,
+      "code": "K-ESS3-1",
+      "description": "Use a model to represent the relationship between the needs of different plants or animals (including humans) and the places they live.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 941,
+      "code": "K-ESS3-2",
+      "description": "Ask questions to obtain information about the purpose of weather forecasting to prepare for, and respond to, severe weather.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 942,
+      "code": "K-ESS3-3",
+      "description": "Communicate solutions that will reduce the impact of humans on the land, water, air, and/or other living things in the local environment.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1059,
+      "code": "MS-ESS3-1",
+      "description": "Construct a scientific explanation based on evidence for how the uneven distributions of Earth's mineral, energy, and groundwater resources are the result of past and current geoscience processes.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1060,
+      "code": "MS-ESS3-2",
+      "description": "Analyze and interpret data on natural hazards to forecast future catastrophic events and inform the development of technologies to mitigate their effects.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1061,
+      "code": "MS-ESS3-3",
+      "description": "Apply scientific principles to design a method for monitoring and minimizing a human impact on the environment.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1062,
+      "code": "MS-ESS3-4",
+      "description": "Construct an argument supported by evidence for how increases in human population and per-capita consumption of natural resources impact Earth's systems.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 1063,
+      "code": "MS-ESS3-5",
+      "description": "Ask questions to clarify evidence of the factors that have caused the rise in global temperatures over the past century.",
+      "category": "Earth and Human Activity"
+    },
+    {
+      "id": 950,
+      "code": "1-ESS1-1",
+      "description": "Use observations of the sun, moon, and stars to describe patterns that can be predicted.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 951,
+      "code": "1-ESS1-2",
+      "description": "Make observations at different times of year to relate the amount of daylight to the time of year.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 959,
+      "code": "2-ESS1-1",
+      "description": "Use information from several sources to provide evidence that Earth events can occur quickly or slowly.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 987,
+      "code": "4-ESS1-1",
+      "description": "Identify evidence from patterns in rock formations and fossils in rock layers to support an explanation for changes in a landscape over time.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1000,
+      "code": "5-ESS1-1",
+      "description": "Support an argument that differences in the apparent brightness of the sun compared to other stars is due to their relative distances from Earth.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1001,
+      "code": "5-ESS1-2",
+      "description": "Represent data in graphical displays to reveal patterns of daily changes in length and direction of shadows, day and night, and the seasonal appearance of some stars in the night sky.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1049,
+      "code": "MS-ESS1-1",
+      "description": "Develop and use a model of the Earth–sun–moon system to describe the cyclic patterns of lunar phases, eclipses of the sun and moon, and seasons.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1050,
+      "code": "MS-ESS1-2",
+      "description": "Develop and use a model to describe the role of gravity in the motions within galaxies and the solar system.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1051,
+      "code": "MS-ESS1-3",
+      "description": "Analyze and interpret data to determine scale properties of objects in the solar system.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 1052,
+      "code": "MS-ESS1-4",
+      "description": "Construct a scientific explanation based on evidence from rock strata for how the geologic time scale is used to organize Earth's 4.6-billion-year-old history.",
+      "category": "Earth's Place in the Universe"
+    },
+    {
+      "id": 960,
+      "code": "2-ESS2-1",
+      "description": "Compare multiple solutions designed to slow or prevent wind or water from changing the shape of the land.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 961,
+      "code": "2-ESS2-2",
+      "description": "Develop a model to represent the shapes and kinds of land and bodies of water in an area.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 962,
+      "code": "2-ESS2-3",
+      "description": "Obtain information to identify where water is found on Earth and that it can be solid or liquid.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 975,
+      "code": "3-ESS2-1",
+      "description": "Represent data in tables and graphical displays to describe typical weather conditions expected during a particular season.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 976,
+      "code": "3-ESS2-2",
+      "description": "Obtain and combine information to describe climates in different regions of the world.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 988,
+      "code": "4-ESS2-1",
+      "description": "Make observations and/or measurements to provide evidence of the effects of weathering or the rate of erosion by water, ice, wind, or vegetation.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 989,
+      "code": "4-ESS2-2",
+      "description": "Analyze and interpret data from maps to describe patterns of Earth's features.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1002,
+      "code": "5-ESS2-1",
+      "description": "Develop a model using an example to describe ways the geosphere, biosphere, hydrosphere, and/or atmosphere interact.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1003,
+      "code": "5-ESS2-2",
+      "description": "Describe and graph the amounts of salt water and fresh water in various reservoirs to provide evidence about the distribution of water on Earth.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 938,
+      "code": "K-ESS2-1",
+      "description": "Use and share observations of local weather conditions to describe patterns over time.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 939,
+      "code": "K-ESS2-2",
+      "description": "Construct an argument supported by evidence for how plants and animals (including humans) can change the environment to meet their needs.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1053,
+      "code": "MS-ESS2-1",
+      "description": "Develop a model to describe the cycling of Earth's materials and the flow of energy that drives this process.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1054,
+      "code": "MS-ESS2-2",
+      "description": "Construct an explanation based on evidence for how geoscience processes have changed Earth's surface at varying time and spatial scales.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1055,
+      "code": "MS-ESS2-3",
+      "description": "Analyze and interpret data on the distribution of fossils and rocks, continental shapes, and seafloor structures to provide evidence of past plate motions.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1056,
+      "code": "MS-ESS2-4",
+      "description": "Develop a model to describe the cycling of water through Earth's systems driven by energy from the sun and the force of gravity.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1057,
+      "code": "MS-ESS2-5",
+      "description": "Collect data to provide evidence for how the motions and complex interactions of air masses result in changes in weather conditions.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1058,
+      "code": "MS-ESS2-6",
+      "description": "Develop and use a model to describe how unequal heating and the rotation of the Earth cause patterns of atmospheric and oceanic circulation that determine regional climates.",
+      "category": "Earth's Systems"
+    },
+    {
+      "id": 1135,
+      "code": "E1.1.1",
+      "description": "Identify differences between natural, human, and capital resources.",
+      "category": "Economics"
+    },
+    {
+      "id": 1136,
+      "code": "E1.1.2",
+      "description": "Explain how and why families make choices between wants and needs.",
+      "category": "Economics"
+    },
+    {
+      "id": 1137,
+      "code": "E1.1.3",
+      "description": "Evaluate the outcomes of choices.",
+      "category": "Economics"
+    },
+    {
+      "id": 1138,
+      "code": "E1.1.4",
+      "description": "Explore the different resources that families use to access what they want and need.",
+      "category": "Economics"
+    },
+    {
+      "id": 1148,
+      "code": "E1.2.1",
+      "description": "Explain how and why members of a community make choices among products and services that have costs and benefits.",
+      "category": "Economics"
+    },
+    {
+      "id": 1149,
+      "code": "E1.2.2",
+      "description": "Define scarcity and explain how it necessitates decision-making.",
+      "category": "Economics"
+    },
+    {
+      "id": 1150,
+      "code": "E1.2.3",
+      "description": "Identify the costs and benefits of making various personal decisions on the community.",
+      "category": "Economics"
+    },
+    {
+      "id": 1156,
+      "code": "E1.3.1",
+      "description": "Identify the costs and benefits of individual choices.",
+      "category": "Economics"
+    },
+    {
+      "id": 1157,
+      "code": "E1.3.2",
+      "description": "Identify positive and negative incentives that influence the decisions people make.",
+      "category": "Economics"
+    },
+    {
+      "id": 1158,
+      "code": "E1.3.3",
+      "description": "Describe how individual choices are influenced by various cultural norms.",
+      "category": "Economics"
+    },
+    {
+      "id": 1171,
+      "code": "E1.4.1",
+      "description": "Analyze and explain the costs and benefits of people's decisions to move and relocate to meet their needs and wants.",
+      "category": "Economics"
+    },
+    {
+      "id": 1172,
+      "code": "E1.4.2",
+      "description": "Compare the costs and benefits of individual choices.",
+      "category": "Economics"
+    },
+    {
+      "id": 1173,
+      "code": "E1.4.3",
+      "description": "Compare positive and negative incentives that influence the decisions people make.",
+      "category": "Economics"
+    },
+    {
+      "id": 1185,
+      "code": "E1.5.1",
+      "description": "Analyze and explain the benefits of the decisions that colonists made to meet their wants and needs.",
+      "category": "Economics"
+    },
+    {
+      "id": 1186,
+      "code": "E1.5.2",
+      "description": "Explain how people have to make choices between wants and needs, and evaluate the outcomes or consequences of those choices.",
+      "category": "Economics"
+    },
+    {
+      "id": 1187,
+      "code": "E1.5.3",
+      "description": "Evaluate the costs and benefits of individual choices.",
+      "category": "Economics"
+    },
+    {
+      "id": 1188,
+      "code": "E1.5.4",
+      "description": "Evaluate positive and negative incentives to individuals and communities that influence the decisions people make.",
+      "category": "Economics"
+    },
+    {
+      "id": 1468,
+      "code": "E1.6-8.1",
+      "description": "Analyze the costs and benefits of economic choices made by groups and individuals in the past or present.",
+      "category": "Economics"
+    },
+    {
+      "id": 1469,
+      "code": "E1.6-8.2",
+      "description": "Evaluate alternative approaches or solutions to current economic issues in Washington State in terms of costs and benefits for different groups.",
+      "category": "Economics"
+    },
+    {
+      "id": 1470,
+      "code": "E1.6-8.3",
+      "description": "Analyze examples of how groups and individuals have considered profit and personal values in making economic choices, historically or today.",
+      "category": "Economics"
+    },
+    {
+      "id": 1129,
+      "code": "E1.K.1",
+      "description": "Explain the difference between a need and a want.",
+      "category": "Economics"
+    },
+    {
+      "id": 1130,
+      "code": "E1.K.2",
+      "description": "Explain why people have to make choices between needs and wants.",
+      "category": "Economics"
+    },
+    {
+      "id": 1139,
+      "code": "E2.1.1",
+      "description": "Demonstrate how sharing and bartering are basic economic systems.",
+      "category": "Economics"
+    },
+    {
+      "id": 1140,
+      "code": "E2.1.2",
+      "description": "Give examples of how people earn income.",
+      "category": "Economics"
+    },
+    {
+      "id": 1141,
+      "code": "E2.1.3",
+      "description": "Describe how consumers spend money or use markets (banks, goods and services).",
+      "category": "Economics"
+    },
+    {
+      "id": 1142,
+      "code": "E2.1.4",
+      "description": "Explain why people save money.",
+      "category": "Economics"
+    },
+    {
+      "id": 1151,
+      "code": "E2.2.1",
+      "description": "Identify the skills and knowledge required to produce certain goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1152,
+      "code": "E2.2.2",
+      "description": "Describe the goods and services that people in the local community produce and those that are produced in other communities.",
+      "category": "Economics"
+    },
+    {
+      "id": 1159,
+      "code": "E2.3.1",
+      "description": "Recognize how the economic systems of groups are influenced by community and cultural laws, values, and customs.",
+      "category": "Economics"
+    },
+    {
+      "id": 1160,
+      "code": "E2.3.2",
+      "description": "Identify examples of human capital, physical capital, and natural resources used to produce goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1161,
+      "code": "E2.3.3",
+      "description": "Explain why individuals and businesses specialize and trade.",
+      "category": "Economics"
+    },
+    {
+      "id": 1162,
+      "code": "E2.3.4",
+      "description": "Explain the role of money in making exchange easier.",
+      "category": "Economics"
+    },
+    {
+      "id": 1163,
+      "code": "E2.3.5",
+      "description": "Explain how profits influence sellers in markets.",
+      "category": "Economics"
+    },
+    {
+      "id": 1164,
+      "code": "E2.3.6",
+      "description": "Identify examples of external benefits and costs.",
+      "category": "Economics"
+    },
+    {
+      "id": 1165,
+      "code": "E2.3.7",
+      "description": "Describe the role of financial institutions in an economy.",
+      "category": "Economics"
+    },
+    {
+      "id": 1174,
+      "code": "E2.4.1",
+      "description": "Compare different historic economic systems in Washington state tribes.",
+      "category": "Economics"
+    },
+    {
+      "id": 1175,
+      "code": "E2.4.2",
+      "description": "Identify the basic elements of Washington state's economic system, including agriculture, businesses, industry, natural resources, and labor.",
+      "category": "Economics"
+    },
+    {
+      "id": 1176,
+      "code": "E2.4.3",
+      "description": "Identify examples of human capital, physical capital, and natural resources used to produce goods and services in Washington state.",
+      "category": "Economics"
+    },
+    {
+      "id": 1177,
+      "code": "E2.4.4",
+      "description": "Explain why individuals and businesses specialize and trade in Washington state.",
+      "category": "Economics"
+    },
+    {
+      "id": 1178,
+      "code": "E2.4.5",
+      "description": "Explain the relationship between investment in human capital, productivity, and future incomes.",
+      "category": "Economics"
+    },
+    {
+      "id": 1189,
+      "code": "E2.5.1",
+      "description": "Describe how colonial American economic systems worked.",
+      "category": "Economics"
+    },
+    {
+      "id": 1190,
+      "code": "E2.5.2",
+      "description": "Identify examples of human capital, physical capital, and natural resources used to produce goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1191,
+      "code": "E2.5.3",
+      "description": "Explain why individuals and businesses specialize and trade.",
+      "category": "Economics"
+    },
+    {
+      "id": 1192,
+      "code": "E2.5.4",
+      "description": "Explain the relationship between investment in human capital, productivity, and future incomes.",
+      "category": "Economics"
+    },
+    {
+      "id": 1471,
+      "code": "E2.6-8.1",
+      "description": "Describe the production, distribution, and consumption of goods, services, and resources in societies—including past and present.",
+      "category": "Economics"
+    },
+    {
+      "id": 1472,
+      "code": "E2.6-8.2",
+      "description": "Explain how scarce resources have affected international trade in the past or present.",
+      "category": "Economics"
+    },
+    {
+      "id": 1473,
+      "code": "E2.6-8.3",
+      "description": "Analyze production, distribution, and consumption of goods, services, and resources in societies (past or present).",
+      "category": "Economics"
+    },
+    {
+      "id": 1474,
+      "code": "E2.6-8.4",
+      "description": "Analyze how supply and demand forces have affected international trade in Washington State, past or present.",
+      "category": "Economics"
+    },
+    {
+      "id": 1475,
+      "code": "E2.6-8.5",
+      "description": "Analyze how supply and demand have influenced production, distribution, and consumption in the United States over time.",
+      "category": "Economics"
+    },
+    {
+      "id": 1476,
+      "code": "E2.6-8.6",
+      "description": "Analyze how supply and demand have affected international trade in the United States, historically or currently.",
+      "category": "Economics"
+    },
+    {
+      "id": 1131,
+      "code": "E2.K.1",
+      "description": "Identify consumers and producers.",
+      "category": "Economics"
+    },
+    {
+      "id": 1132,
+      "code": "E2.K.2",
+      "description": "List and provide examples of goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1143,
+      "code": "E3.1.1",
+      "description": "Examine the difference between public and private providers of goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1144,
+      "code": "E3.1.2",
+      "description": "Explain the purpose for public and private providers of goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1153,
+      "code": "E3.2.1",
+      "description": "Identify examples of the goods and services that governments provide.",
+      "category": "Economics"
+    },
+    {
+      "id": 1154,
+      "code": "E3.2.2",
+      "description": "Identify costs and benefits of publicly owned services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1166,
+      "code": "E3.3.1",
+      "description": "Describe how local taxation supports one's community.",
+      "category": "Economics"
+    },
+    {
+      "id": 1167,
+      "code": "E3.3.2",
+      "description": "Explain the ways in which the government pays for the goods and services it provides.",
+      "category": "Economics"
+    },
+    {
+      "id": 1179,
+      "code": "E3.4.1",
+      "description": "Describe how people and businesses support Washington state government through taxation.",
+      "category": "Economics"
+    },
+    {
+      "id": 1180,
+      "code": "E3.4.2",
+      "description": "Explain the meaning of inflation, deflation, and unemployment.",
+      "category": "Economics"
+    },
+    {
+      "id": 1181,
+      "code": "E3.4.3",
+      "description": "Describe ways government can improve productivity by using capital goods and human capital.",
+      "category": "Economics"
+    },
+    {
+      "id": 1193,
+      "code": "E3.5.1",
+      "description": "Describe the impact of the British government on the economy of the American colonies.",
+      "category": "Economics"
+    },
+    {
+      "id": 1194,
+      "code": "E3.5.2",
+      "description": "Explain ways the British used taxation policies to pay for goods and services they provided.",
+      "category": "Economics"
+    },
+    {
+      "id": 1195,
+      "code": "E3.5.3",
+      "description": "Explain what interest rates are.",
+      "category": "Economics"
+    },
+    {
+      "id": 1477,
+      "code": "E3.6-8.1",
+      "description": "Explain the role of government in global economies, including creation of money, taxation, and spending (past or present).",
+      "category": "Economics"
+    },
+    {
+      "id": 1478,
+      "code": "E3.6-8.2",
+      "description": "Analyze how government in Washington State impacts its economy through taxation, spending, and policy (past or present).",
+      "category": "Economics"
+    },
+    {
+      "id": 1479,
+      "code": "E3.6-8.3",
+      "description": "Analyze how the U.S. government influences the economy via taxation, currency control, and tariffs (past or present).",
+      "category": "Economics"
+    },
+    {
+      "id": 1133,
+      "code": "E3.K.1",
+      "description": "Identify public and private providers of goods and services.",
+      "category": "Economics"
+    },
+    {
+      "id": 1145,
+      "code": "E4.1.1",
+      "description": "Explain that people need to trade for products that are not found in their geographic region.",
+      "category": "Economics"
+    },
+    {
+      "id": 1146,
+      "code": "E4.1.2",
+      "description": "Describe why people in one country trade goods and services with people in other countries.",
+      "category": "Economics"
+    },
+    {
+      "id": 1147,
+      "code": "E4.1.3",
+      "description": "Describe products that are produced abroad and sold domestically and products that are produced domestically and sold abroad.",
+      "category": "Economics"
+    },
+    {
+      "id": 1155,
+      "code": "E4.2.1",
+      "description": "Clarify that there are factors that lead to trading with one group over another (e.g., seasons, prices, distance).",
+      "category": "Economics"
+    },
+    {
+      "id": 1168,
+      "code": "E4.3.1",
+      "description": "Identify the positive and negative impacts of trade among and between cultural groups.",
+      "category": "Economics"
+    },
+    {
+      "id": 1169,
+      "code": "E4.3.2",
+      "description": "Explain how trade leads to increasing economic interdependence among cultural groups.",
+      "category": "Economics"
+    },
+    {
+      "id": 1170,
+      "code": "E4.3.3",
+      "description": "Explain the effects of increasing economic interdependence on different groups within participating cultural groups.",
+      "category": "Economics"
+    },
+    {
+      "id": 1182,
+      "code": "E4.4.1",
+      "description": "Explain how geography, natural resources, climate, and available labor contributed to the exploitation of resources in the Pacific Northwest.",
+      "category": "Economics"
+    },
+    {
+      "id": 1183,
+      "code": "E4.4.2",
+      "description": "Explain the economic issues that different communities within the Pacific Northwest faced.",
+      "category": "Economics"
+    },
+    {
+      "id": 1184,
+      "code": "E4.4.3",
+      "description": "Explain how trade led to increasing economic interdependence among groups within the Pacific Northwest.",
+      "category": "Economics"
+    },
+    {
+      "id": 1196,
+      "code": "E4.5.1",
+      "description": "Explain how trade leads to increasing economic interdependence among nations.",
+      "category": "Economics"
+    },
+    {
+      "id": 1197,
+      "code": "E4.5.2",
+      "description": "Explain the effects of increasing economic interdependence on different groups within participating nations.",
+      "category": "Economics"
+    },
+    {
+      "id": 1198,
+      "code": "E4.5.3",
+      "description": "Describe ways people can increase productivity by using improved capital goods and improving their human capital.",
+      "category": "Economics"
+    },
+    {
+      "id": 1480,
+      "code": "E4.6-8.1",
+      "description": "Explain the distribution of wealth and sustainability of resources around the world.",
+      "category": "Economics"
+    },
+    {
+      "id": 1481,
+      "code": "E4.6-8.2",
+      "description": "Explain trade barriers and how they affect international trade.",
+      "category": "Economics"
+    },
+    {
+      "id": 1482,
+      "code": "E4.6-8.3",
+      "description": "Analyze the distribution of wealth and sustainability of resources in Washington State.",
+      "category": "Economics"
+    },
+    {
+      "id": 1483,
+      "code": "E4.6-8.4",
+      "description": "Explain the costs and benefits of trade policies to individuals, businesses, and society in Washington State.",
+      "category": "Economics"
+    },
+    {
+      "id": 1484,
+      "code": "E4.6-8.6",
+      "description": "Explain the costs and benefits of trade policies to individuals, businesses, and society in the United States.",
+      "category": "Economics"
+    },
+    {
+      "id": 1134,
+      "code": "E4.K.1",
+      "description": "Describe goods that are produced in local geographic regions.",
+      "category": "Economics"
+    },
+    {
+      "id": 956,
+      "code": "2-LS2-1",
+      "description": "Plan and conduct an investigation to determine if plants need sunlight and water to grow.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 957,
+      "code": "2-LS2-2",
+      "description": "Develop a simple model that mimics the function of an animal in dispersing seeds or pollinating plants.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 968,
+      "code": "3-LS2-1",
+      "description": "Construct an argument that some animals form groups that help members survive.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 999,
+      "code": "5-LS2-1",
+      "description": "Develop a model to describe the movement of matter among plants, animals, decomposers, and the environment.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 1036,
+      "code": "MS-LS2-1",
+      "description": "Analyze and interpret data to provide evidence for the effects of resource availability on organisms and populations of organisms in an ecosystem.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 1037,
+      "code": "MS-LS2-2",
+      "description": "Construct an explanation that predicts patterns of interactions among organisms across multiple ecosystems.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 1038,
+      "code": "MS-LS2-3",
+      "description": "Develop a model to describe the cycling of matter and flow of energy among living and nonliving parts of an ecosystem.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 1039,
+      "code": "MS-LS2-4",
+      "description": "Construct an argument supported by empirical evidence that changes to physical or biological components of an ecosystem affect populations.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 1040,
+      "code": "MS-LS2-5",
+      "description": "Evaluate competing design solutions for maintaining biodiversity and ecosystem services.",
+      "category": "Ecosystems: Interactions, Energy, and Dynamics"
+    },
+    {
+      "id": 978,
+      "code": "4-PS3-1",
+      "description": "Use evidence to construct an explanation relating the speed of an object to the energy of that object.",
+      "category": "Energy"
+    },
+    {
+      "id": 979,
+      "code": "4-PS3-2",
+      "description": "Make observations to provide evidence that energy can be transferred from place to place by sound, light, heat, and electric currents.",
+      "category": "Energy"
+    },
+    {
+      "id": 980,
+      "code": "4-PS3-3",
+      "description": "Ask questions and predict outcomes about the changes in energy that occur when objects collide.",
+      "category": "Energy"
+    },
+    {
+      "id": 981,
+      "code": "4-PS3-4",
+      "description": "Apply scientific ideas to design, test, and refine a device that converts energy from one form to another.",
+      "category": "Energy"
+    },
+    {
+      "id": 997,
+      "code": "5-PS3-1",
+      "description": "Use models to describe that energy in animals' food (used for body repair, growth, motion, and to maintain body warmth) was once energy from the sun.",
+      "category": "Energy"
+    },
+    {
+      "id": 935,
+      "code": "K-PS3-1",
+      "description": "Make observations to determine the effect of sunlight on Earth's surface.",
+      "category": "Energy"
+    },
+    {
+      "id": 936,
+      "code": "K-PS3-2",
+      "description": "Use tools and materials to design and build a structure that will reduce the warming effect of sunlight on an area.",
+      "category": "Energy"
+    },
+    {
+      "id": 1016,
+      "code": "MS-PS3-1",
+      "description": "Construct and interpret graphical displays of data to describe the relationships of kinetic energy to the mass of an object and the speed of an object.",
+      "category": "Energy"
+    },
+    {
+      "id": 1017,
+      "code": "MS-PS3-2",
+      "description": "Develop a model to describe that when the arrangement of objects interacting at a distance changes, different amounts of potential energy are stored in the system.",
+      "category": "Energy"
+    },
+    {
+      "id": 1018,
+      "code": "MS-PS3-3",
+      "description": "Apply scientific principles to design, construct, and test a device that either minimizes or maximizes thermal energy transfer.",
+      "category": "Energy"
+    },
+    {
+      "id": 1019,
+      "code": "MS-PS3-4",
+      "description": "Plan an investigation to determine the relationships among the energy transferred, the type of matter, the mass, and the change in the average kinetic energy of the particles as measured by the temperature of the sample.",
+      "category": "Energy"
+    },
+    {
+      "id": 1020,
+      "code": "MS-PS3-5",
+      "description": "Construct, use, and present arguments to support the claim that when the kinetic energy of an object changes, energy is transferred to or from the object.",
+      "category": "Energy"
+    },
+    {
+      "id": 1024,
+      "code": "MS-ETS1-1",
+      "description": "Define the criteria and constraints of a design problem with sufficient precision to ensure a successful solution, taking into account relevant scientific principles and potential impacts on people and the natural environment that may limit possible solutions.",
+      "category": "Engineering Design"
+    },
+    {
+      "id": 1025,
+      "code": "MS-ETS1-2",
+      "description": "Evaluate competing design solutions using a systematic process to determine how well they meet the criteria and constraints of the problem.",
+      "category": "Engineering Design"
+    },
+    {
+      "id": 1026,
+      "code": "MS-ETS1-3",
+      "description": "Analyze data from tests to determine similarities and differences among several design solutions to identify the best characteristics of each that can be combined into a new solution to better meet the criteria for success.",
+      "category": "Engineering Design"
+    },
+    {
+      "id": 1027,
+      "code": "MS-ETS1-4",
+      "description": "Develop a model to generate data for iterative testing and modification of a proposed object, tool, or process such that an optimal design can be achieved.",
+      "category": "Engineering Design"
+    },
+    {
+      "id": 908,
+      "code": "6.EE.A",
+      "description": "Apply and extend previous understandings of arithmetic to algebraic expressions.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 909,
+      "code": "6.EE.B",
+      "description": "Reason about and solve one-variable equations and inequalities.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 910,
+      "code": "6.EE.C",
+      "description": "Represent and analyze quantitative relationships between dependent and independent variables.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 916,
+      "code": "7.EE.A",
+      "description": "Use properties of operations to generate equivalent expressions.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 917,
+      "code": "7.EE.B",
+      "description": "Solve real-life and mathematical problems using numerical and algebraic expressions and equations.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 924,
+      "code": "8.EE.A",
+      "description": "Work with radicals and integer exponents.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 925,
+      "code": "8.EE.B",
+      "description": "Understand the connections between proportional relationships, lines, and linear equations.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 926,
+      "code": "8.EE.C",
+      "description": "Analyze and solve linear equations and pairs of simultaneous linear equations.",
+      "category": "Expressions & Equations"
+    },
+    {
+      "id": 947,
+      "code": "1-LS1-1",
+      "description": "Use materials to design a solution to a human problem by mimicking how plants and/or animals use their external parts to help them survive, grow, and meet their needs.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 948,
+      "code": "1-LS1-2",
+      "description": "Read texts and use media to determine patterns in behavior of parents and offspring that help offspring survive.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 967,
+      "code": "3-LS1-1",
+      "description": "Develop models to describe that organisms have unique and diverse life cycles but all have in common birth, growth, reproduction, and death.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 985,
+      "code": "4-LS1-1",
+      "description": "Construct an argument that plants and animals have internal and external structures that function to support survival, growth, behavior, and reproduction.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 986,
+      "code": "4-LS1-2",
+      "description": "Use a model to describe that animals receive different types of information through their senses, process the information in their brain, and respond to the information in different ways.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 998,
+      "code": "5-LS1-1",
+      "description": "Support an argument that plants get the materials they need for growth chiefly from air and water.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 937,
+      "code": "K-LS1-1",
+      "description": "Use observations to describe patterns of what plants and animals (including humans) need to survive.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1028,
+      "code": "MS-LS1-1",
+      "description": "Conduct an investigation to provide evidence that living things are made of cells; either one cell or many different numbers and types of cells.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1029,
+      "code": "MS-LS1-2",
+      "description": "Develop and use a model to describe the function of a cell as a whole and the ways the parts of cells contribute to the function.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1030,
+      "code": "MS-LS1-3",
+      "description": "Use argument supported by evidence for how the body is a system of interacting subsystems composed of groups of cells.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1031,
+      "code": "MS-LS1-4",
+      "description": "Use argument based on empirical evidence and scientific reasoning to support an explanation for how characteristic animal behaviors and specialized plant structures affect the probability of successful reproduction of animals and plants.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1032,
+      "code": "MS-LS1-5",
+      "description": "Construct a scientific explanation based on evidence for how environmental and genetic factors influence the growth of organisms.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1033,
+      "code": "MS-LS1-6",
+      "description": "Construct a scientific explanation based on evidence for the role of photosynthesis in the cycling of matter and flow of energy into and out of organisms.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1034,
+      "code": "MS-LS1-7",
+      "description": "Develop a model to describe how food is rearranged through chemical reactions forming new molecules that support growth and/or release energy.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 1035,
+      "code": "MS-LS1-8",
+      "description": "Gather and synthesize information that sensory receptors respond to stimuli by sending messages to the brain for immediate behavior or storage as memories.",
+      "category": "From Molecules to Organisms: Structures and Processes"
+    },
+    {
+      "id": 931,
+      "code": "8.F.A",
+      "description": "Define, evaluate, and compare functions.",
+      "category": "Functions"
+    },
+    {
+      "id": 932,
+      "code": "8.F.B",
+      "description": "Use functions to model relationships between quantities.",
+      "category": "Functions"
+    },
+    {
+      "id": 1366,
+      "code": "G1.1.1",
+      "description": "Use maps and globes to locate places in the classroom, school, and community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1367,
+      "code": "G1.1.2",
+      "description": "Identify cardinal directions on maps and globes.",
+      "category": "Geography"
+    },
+    {
+      "id": 1368,
+      "code": "G1.1.3",
+      "description": "Identify landforms and bodies of water on maps and globes.",
+      "category": "Geography"
+    },
+    {
+      "id": 1373,
+      "code": "G1.2.1",
+      "description": "Use maps and globes to identify major physical features.",
+      "category": "Geography"
+    },
+    {
+      "id": 1374,
+      "code": "G1.2.2",
+      "description": "Identify the location of the local community, state, and nation on a map and globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1375,
+      "code": "G1.2.3",
+      "description": "Identify the continents and oceans on a map and globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1380,
+      "code": "G1.3.1",
+      "description": "Use maps and globes to identify major political and physical features.",
+      "category": "Geography"
+    },
+    {
+      "id": 1381,
+      "code": "G1.3.2",
+      "description": "Locate the local community, Washington State, the United States, and the world on a map and globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1382,
+      "code": "G1.3.3",
+      "description": "Identify lines of latitude and longitude on a globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1387,
+      "code": "G1.4.1",
+      "description": "Use maps and globes to identify major physical and political features of Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1388,
+      "code": "G1.4.2",
+      "description": "Identify Washington State's location relative to the United States and the world.",
+      "category": "Geography"
+    },
+    {
+      "id": 1389,
+      "code": "G1.4.3",
+      "description": "Locate lines of latitude and longitude and apply them to maps of Washington.",
+      "category": "Geography"
+    },
+    {
+      "id": 1394,
+      "code": "G1.5.1",
+      "description": "Use maps and globes to identify major physical and political features of the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1395,
+      "code": "G1.5.2",
+      "description": "Identify the United States' location relative to the world.",
+      "category": "Geography"
+    },
+    {
+      "id": 1396,
+      "code": "G1.5.3",
+      "description": "Locate lines of latitude and longitude and apply them to maps of the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1485,
+      "code": "G1.6-8.1",
+      "description": "Construct and analyze maps using scale, direction, symbols, legends, and projections to gather information.",
+      "category": "Geography"
+    },
+    {
+      "id": 1486,
+      "code": "G1.6-8.2",
+      "description": "Identify the location of places and regions in the world and understand their physical and cultural characteristics.",
+      "category": "Geography"
+    },
+    {
+      "id": 1487,
+      "code": "G1.6-8.3",
+      "description": "Analyze maps and charts from a specific time period to understand an issue or event.",
+      "category": "Geography"
+    },
+    {
+      "id": 1488,
+      "code": "G1.6-8.4",
+      "description": "Explain how human spatial patterns have emerged from natural processes and human activities.",
+      "category": "Geography"
+    },
+    {
+      "id": 1489,
+      "code": "G1.6-8.5",
+      "description": "Explain and analyze physical and cultural characteristics of places and regions in the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1490,
+      "code": "G1.6-8.6",
+      "description": "Use maps, satellite images, photographs, and other representations to explain relationships between the locations of places and regions and their political, cultural, and economic dynamics.",
+      "category": "Geography"
+    },
+    {
+      "id": 1358,
+      "code": "G1.K.1",
+      "description": "Identify maps and globes as ways of representing Earth.",
+      "category": "Geography"
+    },
+    {
+      "id": 1359,
+      "code": "G1.K.2",
+      "description": "Identify the difference between a map and a globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1360,
+      "code": "G1.K.3",
+      "description": "Identify land and water on a map or globe.",
+      "category": "Geography"
+    },
+    {
+      "id": 1361,
+      "code": "G1.K.4",
+      "description": "Demonstrate how maps can show where things are located in the classroom.",
+      "category": "Geography"
+    },
+    {
+      "id": 1369,
+      "code": "G2.1.1",
+      "description": "Describe how the environment influences how people live in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1370,
+      "code": "G2.1.2",
+      "description": "Give examples of how people impact the local environment.",
+      "category": "Geography"
+    },
+    {
+      "id": 1376,
+      "code": "G2.2.1",
+      "description": "Describe how the environment influences how people live in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1377,
+      "code": "G2.2.2",
+      "description": "Describe how people impact the environment in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1383,
+      "code": "G2.3.1",
+      "description": "Explain how the environment affects how people live in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1384,
+      "code": "G2.3.2",
+      "description": "Explain how people affect the environment in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1390,
+      "code": "G2.4.1",
+      "description": "Explain how the environment affects how people live in Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1391,
+      "code": "G2.4.2",
+      "description": "Explain how people affect the environment in Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1397,
+      "code": "G2.5.1",
+      "description": "Explain how the environment affects how people live in the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1398,
+      "code": "G2.5.2",
+      "description": "Explain how people affect the environment in the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1491,
+      "code": "G2.6-8.1",
+      "description": "Explain and analyze how the environment has affected people and how people have affected the environment in world history.",
+      "category": "Geography"
+    },
+    {
+      "id": 1492,
+      "code": "G2.6-8.2",
+      "description": "Explain the geographic factors that influence the movement of groups of people in world history.",
+      "category": "Geography"
+    },
+    {
+      "id": 1493,
+      "code": "G2.6-8.3",
+      "description": "Explain and analyze how the environment has affected people and how human actions modify the physical environment—and, in turn, how the physical environment limits or promotes human activities in Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1494,
+      "code": "G2.6-8.4",
+      "description": "Explain the role of immigration in shaping societies in the past or present.",
+      "category": "Geography"
+    },
+    {
+      "id": 1495,
+      "code": "G2.6-8.5",
+      "description": "Explain examples of cultural diffusion in the world from the past or present.",
+      "category": "Geography"
+    },
+    {
+      "id": 1496,
+      "code": "G2.6-8.6",
+      "description": "Analyze how the environment has affected people and how people have affected the environment in the United States in the past or present.",
+      "category": "Geography"
+    },
+    {
+      "id": 1497,
+      "code": "G2.6-8.7",
+      "description": "Explain cultural diffusion in the United States from the past or present.",
+      "category": "Geography"
+    },
+    {
+      "id": 1498,
+      "code": "G2.6-8.8",
+      "description": "Explain and analyze migration as a catalyst for the growth of the United States in the past or present.",
+      "category": "Geography"
+    },
+    {
+      "id": 1362,
+      "code": "G2.K.1",
+      "description": "Describe how the environment influences how people live in the local community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1363,
+      "code": "G2.K.2",
+      "description": "Give examples of how people impact the local environment.",
+      "category": "Geography"
+    },
+    {
+      "id": 1371,
+      "code": "G3.1.1",
+      "description": "Identify ways people move from place to place.",
+      "category": "Geography"
+    },
+    {
+      "id": 1372,
+      "code": "G3.1.2",
+      "description": "Identify ways goods move from place to place.",
+      "category": "Geography"
+    },
+    {
+      "id": 1378,
+      "code": "G3.2.1",
+      "description": "Describe how people move from place to place in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1379,
+      "code": "G3.2.2",
+      "description": "Describe how goods move from place to place in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1385,
+      "code": "G3.3.1",
+      "description": "Explain how people move from place to place in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1386,
+      "code": "G3.3.2",
+      "description": "Explain how goods move from place to place in the community.",
+      "category": "Geography"
+    },
+    {
+      "id": 1392,
+      "code": "G3.4.1",
+      "description": "Explain how people move from place to place in Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1393,
+      "code": "G3.4.2",
+      "description": "Explain how goods move from place to place in Washington State.",
+      "category": "Geography"
+    },
+    {
+      "id": 1399,
+      "code": "G3.5.1",
+      "description": "Explain how people move from place to place in the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1400,
+      "code": "G3.5.2",
+      "description": "Explain how goods move from place to place in the United States.",
+      "category": "Geography"
+    },
+    {
+      "id": 1499,
+      "code": "G3.6-8.1",
+      "description": "Explain how learning about the geography of the world helps us understand global issues such as diversity, sustainability, and trade.",
+      "category": "Geography"
+    },
+    {
+      "id": 1500,
+      "code": "G3.6-8.2",
+      "description": "Explain how learning about the geography of Washington State helps us understand global issues such as diversity, sustainability, and trade.",
+      "category": "Geography"
+    },
+    {
+      "id": 1501,
+      "code": "G3.6-8.3",
+      "description": "Explain how learning about the geography of the United States helps us understand global issues such as diversity, trade, and sustainability.",
+      "category": "Geography"
+    },
+    {
+      "id": 1364,
+      "code": "G3.K.1",
+      "description": "Identify how people move from place to place.",
+      "category": "Geography"
+    },
+    {
+      "id": 1365,
+      "code": "G3.K.2",
+      "description": "Identify how goods move from place to place.",
+      "category": "Geography"
+    },
+    {
+      "id": 859,
+      "code": "1.G.A",
+      "description": "Reason with shapes and their attributes.",
+      "category": "Geometry"
+    },
+    {
+      "id": 869,
+      "code": "2.G.A",
+      "description": "Reason with shapes and their attributes.",
+      "category": "Geometry"
+    },
+    {
+      "id": 879,
+      "code": "3.G.A",
+      "description": "Reason with shapes and their attributes.",
+      "category": "Geometry"
+    },
+    {
+      "id": 889,
+      "code": "4.G.A",
+      "description": "Draw and identify lines and angles, and classify shapes by properties of their lines and angles.",
+      "category": "Geometry"
+    },
+    {
+      "id": 900,
+      "code": "5.G.A",
+      "description": "Graph points on the coordinate plane to solve real-world and mathematical problems.",
+      "category": "Geometry"
+    },
+    {
+      "id": 901,
+      "code": "5.G.B",
+      "description": "Classify two-dimensional figures into categories based on their properties.",
+      "category": "Geometry"
+    },
+    {
+      "id": 911,
+      "code": "6.G.A",
+      "description": "Solve real-world and mathematical problems involving area, surface area, and volume.",
+      "category": "Geometry"
+    },
+    {
+      "id": 918,
+      "code": "7.G.A",
+      "description": "Draw, construct, and describe geometrical figures and describe the relationships between them.",
+      "category": "Geometry"
+    },
+    {
+      "id": 919,
+      "code": "7.G.B",
+      "description": "Solve real-life and mathematical problems involving angle measure, area, surface area, and volume.",
+      "category": "Geometry"
+    },
+    {
+      "id": 927,
+      "code": "8.G.A",
+      "description": "Understand congruence and similarity using physical models, transparencies, or geometry software.",
+      "category": "Geometry"
+    },
+    {
+      "id": 928,
+      "code": "8.G.B",
+      "description": "Understand and apply the Pythagorean Theorem.",
+      "category": "Geometry"
+    },
+    {
+      "id": 929,
+      "code": "8.G.C",
+      "description": "Solve real-world and mathematical problems involving volume of cylinders, cones, and spheres.",
+      "category": "Geometry"
+    },
+    {
+      "id": 847,
+      "code": "K.G.A",
+      "description": "Identify and describe shapes (squares, circles, triangles, rectangles, hexagons, cubes, cones, cylinders, and spheres).",
+      "category": "Geometry"
+    },
+    {
+      "id": 848,
+      "code": "K.G.B",
+      "description": "Analyze, compare, create, and compose shapes.",
+      "category": "Geometry"
+    },
+    {
+      "id": 949,
+      "code": "1-LS3-1",
+      "description": "Make observations to construct an evidence-based account that young plants and animals are like, but not exactly like, their parents.",
+      "category": "Heredity: Inheritance and Variation of Traits"
+    },
+    {
+      "id": 969,
+      "code": "3-LS3-1",
+      "description": "Analyze and interpret data to provide evidence that plants and animals have traits inherited from parents and that variation of these traits exists in a group of similar organisms.",
+      "category": "Heredity: Inheritance and Variation of Traits"
+    },
+    {
+      "id": 970,
+      "code": "3-LS3-2",
+      "description": "Use evidence to support the explanation that traits can be influenced by the environment.",
+      "category": "Heredity: Inheritance and Variation of Traits"
+    },
+    {
+      "id": 1041,
+      "code": "MS-LS3-1",
+      "description": "Develop and use a model to describe why structural changes to genes (mutations) may affect proteins and may result in harmful, beneficial, or neutral effects to the structure and function of the organism.",
+      "category": "Heredity: Inheritance and Variation of Traits"
+    },
+    {
+      "id": 1042,
+      "code": "MS-LS3-2",
+      "description": "Develop and use a model to describe why asexual reproduction results in offspring with identical genetic information and sexual reproduction results in offspring with genetic variation.",
+      "category": "Heredity: Inheritance and Variation of Traits"
+    },
+    {
+      "id": 1407,
+      "code": "H1.1.1",
+      "description": "Identify events in the local community that have happened in the past and are happening in the present.",
+      "category": "History"
+    },
+    {
+      "id": 1408,
+      "code": "H1.1.2",
+      "description": "Create and use a timeline to show events in chronological order.",
+      "category": "History"
+    },
+    {
+      "id": 1414,
+      "code": "H1.2.1",
+      "description": "Identify events in Washington State that have happened in the past and are happening in the present.",
+      "category": "History"
+    },
+    {
+      "id": 1415,
+      "code": "H1.2.2",
+      "description": "Create and use a timeline to show events in chronological order.",
+      "category": "History"
+    },
+    {
+      "id": 1421,
+      "code": "H1.3.1",
+      "description": "Identify events in the history of Washington State that have happened in the past and are happening in the present.",
+      "category": "History"
+    },
+    {
+      "id": 1422,
+      "code": "H1.3.2",
+      "description": "Create and use a timeline to show events in chronological order.",
+      "category": "History"
+    },
+    {
+      "id": 1429,
+      "code": "H1.4.1",
+      "description": "Identify events in Washington State history that have happened in the past and are happening in the present.",
+      "category": "History"
+    },
+    {
+      "id": 1430,
+      "code": "H1.4.2",
+      "description": "Create and use a timeline to show events in chronological order.",
+      "category": "History"
+    },
+    {
+      "id": 1437,
+      "code": "H1.5.1",
+      "description": "Identify major events in U.S. history that have happened in the past and are happening in the present.",
+      "category": "History"
+    },
+    {
+      "id": 1438,
+      "code": "H1.5.2",
+      "description": "Create and use a timeline to show events in chronological order.",
+      "category": "History"
+    },
+    {
+      "id": 1502,
+      "code": "H1.6-8.1",
+      "description": "Analyze different cultural measurements of time.",
+      "category": "History"
+    },
+    {
+      "id": 1503,
+      "code": "H1.6-8.2",
+      "description": "Explain how the rise of civilizations defines eras in world history in two or more regions of the world.",
+      "category": "History"
+    },
+    {
+      "id": 1504,
+      "code": "H1.6-8.4",
+      "description": "Analyze a major historical event and how it is represented on timelines from different cultural perspectives, including those of indigenous people.",
+      "category": "History"
+    },
+    {
+      "id": 1401,
+      "code": "H1.K.1",
+      "description": "Identify events in the school and community that have happened in the past and present.",
+      "category": "History"
+    },
+    {
+      "id": 1402,
+      "code": "H1.K.2",
+      "description": "Retell sequential events in the school day using words such as first, next, last.",
+      "category": "History"
+    },
+    {
+      "id": 1409,
+      "code": "H2.1.1",
+      "description": "Identify changes that have occurred in the local community over time.",
+      "category": "History"
+    },
+    {
+      "id": 1410,
+      "code": "H2.1.2",
+      "description": "Describe the role of key people in the history of the school and community.",
+      "category": "History"
+    },
+    {
+      "id": 1416,
+      "code": "H2.2.1",
+      "description": "Identify changes in the local community and Washington State over time.",
+      "category": "History"
+    },
+    {
+      "id": 1417,
+      "code": "H2.2.2",
+      "description": "Describe the role of key people in Washington State history.",
+      "category": "History"
+    },
+    {
+      "id": 1423,
+      "code": "H2.3.1",
+      "description": "Describe how natural resources have influenced settlement in the local community and Washington State.",
+      "category": "History"
+    },
+    {
+      "id": 1424,
+      "code": "H2.3.2",
+      "description": "Describe the role of key people in Washington State history.",
+      "category": "History"
+    },
+    {
+      "id": 1431,
+      "code": "H2.4.1",
+      "description": "Explain how Washington State history has been shaped by many diverse people, events, and developments.",
+      "category": "History"
+    },
+    {
+      "id": 1432,
+      "code": "H2.4.2",
+      "description": "Describe how the environment has affected settlement and development in Washington State.",
+      "category": "History"
+    },
+    {
+      "id": 1439,
+      "code": "H2.5.1",
+      "description": "Explain how U.S. history has been shaped by many diverse people, events, and developments.",
+      "category": "History"
+    },
+    {
+      "id": 1440,
+      "code": "H2.5.2",
+      "description": "Describe how the environment has affected settlement and development in U.S. history.",
+      "category": "History"
+    },
+    {
+      "id": 1441,
+      "code": "H2.5.3",
+      "description": "Explain the causes and effects of major events in early U.S. history.",
+      "category": "History"
+    },
+    {
+      "id": 1505,
+      "code": "H2.6-8.1",
+      "description": "Explain and analyze how individuals, movements, cultural and ethnic groups, and technology from past civilizations have shaped world history.",
+      "category": "History"
+    },
+    {
+      "id": 1506,
+      "code": "H2.6-8.2",
+      "description": "Explain and analyze how individuals and movements have shaped Washington State history since statehood.",
+      "category": "History"
+    },
+    {
+      "id": 1507,
+      "code": "H2.6-8.3",
+      "description": "Explain and analyze how cultures and ethnic groups contributed to Washington State history since statehood.",
+      "category": "History"
+    },
+    {
+      "id": 1508,
+      "code": "H2.6-8.4",
+      "description": "Explain and analyze how technology and ideas have impacted Washington State history since statehood.",
+      "category": "History"
+    },
+    {
+      "id": 1509,
+      "code": "H2.6-8.5",
+      "description": "Explain and analyze how individuals and movements have shaped United States history (1763–1877).",
+      "category": "History"
+    },
+    {
+      "id": 1510,
+      "code": "H2.6-8.6",
+      "description": "Explain and analyze how cultures and ethnic groups contributed to United States history (1763–1877).",
+      "category": "History"
+    },
+    {
+      "id": 1511,
+      "code": "H2.6-8.7",
+      "description": "Explain and analyze how technology and ideas have impacted United States history (1763–1877).",
+      "category": "History"
+    },
+    {
+      "id": 1403,
+      "code": "H2.K.1",
+      "description": "Identify changes that have occurred in the local community over time.",
+      "category": "History"
+    },
+    {
+      "id": 1411,
+      "code": "H3.1.1",
+      "description": "Compare perspectives of family members and classmates on past events.",
+      "category": "History"
+    },
+    {
+      "id": 1418,
+      "code": "H3.2.1",
+      "description": "Explain why accounts of the same event can be different.",
+      "category": "History"
+    },
+    {
+      "id": 1425,
+      "code": "H3.3.1",
+      "description": "Explain why accounts of the same event can be different.",
+      "category": "History"
+    },
+    {
+      "id": 1426,
+      "code": "H3.3.2",
+      "description": "Compare different cultural perspectives on historical events in Washington State.",
+      "category": "History"
+    },
+    {
+      "id": 1433,
+      "code": "H3.4.1",
+      "description": "Compare different cultural perspectives on historical events in Washington State.",
+      "category": "History"
+    },
+    {
+      "id": 1434,
+      "code": "H3.4.2",
+      "description": "Explain why accounts of the same event can be different.",
+      "category": "History"
+    },
+    {
+      "id": 1442,
+      "code": "H3.5.1",
+      "description": "Compare cultural perspectives on historical events in U.S. history.",
+      "category": "History"
+    },
+    {
+      "id": 1443,
+      "code": "H3.5.2",
+      "description": "Explain why accounts of the same event can be different.",
+      "category": "History"
+    },
+    {
+      "id": 1512,
+      "code": "H3.6-8.1",
+      "description": "Analyze and interpret historical materials from a variety of perspectives in world history.",
+      "category": "History"
+    },
+    {
+      "id": 1513,
+      "code": "H3.6-8.2",
+      "description": "Analyze multiple causal factors to create and support a claim about major events in world history.",
+      "category": "History"
+    },
+    {
+      "id": 1514,
+      "code": "H3.6-8.3",
+      "description": "Explain, analyze, and develop an argument about how Washington State has been impacted by individuals and movements; cultures and cultural groups; technology and ideas.",
+      "category": "History"
+    },
+    {
+      "id": 1515,
+      "code": "H3.6-8.4",
+      "description": "Analyze and interpret historical materials from a variety of perspectives in United States history (1763–1877).",
+      "category": "History"
+    },
+    {
+      "id": 1516,
+      "code": "H3.6-8.5",
+      "description": "Analyze multiple causal factors to create positions on major events in United States history (1763–1877).",
+      "category": "History"
+    },
+    {
+      "id": 1404,
+      "code": "H3.K.1",
+      "description": "Identify the perspectives of family members on past events.",
+      "category": "History"
+    },
+    {
+      "id": 1412,
+      "code": "H4.1.1",
+      "description": "Ask questions about the past and seek answers from family members, photos, and artifacts.",
+      "category": "History"
+    },
+    {
+      "id": 1413,
+      "code": "H4.1.2",
+      "description": "Identify a primary source from the community.",
+      "category": "History"
+    },
+    {
+      "id": 1419,
+      "code": "H4.2.1",
+      "description": "Ask questions about the past and use sources to answer them.",
+      "category": "History"
+    },
+    {
+      "id": 1420,
+      "code": "H4.2.2",
+      "description": "Identify the difference between a primary and secondary source.",
+      "category": "History"
+    },
+    {
+      "id": 1427,
+      "code": "H4.3.1",
+      "description": "Ask questions about the past and use sources to answer them.",
+      "category": "History"
+    },
+    {
+      "id": 1428,
+      "code": "H4.3.2",
+      "description": "Identify and describe examples of primary and secondary sources.",
+      "category": "History"
+    },
+    {
+      "id": 1435,
+      "code": "H4.4.1",
+      "description": "Analyze primary and secondary sources to answer questions about the past.",
+      "category": "History"
+    },
+    {
+      "id": 1436,
+      "code": "H4.4.2",
+      "description": "Distinguish between fact and opinion in historical accounts.",
+      "category": "History"
+    },
+    {
+      "id": 1444,
+      "code": "H4.5.1",
+      "description": "Analyze primary and secondary sources to answer questions about the past.",
+      "category": "History"
+    },
+    {
+      "id": 1445,
+      "code": "H4.5.2",
+      "description": "Distinguish between fact and opinion in historical accounts.",
+      "category": "History"
+    },
+    {
+      "id": 1446,
+      "code": "H4.5.3",
+      "description": "Construct a historical argument using evidence from multiple sources.",
+      "category": "History"
+    },
+    {
+      "id": 1517,
+      "code": "H4.6-8.1",
+      "description": "Analyze how a historical event in world history helps us understand contemporary issues and events.",
+      "category": "History"
+    },
+    {
+      "id": 1518,
+      "code": "H4.6-8.2",
+      "description": "Analyze how a historical event in Washington State history helps us understand contemporary issues and events.",
+      "category": "History"
+    },
+    {
+      "id": 1519,
+      "code": "H4.6-8.3",
+      "description": "Analyze how a historical event in United States history helps us understand contemporary issues and events.",
+      "category": "History"
+    },
+    {
+      "id": 1405,
+      "code": "H4.K.1",
+      "description": "Ask questions about the past.",
+      "category": "History"
+    },
+    {
+      "id": 1406,
+      "code": "H4.K.2",
+      "description": "Identify a primary source from school or family.",
+      "category": "History"
+    },
+    {
+      "id": 1520,
+      "code": "WA.ELA-LITERACY.L1st.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1521,
+      "code": "WA.ELA-LITERACY.L1st.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1522,
+      "code": "WA.ELA-LITERACY.L1st.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 1 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1523,
+      "code": "WA.ELA-LITERACY.L1st.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1524,
+      "code": "WA.ELA-LITERACY.L1st.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1525,
+      "code": "WA.ELA-LITERACY.L2nd.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1526,
+      "code": "WA.ELA-LITERACY.L2nd.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1527,
+      "code": "WA.ELA-LITERACY.L2nd.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 2 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1528,
+      "code": "WA.ELA-LITERACY.L2nd.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1529,
+      "code": "WA.ELA-LITERACY.L2nd.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1530,
+      "code": "WA.ELA-LITERACY.L3rd.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1531,
+      "code": "WA.ELA-LITERACY.L3rd.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1532,
+      "code": "WA.ELA-LITERACY.L3rd.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 3 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1533,
+      "code": "WA.ELA-LITERACY.L3rd.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1534,
+      "code": "WA.ELA-LITERACY.L3rd.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1535,
+      "code": "WA.ELA-LITERACY.L4th.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1536,
+      "code": "WA.ELA-LITERACY.L4th.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1537,
+      "code": "WA.ELA-LITERACY.L4th.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 4 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1538,
+      "code": "WA.ELA-LITERACY.L4th.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1539,
+      "code": "WA.ELA-LITERACY.L4th.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1540,
+      "code": "WA.ELA-LITERACY.L5th.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1541,
+      "code": "WA.ELA-LITERACY.L5th.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1542,
+      "code": "WA.ELA-LITERACY.L5th.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 5 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1543,
+      "code": "WA.ELA-LITERACY.L5th.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1544,
+      "code": "WA.ELA-LITERACY.L5th.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1545,
+      "code": "WA.ELA-LITERACY.L6th.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1546,
+      "code": "WA.ELA-LITERACY.L6th.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1547,
+      "code": "WA.ELA-LITERACY.L6th.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 6 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1548,
+      "code": "WA.ELA-LITERACY.L6th.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1549,
+      "code": "WA.ELA-LITERACY.L6th.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1550,
+      "code": "WA.ELA-LITERACY.L7th.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1551,
+      "code": "WA.ELA-LITERACY.L7th.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1552,
+      "code": "WA.ELA-LITERACY.L7th.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 7 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1553,
+      "code": "WA.ELA-LITERACY.L7th.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1554,
+      "code": "WA.ELA-LITERACY.L7th.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1555,
+      "code": "WA.ELA-LITERACY.L8th.1",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 1556,
+      "code": "WA.ELA-LITERACY.L8th.2",
+      "description": "Students demonstrate command of the conventions of standard English capitalization, punctuation, and spelling when writing.",
+      "category": "Language"
+    },
+    {
+      "id": 1557,
+      "code": "WA.ELA-LITERACY.L8th.3",
+      "description": "Students determine or clarify the meaning of unknown and multiple-meaning words and phrases based on grade 8 reading and content.",
+      "category": "Language"
+    },
+    {
+      "id": 1558,
+      "code": "WA.ELA-LITERACY.L8th.4",
+      "description": "Students demonstrate understanding of word relationships and nuances in word meanings.",
+      "category": "Language"
+    },
+    {
+      "id": 1559,
+      "code": "WA.ELA-LITERACY.L8th.5",
+      "description": "Students use words and phrases acquired through conversations, reading and being read to, and responding to texts.",
+      "category": "Language"
+    },
+    {
+      "id": 1318,
+      "code": "WA.ELA-LITERACY.LK.1",
+      "description": "Students notice when and why language is used differently at school, at home, and with peers.",
+      "category": "Language"
+    },
+    {
+      "id": 1319,
+      "code": "WA.ELA-LITERACY.LK.2",
+      "description": "Students demonstrate command of the conventions of standard English grammar and usage when writing or speaking.",
+      "category": "Language"
+    },
+    {
+      "id": 832,
+      "code": "MP1",
+      "description": "Make sense of problems and persevere in solving them.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 833,
+      "code": "MP2",
+      "description": "Reason abstractly and quantitatively.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 834,
+      "code": "MP3",
+      "description": "Construct viable arguments and critique the reasoning of others.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 835,
+      "code": "MP4",
+      "description": "Model with mathematics.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 836,
+      "code": "MP5",
+      "description": "Use appropriate tools strategically.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 837,
+      "code": "MP6",
+      "description": "Attend to precision.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 838,
+      "code": "MP7",
+      "description": "Look for and make use of structure.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 839,
+      "code": "MP8",
+      "description": "Look for and express regularity in repeated reasoning.",
+      "category": "Mathematical Practices"
+    },
+    {
+      "id": 952,
+      "code": "2-PS1-1",
+      "description": "Plan and conduct an investigation to describe and classify different kinds of materials by their observable properties.",
+      "category": "Matter and its Interactions"
+    },
+    {
+      "id": 953,
+      "code": "2-PS1-2",
+      "description": "Analyze data obtained from testing different materials to determine which materials have the properties that are best suited for an intended purpose.",
+      "category": "Matter and its Interactions"
+    },
+    {
+      "id": 954,
+      "code": "2-PS1-3",
+      "description": "Make observations to construct an evidence-based account of how an object made of a small set of pieces can be disassembled and made into a new object.",
+      "category": "Matter and its Interactions"
+    },
+    {
+      "id": 955,
+      "code": "2-PS1-4",
+      "description": "Construct an argument with evidence that some changes caused by heating or cooling can be reversed and some cannot.",
+      "category": "Matter and its Interactions"
+    },
+    {
+      "id": 992,
+      "code": "5-PS1-1",
+      "description": "Develop a model to describe that matter is made of particles too small to be seen.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 993,
+      "code": "5-PS1-2",
+      "description": "Measure and graph quantities to provide evidence that regardless of the type of change that occurs when heating, cooling, or mixing substances, the total weight of matter is conserved.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 994,
+      "code": "5-PS1-3",
+      "description": "Make observations and measurements to identify materials based on their properties.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 995,
+      "code": "5-PS1-4",
+      "description": "Conduct an investigation to determine whether the mixing of two or more substances results in new substances.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1005,
+      "code": "MS-PS1-1",
+      "description": "Develop models to describe the atomic composition of simple molecules and extended structures.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1006,
+      "code": "MS-PS1-2",
+      "description": "Analyze and interpret data on the properties of substances before and after the substances interact to determine if a chemical reaction has occurred.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1007,
+      "code": "MS-PS1-3",
+      "description": "Gather and make sense of information to describe that synthetic materials come from natural resources and impact society.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1008,
+      "code": "MS-PS1-4",
+      "description": "Develop a model that predicts and describes changes in particle motion, temperature, and state of a pure substance when thermal energy is added or removed.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1009,
+      "code": "MS-PS1-5",
+      "description": "Develop and use a model to describe how the total number of atoms does not change in a chemical reaction and thus mass is conserved.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 1010,
+      "code": "MS-PS1-6",
+      "description": "Undertake a design project to construct, test, and modify a device that either releases or absorbs thermal energy by chemical processes.",
+      "category": "Matter and Its Interactions"
+    },
+    {
+      "id": 856,
+      "code": "1.MD.A",
+      "description": "Measure lengths indirectly and by iterating length units.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 857,
+      "code": "1.MD.B",
+      "description": "Tell and write time.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 858,
+      "code": "1.MD.C",
+      "description": "Represent and interpret data.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 865,
+      "code": "2.MD.A",
+      "description": "Measure and estimate lengths in standard units.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 866,
+      "code": "2.MD.B",
+      "description": "Relate addition and subtraction to length.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 867,
+      "code": "2.MD.C",
+      "description": "Work with time and money.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 868,
+      "code": "2.MD.D",
+      "description": "Represent and interpret data.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 875,
+      "code": "3.MD.A",
+      "description": "Solve problems involving measurement and estimation of intervals of time, liquid volumes, and masses of objects.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 876,
+      "code": "3.MD.B",
+      "description": "Represent and interpret data.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 877,
+      "code": "3.MD.C",
+      "description": "Geometric measurement: understand concepts of area and relate area to multiplication and to addition.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 878,
+      "code": "3.MD.D",
+      "description": "Geometric measurement: recognize perimeter as an attribute of plane figures and distinguish between linear and area measures.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 886,
+      "code": "4.MD.A",
+      "description": "Solve problems involving measurement and conversion of measurements from a larger unit to a smaller unit.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 887,
+      "code": "4.MD.B",
+      "description": "Represent and interpret data.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 888,
+      "code": "4.MD.C",
+      "description": "Geometric measurement: understand concepts of angle and measure angles.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 897,
+      "code": "5.MD.A",
+      "description": "Convert like measurement units within a given measurement system.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 898,
+      "code": "5.MD.B",
+      "description": "Represent and interpret data.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 899,
+      "code": "5.MD.C",
+      "description": "Geometric measurement: understand concepts of volume and relate volume to multiplication and to addition.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 845,
+      "code": "K.MD.A",
+      "description": "Describe and compare measurable attributes.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 846,
+      "code": "K.MD.B",
+      "description": "Classify objects and count the number of objects in each category.",
+      "category": "Measurement & Data"
+    },
+    {
+      "id": 933,
+      "code": "K-PS2-1",
+      "description": "Plan and conduct an investigation to compare the effects of different strengths or different directions of pushes and pulls on the motion of an object.",
+      "category": "Motion and Stability: Forces and interactions"
+    },
+    {
+      "id": 934,
+      "code": "K-PS2-2",
+      "description": "Analyze data to determine if a design solution works as intended to change the speed or direction of an object with a push or a pull.",
+      "category": "Motion and Stability: Forces and interactions"
+    },
+    {
+      "id": 963,
+      "code": "3-PS2-1",
+      "description": "Plan and conduct an investigation to provide evidence of the effects of balanced and unbalanced forces on the motion of an object.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 964,
+      "code": "3-PS2-2",
+      "description": "Make observations and/or measurements of an object's motion to provide evidence that a pattern can be used to predict future motion.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 965,
+      "code": "3-PS2-3",
+      "description": "Ask questions to determine cause and effect relationships of electric or magnetic interactions between two objects not in contact with each other.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 966,
+      "code": "3-PS2-4",
+      "description": "Define a simple design problem that can be solved by applying scientific ideas about magnets.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 996,
+      "code": "5-PS2-1",
+      "description": "Support an argument that the gravitational force exerted by Earth on objects is directed down.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 1011,
+      "code": "MS-PS2-1",
+      "description": "Apply Newton's Third Law to design a solution to a problem involving the motion of two colliding objects.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 1012,
+      "code": "MS-PS2-2",
+      "description": "Plan an investigation to provide evidence that the change in an object's motion depends on the sum of the forces on the object and the mass of the object.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 1013,
+      "code": "MS-PS2-3",
+      "description": "Ask questions about data to determine the factors that affect the strength of electric and magnetic forces.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 1014,
+      "code": "MS-PS2-4",
+      "description": "Construct and present arguments using evidence to support the claim that gravitational interactions are attractive and depend on the masses of interacting objects.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 1015,
+      "code": "MS-PS2-5",
+      "description": "Conduct an investigation and evaluate the experimental design to provide evidence that fields exist between objects exerting forces on each other even though the objects are not in contact.",
+      "category": "Motion and Stability: Forces and Interactions"
+    },
+    {
+      "id": 880,
+      "code": "3.NF.A",
+      "description": "Develop understanding of fractions as numbers.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 890,
+      "code": "4.NF.A",
+      "description": "Extend understanding of fraction equivalence and ordering.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 891,
+      "code": "4.NF.B",
+      "description": "Build fractions from unit fractions by applying and extending previous understandings of operations on whole numbers.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 892,
+      "code": "4.NF.C",
+      "description": "Understand decimal notation for fractions, and compare decimal fractions.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 902,
+      "code": "5.NF.A",
+      "description": "Use equivalent fractions as a strategy to add and subtract fractions.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 903,
+      "code": "5.NF.B",
+      "description": "Apply and extend previous understandings of multiplication and division to multiply and divide fractions.",
+      "category": "Number & Operations—Fractions"
+    },
+    {
+      "id": 853,
+      "code": "1.NBT.A",
+      "description": "Extend the counting sequence.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 854,
+      "code": "1.NBT.B",
+      "description": "Understand place value.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 855,
+      "code": "1.NBT.C",
+      "description": "Use place value understanding and properties of operations to add and subtract.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 863,
+      "code": "2.NBT.A",
+      "description": "Understand place value.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 864,
+      "code": "2.NBT.B",
+      "description": "Use place value understanding and properties of operations to add and subtract.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 874,
+      "code": "3.NBT.A",
+      "description": "Use place value understanding and properties of operations to perform multi-digit arithmetic.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 884,
+      "code": "4.NBT.A",
+      "description": "Generalize place value understanding for multi-digit whole numbers.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 885,
+      "code": "4.NBT.B",
+      "description": "Use place value understanding and properties of operations to perform multi-digit arithmetic.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 895,
+      "code": "5.NBT.A",
+      "description": "Understand the place value system.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 896,
+      "code": "5.NBT.B",
+      "description": "Perform operations with multi-digit whole numbers and with decimals to hundredths.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 844,
+      "code": "K.NBT.A",
+      "description": "Work with numbers 11—19 to gain foundations for place value.",
+      "category": "Number & Operations in Base Ten"
+    },
+    {
+      "id": 849,
+      "code": "1.OA.A",
+      "description": "Represent and solve problems involving addition and subtraction.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 850,
+      "code": "1.OA.B",
+      "description": "Understand and apply properties of operations and the relationship between addition and subtraction.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 851,
+      "code": "1.OA.C",
+      "description": "Add and subtract within 20.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 852,
+      "code": "1.OA.D",
+      "description": "Work with addition and subtraction equations.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 860,
+      "code": "2.OA.A",
+      "description": "Represent and solve problems involving addition and subtraction.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 861,
+      "code": "2.OA.B",
+      "description": "Add and subtract within 20.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 862,
+      "code": "2.OA.C",
+      "description": "Work with equal groups of objects to gain foundations for multiplication.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 870,
+      "code": "3.OA.A",
+      "description": "Represent and solve problems involving multiplication and division.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 871,
+      "code": "3.OA.B",
+      "description": "Understand properties of multiplication and the relationship between multiplication and division.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 872,
+      "code": "3.OA.C",
+      "description": "Multiply and divide within 100.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 873,
+      "code": "3.OA.D",
+      "description": "Solve problems involving the four operations, and identify and explain patterns in arithmetic.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 881,
+      "code": "4.OA.A",
+      "description": "Use the four operations with whole numbers to solve problems.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 882,
+      "code": "4.OA.B",
+      "description": "Gain familiarity with factors and multiples.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 883,
+      "code": "4.OA.C",
+      "description": "Generate and analyze patterns.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 893,
+      "code": "5.OA.A",
+      "description": "Write and interpret numerical expressions.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 894,
+      "code": "5.OA.B",
+      "description": "Analyze patterns and relationships.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 843,
+      "code": "K.OA.A",
+      "description": "Understand addition as putting together and adding to, and understand subtraction as taking apart and taking from.",
+      "category": "Operations & Algebraic Thinking"
+    },
+    {
+      "id": 904,
+      "code": "6.RP.A",
+      "description": "Understand ratio concepts and use ratio reasoning to solve problems.",
+      "category": "Ratios & Proportional Relationships"
+    },
+    {
+      "id": 914,
+      "code": "7.RP.A",
+      "description": "Analyze proportional relationships and use them to solve real-world and mathematical problems.",
+      "category": "Ratios & Proportional Relationships"
+    },
+    {
+      "id": 1203,
+      "code": "WA.ELA-LITERACY.R1st.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1204,
+      "code": "WA.ELA-LITERACY.R1st.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1205,
+      "code": "WA.ELA-LITERACY.R1st.3",
+      "description": "Students know and apply how concepts of sounds, syllables, words, and silence function in speech.",
+      "category": "Reading"
+    },
+    {
+      "id": 1206,
+      "code": "WA.ELA-LITERACY.R1st.4",
+      "description": "Students decode words with accuracy and fluency using grade-level word analysis skills.",
+      "category": "Reading"
+    },
+    {
+      "id": 1207,
+      "code": "WA.ELA-LITERACY.R2nd.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1208,
+      "code": "WA.ELA-LITERACY.R2nd.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1209,
+      "code": "WA.ELA-LITERACY.R2nd.3",
+      "description": "Students know and apply how concepts of sounds, syllables, words, and silence function in speech.",
+      "category": "Reading"
+    },
+    {
+      "id": 1210,
+      "code": "WA.ELA-LITERACY.R2nd.4",
+      "description": "Students decode words with accuracy and fluency using grade-level word analysis skills.",
+      "category": "Reading"
+    },
+    {
+      "id": 1211,
+      "code": "WA.ELA-LITERACY.R2nd.5",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1212,
+      "code": "WA.ELA-LITERACY.R2nd.6",
+      "description": "Students describe how the author, illustrator, and/or creator shape meaning and affect a reader's experience.",
+      "category": "Reading"
+    },
+    {
+      "id": 1213,
+      "code": "WA.ELA-LITERACY.R2nd.7",
+      "description": "Students evaluate texts.",
+      "category": "Reading"
+    },
+    {
+      "id": 1214,
+      "code": "WA.ELA-LITERACY.R2nd.8",
+      "description": "Students use texts they have read for purposes relevant to them.",
+      "category": "Reading"
+    },
+    {
+      "id": 1215,
+      "code": "WA.ELA-LITERACY.R3rd.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1216,
+      "code": "WA.ELA-LITERACY.R3rd.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1217,
+      "code": "WA.ELA-LITERACY.R3rd.5",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1218,
+      "code": "WA.ELA-LITERACY.R3rd.6",
+      "description": "Students describe how the author, illustrator, and/or creator shape meaning and affect a reader's experience.",
+      "category": "Reading"
+    },
+    {
+      "id": 1219,
+      "code": "WA.ELA-LITERACY.R4th.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1220,
+      "code": "WA.ELA-LITERACY.R4th.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1221,
+      "code": "WA.ELA-LITERACY.R4th.4",
+      "description": "Students decode words with accuracy and fluency using grade-level word analysis skills.",
+      "category": "Reading"
+    },
+    {
+      "id": 1222,
+      "code": "WA.ELA-LITERACY.R4th.5",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1223,
+      "code": "WA.ELA-LITERACY.R4th.6",
+      "description": "Students explain how the author, illustrator, and/or creator shape meaning and reader experience.",
+      "category": "Reading"
+    },
+    {
+      "id": 1224,
+      "code": "WA.ELA-LITERACY.R5th.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1225,
+      "code": "WA.ELA-LITERACY.R5th.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1226,
+      "code": "WA.ELA-LITERACY.R5th.4",
+      "description": "Students decode words with accuracy and fluency using grade-level word analysis skills.",
+      "category": "Reading"
+    },
+    {
+      "id": 1227,
+      "code": "WA.ELA-LITERACY.R5th.5",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1228,
+      "code": "WA.ELA-LITERACY.R5th.6",
+      "description": "Students explain how the author, illustrator, and/or creator shape meaning and reader experience.",
+      "category": "Reading"
+    },
+    {
+      "id": 1229,
+      "code": "WA.ELA-LITERACY.R5th.7",
+      "description": "Students evaluate texts.",
+      "category": "Reading"
+    },
+    {
+      "id": 1230,
+      "code": "WA.ELA-LITERACY.R5th.8",
+      "description": "Students use texts they have read for purposes relevant to them.",
+      "category": "Reading"
+    },
+    {
+      "id": 1231,
+      "code": "WA.ELA-LITERACY.R6th.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1232,
+      "code": "WA.ELA-LITERACY.R6th.2",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1233,
+      "code": "WA.ELA-LITERACY.R6th.3",
+      "description": "Students analyze how authors develop meaning and influence readers.",
+      "category": "Reading"
+    },
+    {
+      "id": 1234,
+      "code": "WA.ELA-LITERACY.R6th.4",
+      "description": "Students evaluate texts.",
+      "category": "Reading"
+    },
+    {
+      "id": 1235,
+      "code": "WA.ELA-LITERACY.R6th.5",
+      "description": "Students use texts they have read for purposes relevant to them.",
+      "category": "Reading"
+    },
+    {
+      "id": 1236,
+      "code": "WA.ELA-LITERACY.R7th.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1237,
+      "code": "WA.ELA-LITERACY.R7th.2",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1238,
+      "code": "WA.ELA-LITERACY.R7th.3",
+      "description": "Students analyze how authors develop meaning and influence readers.",
+      "category": "Reading"
+    },
+    {
+      "id": 1239,
+      "code": "WA.ELA-LITERACY.R7th.4",
+      "description": "Students evaluate texts.",
+      "category": "Reading"
+    },
+    {
+      "id": 1240,
+      "code": "WA.ELA-LITERACY.R7th.5",
+      "description": "Students use texts they have read for purposes relevant to them.",
+      "category": "Reading"
+    },
+    {
+      "id": 1241,
+      "code": "WA.ELA-LITERACY.R8th.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1242,
+      "code": "WA.ELA-LITERACY.R8th.2",
+      "description": "Students comprehend and interpret texts using a variety of strategies.",
+      "category": "Reading"
+    },
+    {
+      "id": 1243,
+      "code": "WA.ELA-LITERACY.R8th.3",
+      "description": "Students analyze how authors develop meaning and influence readers.",
+      "category": "Reading"
+    },
+    {
+      "id": 1244,
+      "code": "WA.ELA-LITERACY.R8th.4",
+      "description": "Students evaluate texts.",
+      "category": "Reading"
+    },
+    {
+      "id": 1245,
+      "code": "WA.ELA-LITERACY.R8th.5",
+      "description": "Students use texts they have read for purposes relevant to them.",
+      "category": "Reading"
+    },
+    {
+      "id": 1199,
+      "code": "WA.ELA-LITERACY.RK.1",
+      "description": "Students interact with and explore texts in a language-rich environment.",
+      "category": "Reading"
+    },
+    {
+      "id": 1200,
+      "code": "WA.ELA-LITERACY.RK.2",
+      "description": "Students know and apply the basic features of print and how it is organized.",
+      "category": "Reading"
+    },
+    {
+      "id": 1201,
+      "code": "WA.ELA-LITERACY.RK.3",
+      "description": "Students know and apply how concepts of sounds, syllables, words, and silence function in speech.",
+      "category": "Reading"
+    },
+    {
+      "id": 1202,
+      "code": "WA.ELA-LITERACY.RK.4",
+      "description": "Students decode words with accuracy and fluency using grade-level word analysis skills.",
+      "category": "Reading"
+    },
+    {
+      "id": 4,
+      "code": "RF.K.1",
+      "description": "Demonstrate understanding of the organization and basic features of print.",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 5,
+      "code": "RF.K.2",
+      "description": "Demonstrate understanding of spoken words, syllables, and sounds (phonemes).",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 6,
+      "code": "RF.K.3",
+      "description": "Know and apply grade-level phonics and word analysis skills in decoding words.",
+      "category": "Reading Foundational Skills"
+    },
+    {
+      "id": 1560,
+      "code": "WA.ELA-LITERACY.RML1st.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1561,
+      "code": "WA.ELA-LITERACY.RML1st.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1562,
+      "code": "WA.ELA-LITERACY.RML1st.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1563,
+      "code": "WA.ELA-LITERACY.RML1st.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1564,
+      "code": "WA.ELA-LITERACY.RML1st.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1565,
+      "code": "WA.ELA-LITERACY.RML2nd.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1566,
+      "code": "WA.ELA-LITERACY.RML2nd.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1567,
+      "code": "WA.ELA-LITERACY.RML2nd.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1568,
+      "code": "WA.ELA-LITERACY.RML2nd.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1569,
+      "code": "WA.ELA-LITERACY.RML2nd.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1570,
+      "code": "WA.ELA-LITERACY.RML3rd.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1571,
+      "code": "WA.ELA-LITERACY.RML3rd.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1572,
+      "code": "WA.ELA-LITERACY.RML3rd.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1573,
+      "code": "WA.ELA-LITERACY.RML3rd.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1574,
+      "code": "WA.ELA-LITERACY.RML3rd.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1575,
+      "code": "WA.ELA-LITERACY.RML4th.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1576,
+      "code": "WA.ELA-LITERACY.RML4th.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1577,
+      "code": "WA.ELA-LITERACY.RML4th.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1578,
+      "code": "WA.ELA-LITERACY.RML4th.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1579,
+      "code": "WA.ELA-LITERACY.RML4th.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1580,
+      "code": "WA.ELA-LITERACY.RML5th.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1581,
+      "code": "WA.ELA-LITERACY.RML5th.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1582,
+      "code": "WA.ELA-LITERACY.RML5th.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1583,
+      "code": "WA.ELA-LITERACY.RML5th.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1584,
+      "code": "WA.ELA-LITERACY.RML5th.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1585,
+      "code": "WA.ELA-LITERACY.RML6th.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1586,
+      "code": "WA.ELA-LITERACY.RML6th.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1587,
+      "code": "WA.ELA-LITERACY.RML6th.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1588,
+      "code": "WA.ELA-LITERACY.RML6th.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1589,
+      "code": "WA.ELA-LITERACY.RML6th.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1590,
+      "code": "WA.ELA-LITERACY.RML7th.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1591,
+      "code": "WA.ELA-LITERACY.RML7th.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1592,
+      "code": "WA.ELA-LITERACY.RML7th.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1593,
+      "code": "WA.ELA-LITERACY.RML7th.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1594,
+      "code": "WA.ELA-LITERACY.RML7th.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1595,
+      "code": "WA.ELA-LITERACY.RML8th.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1596,
+      "code": "WA.ELA-LITERACY.RML8th.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1597,
+      "code": "WA.ELA-LITERACY.RML8th.3",
+      "description": "Students gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1598,
+      "code": "WA.ELA-LITERACY.RML8th.4",
+      "description": "Students recall information from experiences or gather information from provided sources to answer a question.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1599,
+      "code": "WA.ELA-LITERACY.RML8th.5",
+      "description": "Students use various types of media to enhance understanding of topics.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1320,
+      "code": "WA.ELA-LITERACY.RMLK.1",
+      "description": "Students ask questions about topics or things that make them curious.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1321,
+      "code": "WA.ELA-LITERACY.RMLK.2",
+      "description": "Students participate in shared research and writing projects.",
+      "category": "Research & Media Literacy"
+    },
+    {
+      "id": 1075,
+      "code": "SSS1.1.1",
+      "description": "Distinguish different points of view on one event.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1076,
+      "code": "SSS1.1.2",
+      "description": "Use questioning strategies.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1077,
+      "code": "SSS1.1.3",
+      "description": "Retell the sequence of events that have happened over time.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1085,
+      "code": "SSS1.2.1",
+      "description": "Explain how multiple points of view on local issues shape decisions made within a community.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1086,
+      "code": "SSS1.2.2",
+      "description": "Construct an argument with reasons to support a point of view.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1087,
+      "code": "SSS1.2.3",
+      "description": "Develop an explanation about an historical outcome using correct sequence and relevant information to support a point of view.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1095,
+      "code": "SSS1.3.1",
+      "description": "Compare the ideas of people in the past to those of people in the present.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1096,
+      "code": "SSS1.3.2",
+      "description": "Identify the importance of asking questions to learning about the past.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1097,
+      "code": "SSS1.3.3",
+      "description": "Create timelines to show events in a sequence.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1106,
+      "code": "SSS1.4.1",
+      "description": "Analyze different accounts of the same event.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1107,
+      "code": "SSS1.4.2",
+      "description": "Identify ways people have taken action to address problems.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1108,
+      "code": "SSS1.4.3",
+      "description": "Create and use timelines to show events in chronological order.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1117,
+      "code": "SSS1.5.1",
+      "description": "Evaluate the accuracy of different accounts of the same event or topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1118,
+      "code": "SSS1.5.2",
+      "description": "Analyze multiple perspectives from the past and present.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1119,
+      "code": "SSS1.5.3",
+      "description": "Create and use timelines to show events in chronological order, including cause and effect.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1064,
+      "code": "SSS1.K.1",
+      "description": "State and clarify one's point of view.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1065,
+      "code": "SSS1.K.2",
+      "description": "Evaluate the fairness of one's point of view.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1066,
+      "code": "SSS1.K.3",
+      "description": "State own viewpoints on fairness and listen to the viewpoints of classmates and teacher.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1067,
+      "code": "SSS1.K.4",
+      "description": "Retell a sequence of events that have happened over time.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1078,
+      "code": "SSS2.1.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1079,
+      "code": "SSS2.1.2",
+      "description": "Generate questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1080,
+      "code": "SSS2.1.3",
+      "description": "Gather information from sources and share learning.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1088,
+      "code": "SSS2.2.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1089,
+      "code": "SSS2.2.2",
+      "description": "Generate questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1090,
+      "code": "SSS2.2.3",
+      "description": "Gather information from sources and share learning.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1098,
+      "code": "SSS2.3.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1099,
+      "code": "SSS2.3.2",
+      "description": "Generate questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1100,
+      "code": "SSS2.3.3",
+      "description": "Gather information from a variety of sources.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1101,
+      "code": "SSS2.3.4",
+      "description": "Demonstrate understanding of the gathered information.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1109,
+      "code": "SSS2.4.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1110,
+      "code": "SSS2.4.2",
+      "description": "Generate supporting questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1111,
+      "code": "SSS2.4.3",
+      "description": "Gather relevant information from multiple sources.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1112,
+      "code": "SSS2.4.4",
+      "description": "Demonstrate understanding of the gathered information.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1120,
+      "code": "SSS2.5.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1121,
+      "code": "SSS2.5.2",
+      "description": "Generate supporting questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1122,
+      "code": "SSS2.5.3",
+      "description": "Gather relevant information from multiple sources.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1123,
+      "code": "SSS2.5.4",
+      "description": "Organize information from multiple sources.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1124,
+      "code": "SSS2.5.5",
+      "description": "Demonstrate understanding of the gathered information.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1068,
+      "code": "SSS2.K.1",
+      "description": "Identify a topic and share what is known.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1069,
+      "code": "SSS2.K.2",
+      "description": "Generate questions about a topic.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1070,
+      "code": "SSS2.K.3",
+      "description": "Gather information from sources and share learning.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1081,
+      "code": "SSS3.1.1",
+      "description": "Share ideas about classroom and school issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1082,
+      "code": "SSS3.1.2",
+      "description": "Ask questions about classroom and school issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1083,
+      "code": "SSS3.1.3",
+      "description": "State own viewpoint about classroom and school issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1091,
+      "code": "SSS3.2.1",
+      "description": "Share ideas about school and community issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1092,
+      "code": "SSS3.2.2",
+      "description": "Ask questions about school and community issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1093,
+      "code": "SSS3.2.3",
+      "description": "State own viewpoint about school and community issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1102,
+      "code": "SSS3.3.1",
+      "description": "Share ideas on school and local issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1103,
+      "code": "SSS3.3.2",
+      "description": "Ask questions on school and local issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1104,
+      "code": "SSS3.3.3",
+      "description": "State own viewpoint on school and local issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1113,
+      "code": "SSS3.4.1",
+      "description": "Share ideas on local and state issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1114,
+      "code": "SSS3.4.2",
+      "description": "Ask questions on local and state issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1115,
+      "code": "SSS3.4.3",
+      "description": "State own viewpoint on local and state issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1125,
+      "code": "SSS3.5.1",
+      "description": "Share ideas on state and national issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1126,
+      "code": "SSS3.5.2",
+      "description": "Ask questions on state and national issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1127,
+      "code": "SSS3.5.3",
+      "description": "State own viewpoint on state and national issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1071,
+      "code": "SSS3.K.1",
+      "description": "Share ideas about classroom issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1072,
+      "code": "SSS3.K.2",
+      "description": "Ask questions about classroom issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1073,
+      "code": "SSS3.K.3",
+      "description": "State own viewpoint about classroom issues.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1084,
+      "code": "SSS4.1.1",
+      "description": "Make a product that shares information learned.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1094,
+      "code": "SSS4.2.1",
+      "description": "Make a product that shares information learned.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1105,
+      "code": "SSS4.3.1",
+      "description": "Make a product that uses social studies content to support a claim.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1116,
+      "code": "SSS4.4.1",
+      "description": "Make a product that uses social studies content to support a claim.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1128,
+      "code": "SSS4.5.1",
+      "description": "Make a product that uses social studies content to support a claim.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 1074,
+      "code": "SSS4.K.1",
+      "description": "Make a product that shares information learned.",
+      "category": "Social Studies Skills"
+    },
+    {
+      "id": 7,
+      "code": "SL.K.1",
+      "description": "Participate in collaborative conversations with diverse partners about kindergarten topics and texts.",
+      "category": "Speaking and Listening"
+    },
+    {
+      "id": 8,
+      "code": "SL.K.2",
+      "description": "Confirm understanding of a text read aloud or information presented orally or through other media.",
+      "category": "Speaking and Listening"
+    },
+    {
+      "id": 1278,
+      "code": "WA.ELA-LITERACY.SLDF1st.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1279,
+      "code": "WA.ELA-LITERACY.SLDF1st.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1280,
+      "code": "WA.ELA-LITERACY.SLDF1st.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1281,
+      "code": "WA.ELA-LITERACY.SLDF1st.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1282,
+      "code": "WA.ELA-LITERACY.SLDF1st.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1283,
+      "code": "WA.ELA-LITERACY.SLDF2nd.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1284,
+      "code": "WA.ELA-LITERACY.SLDF2nd.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1285,
+      "code": "WA.ELA-LITERACY.SLDF2nd.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1286,
+      "code": "WA.ELA-LITERACY.SLDF2nd.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1287,
+      "code": "WA.ELA-LITERACY.SLDF2nd.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1288,
+      "code": "WA.ELA-LITERACY.SLDF3rd.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1289,
+      "code": "WA.ELA-LITERACY.SLDF3rd.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1290,
+      "code": "WA.ELA-LITERACY.SLDF3rd.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1291,
+      "code": "WA.ELA-LITERACY.SLDF3rd.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1292,
+      "code": "WA.ELA-LITERACY.SLDF3rd.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1293,
+      "code": "WA.ELA-LITERACY.SLDF4th.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1294,
+      "code": "WA.ELA-LITERACY.SLDF4th.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1295,
+      "code": "WA.ELA-LITERACY.SLDF4th.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1296,
+      "code": "WA.ELA-LITERACY.SLDF4th.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1297,
+      "code": "WA.ELA-LITERACY.SLDF4th.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1298,
+      "code": "WA.ELA-LITERACY.SLDF5th.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1299,
+      "code": "WA.ELA-LITERACY.SLDF5th.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1300,
+      "code": "WA.ELA-LITERACY.SLDF5th.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1301,
+      "code": "WA.ELA-LITERACY.SLDF5th.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1302,
+      "code": "WA.ELA-LITERACY.SLDF5th.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1303,
+      "code": "WA.ELA-LITERACY.SLDF6th.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1304,
+      "code": "WA.ELA-LITERACY.SLDF6th.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1305,
+      "code": "WA.ELA-LITERACY.SLDF6th.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1306,
+      "code": "WA.ELA-LITERACY.SLDF6th.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1307,
+      "code": "WA.ELA-LITERACY.SLDF6th.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1308,
+      "code": "WA.ELA-LITERACY.SLDF7th.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1309,
+      "code": "WA.ELA-LITERACY.SLDF7th.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1310,
+      "code": "WA.ELA-LITERACY.SLDF7th.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1311,
+      "code": "WA.ELA-LITERACY.SLDF7th.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1312,
+      "code": "WA.ELA-LITERACY.SLDF7th.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1313,
+      "code": "WA.ELA-LITERACY.SLDF8th.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1314,
+      "code": "WA.ELA-LITERACY.SLDF8th.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1315,
+      "code": "WA.ELA-LITERACY.SLDF8th.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1316,
+      "code": "WA.ELA-LITERACY.SLDF8th.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1317,
+      "code": "WA.ELA-LITERACY.SLDF8th.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1273,
+      "code": "WA.ELA-LITERACY.SLDFK.1",
+      "description": "Students listen, respond respectfully, and contribute during discussions.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1274,
+      "code": "WA.ELA-LITERACY.SLDFK.2",
+      "description": "Students prepare for and contribute to discussions in groups of various sizes.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1275,
+      "code": "WA.ELA-LITERACY.SLDFK.3",
+      "description": "Students integrate and evaluate information presented in diverse media and formats.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1276,
+      "code": "WA.ELA-LITERACY.SLDFK.4",
+      "description": "Students present information and support ideas with evidence.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 1277,
+      "code": "WA.ELA-LITERACY.SLDFK.5",
+      "description": "Students use digital forums for reading, writing, listening, and speaking.",
+      "category": "Speaking/Listening"
+    },
+    {
+      "id": 912,
+      "code": "6.SP.A",
+      "description": "Develop understanding of statistical variability.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 913,
+      "code": "6.SP.B",
+      "description": "Summarize and describe distributions.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 920,
+      "code": "7.SP.A",
+      "description": "Use random sampling to draw inferences about a population.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 921,
+      "code": "7.SP.B",
+      "description": "Draw informal comparative inferences about two populations.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 922,
+      "code": "7.SP.C",
+      "description": "Investigate chance processes and develop, use, and evaluate probability models.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 930,
+      "code": "8.SP.A",
+      "description": "Investigate patterns of association in bivariate data.",
+      "category": "Statistics & Probability"
+    },
+    {
+      "id": 905,
+      "code": "6.NS.A",
+      "description": "Apply and extend previous understandings of multiplication and division to divide fractions by fractions.",
+      "category": "The Number System"
+    },
+    {
+      "id": 906,
+      "code": "6.NS.B",
+      "description": "Compute fluently with multi-digit numbers and find common factors and multiples.",
+      "category": "The Number System"
+    },
+    {
+      "id": 907,
+      "code": "6.NS.C",
+      "description": "Apply and extend previous understandings of numbers to the system of rational numbers.",
+      "category": "The Number System"
+    },
+    {
+      "id": 915,
+      "code": "7.NS.A",
+      "description": "Apply and extend previous understandings of operations with fractions to add, subtract, multiply, and divide rational numbers.",
+      "category": "The Number System"
+    },
+    {
+      "id": 923,
+      "code": "8.NS.A",
+      "description": "Know that there are numbers that are not rational, and approximate them by rational numbers.",
+      "category": "The Number System"
+    },
+    {
+      "id": 3,
+      "code": "VA:Cn10.1.Ka",
+      "description": "Create art that tells a story about a life experience.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 1,
+      "code": "VA:Cr2.1.Ka",
+      "description": "Through experimentation, build skills in various media and approaches to art-making.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 2,
+      "code": "VA:Re7.1.Ka",
+      "description": "Identify uses of art within one's personal environment.",
+      "category": "Visual Arts"
+    },
+    {
+      "id": 982,
+      "code": "4-PS4-1",
+      "description": "Develop a model of waves to describe patterns in terms of amplitude and wavelength and that waves can cause objects to move.",
+      "category": "Waves and their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 983,
+      "code": "4-PS4-2",
+      "description": "Develop a model to describe that light reflecting from objects and entering the eye allows objects to be seen.",
+      "category": "Waves and their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 984,
+      "code": "4-PS4-3",
+      "description": "Generate and compare multiple solutions that use patterns to transfer information.",
+      "category": "Waves and their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 943,
+      "code": "1-PS4-1",
+      "description": "Plan and conduct investigations to provide evidence that vibrating materials can make sound and that sound can make materials vibrate.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 944,
+      "code": "1-PS4-2",
+      "description": "Make observations to construct an evidence-based account that objects can be seen only when illuminated.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 945,
+      "code": "1-PS4-3",
+      "description": "Plan and conduct an investigation to determine the effect of placing objects made with different materials in the path of a beam of light.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 946,
+      "code": "1-PS4-4",
+      "description": "Use tools and materials to design and build a device that uses light or sound to solve the problem of communicating over a distance.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 1021,
+      "code": "MS-PS4-1",
+      "description": "Use mathematical representations to describe a simple model for waves that includes how the amplitude of a wave is related to the energy in a wave.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 1022,
+      "code": "MS-PS4-2",
+      "description": "Develop and use a model to describe that waves are reflected, absorbed, or transmitted through various materials.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 1023,
+      "code": "MS-PS4-3",
+      "description": "Integrate qualitative scientific and technical information to support the claim that digitized signals are a more reliable way to encode and transmit information.",
+      "category": "Waves and Their Applications in Technologies for Information Transfer"
+    },
+    {
+      "id": 1249,
+      "code": "WA.ELA-LITERACY.W1st.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1250,
+      "code": "WA.ELA-LITERACY.W1st.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1251,
+      "code": "WA.ELA-LITERACY.W1st.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1252,
+      "code": "WA.ELA-LITERACY.W2nd.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1253,
+      "code": "WA.ELA-LITERACY.W2nd.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1254,
+      "code": "WA.ELA-LITERACY.W2nd.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1255,
+      "code": "WA.ELA-LITERACY.W3rd.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1256,
+      "code": "WA.ELA-LITERACY.W3rd.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1257,
+      "code": "WA.ELA-LITERACY.W3rd.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1258,
+      "code": "WA.ELA-LITERACY.W4th.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1259,
+      "code": "WA.ELA-LITERACY.W4th.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1260,
+      "code": "WA.ELA-LITERACY.W4th.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1261,
+      "code": "WA.ELA-LITERACY.W5th.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1262,
+      "code": "WA.ELA-LITERACY.W5th.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1263,
+      "code": "WA.ELA-LITERACY.W5th.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1264,
+      "code": "WA.ELA-LITERACY.W6th.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1265,
+      "code": "WA.ELA-LITERACY.W6th.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1266,
+      "code": "WA.ELA-LITERACY.W6th.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1267,
+      "code": "WA.ELA-LITERACY.W7th.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1268,
+      "code": "WA.ELA-LITERACY.W7th.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1269,
+      "code": "WA.ELA-LITERACY.W7th.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1270,
+      "code": "WA.ELA-LITERACY.W8th.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1271,
+      "code": "WA.ELA-LITERACY.W8th.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1272,
+      "code": "WA.ELA-LITERACY.W8th.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1246,
+      "code": "WA.ELA-LITERACY.WK.1",
+      "description": "Students compose to make personal sense of information, ideas, opinions, emotions, and/or experiences.",
+      "category": "Writing"
+    },
+    {
+      "id": 1247,
+      "code": "WA.ELA-LITERACY.WK.2",
+      "description": "Students compose multimodal texts in a variety of genres to communicate with others.",
+      "category": "Writing"
+    },
+    {
+      "id": 1248,
+      "code": "WA.ELA-LITERACY.WK.3",
+      "description": "Students compose to extend thinking and check understanding of self and others.",
+      "category": "Writing"
+    }
+  ],
+  "metadata": {
+    "totalCurriculumEntries": 52,
+    "totalStandards": 776,
+    "exportDate": "2025-08-25T03:10:30.438Z",
+    "version": "1.0"
+  }
+}
