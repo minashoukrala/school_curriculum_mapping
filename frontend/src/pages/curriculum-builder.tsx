@@ -1119,7 +1119,11 @@ export default function CurriculumBuilder() {
             {tableConfigs.length > 0 ? (
               tableConfigs.map((config) => {
                 // Filter rows for this table config
-                const filteredRows = curriculumRows.filter(row => row.subject === selectedSubject && row.grade === selectedGrade && row.tableName === config.tableName);
+                const filteredRows = curriculumRows.filter(row => 
+                  row.subject === selectedSubject && 
+                  row.grade === selectedGrade && 
+                  (row.tableName === config.tableName || row.tableName === "" || !row.tableName)
+                );
                 return (
                   <div key={config.id} className="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow">
                     <h3 className="text-lg font-semibold mb-2">{config.displayName || config.tableName}</h3>
