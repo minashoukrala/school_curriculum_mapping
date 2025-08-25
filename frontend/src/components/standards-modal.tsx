@@ -186,9 +186,9 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Geography
         subjectArea = 'Geography';
-      } else if (standard.code.startsWith('WA.ELA-LITERACY')) {
+      } else if (standard.code.startsWith('WA.ELA-LITERACY.R')) {
         subject = 'English Language Arts';
-        // Extract grade from WA.ELA-LITERACY code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st, WA.ELA-LITERACY.RK.1 -> K, WA.ELA-LITERACY.R6th.1 -> 6th)
+        // Extract grade from WA.ELA-LITERACY.R code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st, WA.ELA-LITERACY.RK.1 -> K, WA.ELA-LITERACY.R6th.1 -> 6th)
         const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.R(\d+[a-z]+|K)\./);
         if (gradeMatch) {
           const gradeText = gradeMatch[1];
@@ -294,8 +294,8 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       acc[standard.subject] = {};
     }
 
-    // Special handling for Social Studies to organize by category first
-    if (standard.subject === 'Social Studies') {
+    // Special handling for Social Studies and English Language Arts to organize by category first
+    if (standard.subject === 'Social Studies' || standard.subject === 'English Language Arts') {
       if (!acc[standard.subject][standard.subjectArea]) {
         acc[standard.subject][standard.subjectArea] = {};
       }
@@ -539,7 +539,7 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
                         }
 
                         // Handle different structures based on subject
-                        if (subject === 'Social Studies') {
+                        if (subject === 'Social Studies' || subject === 'English Language Arts') {
                           // Social Studies: Category -> Grade -> Subject Areas -> Standards
                           const categoryData = sectionData as Record<string, Record<string, Standard[]>>;
                           const isCategoryExpanded = expandedGrades.has(section);
