@@ -377,10 +377,10 @@ export default function CurriculumBuilder() {
 
   const handleExportFullDatabase = async () => {
     try {
-      // Use a direct download approach - no JSON parsing
+      // Use the new PostgreSQL-based export endpoint
       const downloadLink = document.createElement("a");
       downloadLink.href = '/api/export/full-database';
-      downloadLink.download = `full-curriculum-database-${new Date().toISOString().split('T')[0]}.json`;
+      downloadLink.download = `curriculum-database-backup-${new Date().toISOString().split('T')[0]}.sql`;
       downloadLink.style.display = 'none';
       
       // Trigger download
@@ -393,7 +393,8 @@ export default function CurriculumBuilder() {
       }, 100);
       
     } catch (error) {
-      // const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Export failed:', error);
+      alert('Export failed. Please try again.');
     }
   };
 
@@ -402,39 +403,25 @@ export default function CurriculumBuilder() {
     if (!file) return;
 
     try {
-      // Validate file type
-      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+      // Validate file type - now accepts both SQL and JSON files
+      const isSqlFile = file.name.endsWith('.sql');
+      const isJsonFile = file.type === 'application/json' || file.name.endsWith('.json');
+      
+      if (!isSqlFile && !isJsonFile) {
+        alert('Please select a valid backup file (.sql or .json)');
+        event.target.value = '';
         return;
       }
 
-      // Read the file
-      const text = await file.text();
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (parseError) {
-        return;
-      }
-
-      // Comprehensive validation
-      const validationResult = validateImportData(data);
-      if (!validationResult.isValid) {
-        return;
-      }
-
-      // Show detailed confirmation dialog
+      // Show confirmation dialog
       const confirmed = window.confirm(
-        `Database Import Validation Successful!\n\n` +
-        `✅ File format: Valid JSON\n` +
-        `✅ Data structure: Valid\n` +
-        `✅ Required fields: Present\n` +
-        `✅ Data integrity: Verified\n\n` +
-        `Import Summary:\n` +
-        `- ${data.curriculumRows.length} curriculum entries\n` +
-        `- ${data.standards.length} standards\n` +
-        `- ${validationResult.gradeCount} different grades\n` +
-        `- ${validationResult.subjectCount} different subjects\n\n` +
-        `Are you sure you want to replace the current database?\n` +
+        `Database Import Confirmation\n\n` +
+        `📁 File: ${file.name}\n` +
+        `📊 Size: ${(file.size / 1024).toFixed(1)} KB\n` +
+        `📋 Type: ${isSqlFile ? 'PostgreSQL Backup' : 'JSON Backup'}\n\n` +
+        `⚠️  WARNING: This will completely replace the current database!\n` +
+        `All existing data will be permanently deleted.\n\n` +
+        `Are you sure you want to proceed?\n` +
         `This action cannot be undone!`
       );
 
@@ -443,203 +430,39 @@ export default function CurriculumBuilder() {
         return;
       }
 
-      // Upload the data
-      const response = await fetch('/api/import/full-database', {
+      // Create FormData for file upload
+      const formData = new FormData();
+      formData.append('backup', file);
+
+      // Upload the file using the appropriate endpoint
+      const endpoint = isSqlFile ? '/api/import/full-database' : '/api/import/json';
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Failed to import database');
+        const errorText = await response.text();
+        throw new Error(`Import failed: ${errorText}`);
       }
+
+      const result = await response.json();
+      
+      // Show success message
+      alert(`✅ Database imported successfully!\n\n${result.message || 'Import completed.'}`);
 
       // Invalidate all queries to refresh the data
       queryClient.invalidateQueries();
 
       event.target.value = '';
     } catch (error) {
-      // const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Import failed:', error);
+      alert(`❌ Import failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      event.target.value = '';
     }
   };
 
-  // Comprehensive validation function
-  const validateImportData = (data: any) => {
-    // Check top-level structure
-    if (!data || typeof data !== 'object') {
-      return { isValid: false, error: "Invalid data format: not an object" };
-    }
 
-    if (!data.curriculumRows || !Array.isArray(data.curriculumRows)) {
-      return { isValid: false, error: "Missing or invalid curriculumRows array" };
-    }
-
-    if (!data.standards || !Array.isArray(data.standards)) {
-      return { isValid: false, error: "Missing or invalid standards array" };
-    }
-
-    if (!data.metadata || typeof data.metadata !== 'object') {
-      return { isValid: false, error: "Missing or invalid metadata object" };
-    }
-
-    // Optional navigation data validation (for new format)
-    if (data.navigationTabs && !Array.isArray(data.navigationTabs)) {
-      return { isValid: false, error: "Invalid navigationTabs: must be an array" };
-    }
-
-    if (data.dropdownItems && !Array.isArray(data.dropdownItems)) {
-      return { isValid: false, error: "Invalid dropdownItems: must be an array" };
-    }
-
-    if (data.tableConfigs && !Array.isArray(data.tableConfigs)) {
-      return { isValid: false, error: "Invalid tableConfigs: must be an array" };
-    }
-
-    if (data.schoolYear && typeof data.schoolYear !== 'object') {
-      return { isValid: false, error: "Invalid schoolYear: must be an object" };
-    }
-
-    // Validate curriculum rows
-    const requiredCurriculumFields = ['id', 'grade', 'subject', 'objectives', 'unitPacing', 'assessments', 'materialsAndDifferentiation', 'biblical', 'standards'];
-    const grades = new Set();
-    const subjects = new Set();
-
-    for (let i = 0; i < data.curriculumRows.length; i++) {
-      const row = data.curriculumRows[i];
-      
-      // Check if row is an object
-      if (!row || typeof row !== 'object') {
-        return { isValid: false, error: `Curriculum row ${i + 1} is not a valid object` };
-      }
-
-      // Check required fields
-      for (const field of requiredCurriculumFields) {
-        if (!(field in row)) {
-          return { isValid: false, error: `Curriculum row ${i + 1} missing required field: ${field}` };
-        }
-      }
-
-      // Validate field types
-      if (typeof row.id !== 'number' || row.id <= 0) {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid ID: must be a positive number` };
-      }
-
-      if (typeof row.grade !== 'string' || row.grade.trim() === '') {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid grade: must be a non-empty string` };
-      }
-
-      if (typeof row.subject !== 'string' || row.subject.trim() === '') {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid subject: must be a non-empty string` };
-      }
-
-      if (!Array.isArray(row.standards)) {
-        return { isValid: false, error: `Curriculum row ${i + 1} has invalid standards: must be an array` };
-      }
-
-      // Track unique grades and subjects
-      grades.add(row.grade);
-      subjects.add(row.subject);
-    }
-
-    // Validate standards
-    const requiredStandardFields = ['id', 'code', 'description', 'category'];
-    
-    for (let i = 0; i < data.standards.length; i++) {
-      const standard = data.standards[i];
-      
-      // Check if standard is an object
-      if (!standard || typeof standard !== 'object') {
-        return { isValid: false, error: `Standard ${i + 1} is not a valid object` };
-      }
-
-      // Check required fields
-      for (const field of requiredStandardFields) {
-        if (!(field in standard)) {
-          return { isValid: false, error: `Standard ${i + 1} missing required field: ${field}` };
-        }
-      }
-
-      // Validate field types
-      if (typeof standard.id !== 'number' || standard.id <= 0) {
-        return { isValid: false, error: `Standard ${i + 1} has invalid ID: must be a positive number` };
-      }
-
-      if (typeof standard.code !== 'string' || standard.code.trim() === '') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid code: must be a non-empty string` };
-      }
-
-      if (typeof standard.description !== 'string') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid description: must be a string` };
-      }
-
-      if (typeof standard.category !== 'string' || standard.category.trim() === '') {
-        return { isValid: false, error: `Standard ${i + 1} has invalid category: must be a non-empty string` };
-      }
-    }
-
-    // Check for duplicate IDs
-    const curriculumIds = data.curriculumRows.map((row: any) => row.id);
-    const standardIds = data.standards.map((standard: any) => standard.id);
-    
-    if (new Set(curriculumIds).size !== curriculumIds.length) {
-      return { isValid: false, error: "Duplicate curriculum row IDs found" };
-    }
-
-    if (new Set(standardIds).size !== standardIds.length) {
-      return { isValid: false, error: "Duplicate standard IDs found" };
-    }
-
-    // Validate metadata
-    if (!data.metadata.totalCurriculumEntries || typeof data.metadata.totalCurriculumEntries !== 'number') {
-      return { isValid: false, error: "Invalid metadata: totalCurriculumEntries must be a number" };
-    }
-
-    if (!data.metadata.totalStandards || typeof data.metadata.totalStandards !== 'number') {
-      return { isValid: false, error: "Invalid metadata: totalStandards must be a number" };
-    }
-
-    if (data.metadata.totalCurriculumEntries !== data.curriculumRows.length) {
-      return { isValid: false, error: "Metadata totalCurriculumEntries doesn't match actual curriculum rows count" };
-    }
-
-    if (data.metadata.totalStandards !== data.standards.length) {
-      return { isValid: false, error: "Metadata totalStandards doesn't match actual standards count" };
-    }
-
-    // Validate optional navigation metadata (for new format)
-    if (data.metadata.totalNavigationTabs !== undefined && typeof data.metadata.totalNavigationTabs !== 'number') {
-      return { isValid: false, error: "Invalid metadata: totalNavigationTabs must be a number" };
-    }
-
-    if (data.metadata.totalDropdownItems !== undefined && typeof data.metadata.totalDropdownItems !== 'number') {
-      return { isValid: false, error: "Invalid metadata: totalDropdownItems must be a number" };
-    }
-
-    if (data.metadata.totalTableConfigs !== undefined && typeof data.metadata.totalTableConfigs !== 'number') {
-      return { isValid: false, error: "Invalid metadata: totalTableConfigs must be a number" };
-    }
-
-    if (data.metadata.totalNavigationTabs !== undefined && data.navigationTabs && data.metadata.totalNavigationTabs !== data.navigationTabs.length) {
-      return { isValid: false, error: "Metadata totalNavigationTabs doesn't match actual navigation tabs count" };
-    }
-
-    if (data.metadata.totalDropdownItems !== undefined && data.dropdownItems && data.metadata.totalDropdownItems !== data.dropdownItems.length) {
-      return { isValid: false, error: "Metadata totalDropdownItems doesn't match actual dropdown items count" };
-    }
-
-    if (data.metadata.totalTableConfigs !== undefined && data.tableConfigs && data.metadata.totalTableConfigs !== data.tableConfigs.length) {
-      return { isValid: false, error: "Metadata totalTableConfigs doesn't match actual table configs count" };
-    }
-
-    return { 
-      isValid: true, 
-      error: null,
-      gradeCount: grades.size,
-      subjectCount: subjects.size
-    };
-  };
 
   const currentEditingRowStandards = editingRowId
     ? curriculumRows.find((row) => row.id === editingRowId)?.standards || []
@@ -995,25 +818,25 @@ export default function CurriculumBuilder() {
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-blue-900 mb-3">Export Full Database</h3>
                     <p className="text-blue-700 mb-4">
-                      Download the complete curriculum database including all grades, subjects, and standards.
+                      Download a complete PostgreSQL backup of the curriculum database. This creates a reliable SQL file that preserves all data integrity including tableName fields and relationships.
                     </p>
                     <Button
                       onClick={handleExportFullDatabase}
                       className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
                     >
-                      Export Complete Database
+                      Export PostgreSQL Backup
                     </Button>
                   </div>
 
                   <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-orange-900 mb-3">Import Database</h3>
                     <p className="text-orange-700 mb-4">
-                      Replace the current database with a new JSON file. This will completely overwrite all existing data.
+                      Restore the database from a backup file. Supports both PostgreSQL (.sql) and JSON (.json) backup files. This will completely replace all existing data.
                     </p>
                     <div className="flex items-center space-x-4">
                       <input
                         type="file"
-                        accept=".json"
+                        accept=".sql,.json"
                         onChange={handleImportDatabase}
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
                       />
