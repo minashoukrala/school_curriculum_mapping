@@ -377,10 +377,10 @@ export default function CurriculumBuilder() {
 
   const handleExportFullDatabase = async () => {
     try {
-      // Use the new PostgreSQL-based export endpoint
+      // Use the simple JSON export endpoint
       const downloadLink = document.createElement("a");
       downloadLink.href = '/api/export/full-database';
-      downloadLink.download = `curriculum-database-backup-${new Date().toISOString().split('T')[0]}.sql`;
+      downloadLink.download = `curriculum-database-${new Date().toISOString().split('T')[0]}.json`;
       downloadLink.style.display = 'none';
       
       // Trigger download
@@ -403,12 +403,20 @@ export default function CurriculumBuilder() {
     if (!file) return;
 
     try {
-      // Validate file type - now accepts both SQL and JSON files
-      const isSqlFile = file.name.endsWith('.sql');
-      const isJsonFile = file.type === 'application/json' || file.name.endsWith('.json');
-      
-      if (!isSqlFile && !isJsonFile) {
-        alert('Please select a valid backup file (.sql or .json)');
+      // Validate file type - only JSON files
+      if (file.type !== 'application/json' && !file.name.endsWith('.json')) {
+        alert('Please select a valid JSON backup file (.json)');
+        event.target.value = '';
+        return;
+      }
+
+      // Read the file
+      const text = await file.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseError) {
+        alert('Invalid JSON file. Please select a valid backup file.');
         event.target.value = '';
         return;
       }
@@ -418,7 +426,13 @@ export default function CurriculumBuilder() {
         `Database Import Confirmation\n\n` +
         `📁 File: ${file.name}\n` +
         `📊 Size: ${(file.size / 1024).toFixed(1)} KB\n` +
-        `📋 Type: ${isSqlFile ? 'PostgreSQL Backup' : 'JSON Backup'}\n\n` +
+        `📋 Type: JSON Backup\n\n` +
+        `📊 Data Summary:\n` +
+        `- Curriculum entries: ${data.curriculumRows?.length || 0}\n` +
+        `- Standards: ${data.standards?.length || 0}\n` +
+        `- Navigation tabs: ${data.navigationTabs?.length || 0}\n` +
+        `- Dropdown items: ${data.dropdownItems?.length || 0}\n` +
+        `- Table configs: ${data.tableConfigs?.length || 0}\n\n` +
         `⚠️  WARNING: This will completely replace the current database!\n` +
         `All existing data will be permanently deleted.\n\n` +
         `Are you sure you want to proceed?\n` +
@@ -430,15 +444,13 @@ export default function CurriculumBuilder() {
         return;
       }
 
-      // Create FormData for file upload
-      const formData = new FormData();
-      formData.append('backup', file);
-
-      // Upload the file using the appropriate endpoint
-      const endpoint = isSqlFile ? '/api/import/full-database' : '/api/import/json';
-      const response = await fetch(endpoint, {
+      // Upload the data
+      const response = await fetch('/api/import/full-database', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -818,25 +830,25 @@ export default function CurriculumBuilder() {
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-blue-900 mb-3">Export Full Database</h3>
                     <p className="text-blue-700 mb-4">
-                      Download a complete PostgreSQL backup of the curriculum database. This creates a reliable SQL file that preserves all data integrity including tableName fields and relationships.
+                      Download a complete backup of the curriculum database as a JSON file. This includes all curriculum entries, standards, navigation structure, and relationships. Works on any device.
                     </p>
                     <Button
                       onClick={handleExportFullDatabase}
                       className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3"
                     >
-                      Export PostgreSQL Backup
+                      Export Database Backup
                     </Button>
                   </div>
 
                   <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-orange-900 mb-3">Import Database</h3>
                     <p className="text-orange-700 mb-4">
-                      Restore the database from a backup file. Supports both PostgreSQL (.sql) and JSON (.json) backup files. This will completely replace all existing data.
+                      Restore the database from a JSON backup file. This will completely replace all existing data with the backup contents.
                     </p>
                     <div className="flex items-center space-x-4">
                       <input
                         type="file"
-                        accept=".sql,.json"
+                        accept=".json"
                         onChange={handleImportDatabase}
                         className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
                       />

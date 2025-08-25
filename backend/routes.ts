@@ -3,12 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "../database/storage";
 import { insertCurriculumRowSchema, insertStandardSchema } from "@shared/schema";
 import { z } from "zod";
-import multer from "multer";
-import { spawn } from "child_process";
-import fs from "fs";
 
-// Configure multer for file uploads
-const upload = multer({ dest: '/tmp/' });
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get curriculum rows for a specific grade and subject
@@ -161,147 +156,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
-  // PostgreSQL-based database backup (replaces JSON export)
+  // Simple, reliable database export - works on any device
   app.get("/api/export/full-database", async (req, res) => {
     try {
-      console.log('Starting PostgreSQL database backup...');
+      console.log('Starting simple database export...');
       
-      // Get database connection details from environment
-      const dbUrl = process.env.DATABASE_URL;
-      if (!dbUrl) {
-        return res.status(500).json({ message: "Database URL not configured" });
-      }
-      
-      // Create a unique backup filename
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const backupFilename = `curriculum_backup_${timestamp}.sql`;
-      
-      // Set headers for file download
-      res.setHeader('Content-Type', 'application/sql');
-      res.setHeader('Content-Disposition', `attachment; filename="${backupFilename}"`);
-      
-      // Use pg_dump to create a complete backup
-      const { spawn } = require('child_process');
-      const pgDump = spawn('pg_dump', [
-        '--dbname=' + dbUrl,
-        '--no-owner',
-        '--no-privileges',
-        '--clean',
-        '--if-exists',
-        '--create',
-        '--verbose'
-      ]);
-      
-      // Pipe the pg_dump output directly to the response
-      pgDump.stdout.pipe(res);
-      
-      // Handle errors
-      pgDump.stderr.on('data', (data: Buffer) => {
-        console.error('pg_dump error:', data.toString());
-      });
-      
-      pgDump.on('error', (error: Error) => {
-        console.error('pg_dump process error:', error);
-        if (!res.headersSent) {
-          res.status(500).json({ message: "Failed to create database backup" });
-        }
-      });
-      
-      pgDump.on('close', (code: number) => {
-        if (code !== 0) {
-          console.error('pg_dump exited with code:', code);
-          if (!res.headersSent) {
-            res.status(500).json({ message: "Database backup failed" });
-          }
-        } else {
-          console.log('Database backup completed successfully');
-        }
-      });
-      
-    } catch (error) {
-      console.error('Database backup error:', error);
-      res.status(500).json({ message: "Failed to create database backup" });
-    }
-  });
-
-  // PostgreSQL-based database restore (replaces JSON import)
-  app.post('/api/import/full-database', upload.single('backup'), async (req: any, res) => {
-    try {
-      console.log('Starting PostgreSQL database restore...');
-      
-      if (!req.file) {
-        return res.status(400).json({ message: "No backup file provided" });
-      }
-      
-      const dbUrl = process.env.DATABASE_URL;
-      if (!dbUrl) {
-        return res.status(500).json({ message: "Database URL not configured" });
-      }
-      
-      // Create a temporary file path for the uploaded backup
-      const backupPath = req.file.path;
-      
-      // Use pg_restore to restore the database
-      const { spawn } = require('child_process');
-      const pgRestore = spawn('pg_restore', [
-        '--dbname=' + dbUrl,
-        '--clean',
-        '--if-exists',
-        '--verbose',
-        backupPath
-      ]);
-      
-      let restoreOutput = '';
-      let restoreError = '';
-      
-      pgRestore.stdout.on('data', (data: Buffer) => {
-        restoreOutput += data.toString();
-      });
-      
-      pgRestore.stderr.on('data', (data: Buffer) => {
-        restoreError += data.toString();
-      });
-      
-      pgRestore.on('close', (code: number) => {
-        // Clean up the uploaded file
-        try {
-          fs.unlinkSync(backupPath);
-        } catch (cleanupError) {
-          console.error('Failed to clean up backup file:', cleanupError);
-        }
-        
-        if (code !== 0) {
-          console.error('pg_restore exited with code:', code);
-          console.error('Restore error output:', restoreError);
-          return res.status(500).json({ 
-            message: "Database restore failed", 
-            error: restoreError 
-          });
-        }
-        
-        console.log('Database restore completed successfully');
-        res.json({ 
-          message: "Database restored successfully",
-          output: restoreOutput
-        });
-      });
-      
-      pgRestore.on('error', (error: Error) => {
-        console.error('pg_restore process error:', error);
-        res.status(500).json({ message: "Failed to restore database" });
-      });
-      
-    } catch (error) {
-      console.error('Database restore error:', error);
-      res.status(500).json({ message: "Failed to restore database" });
-    }
-  });
-
-  // Alternative: JSON export with complete data (for compatibility)
-  app.get("/api/export/json", async (req, res) => {
-    try {
-      console.log('Starting JSON export with complete data...');
-      
+      // Get all data from database
       const allRows = await storage.getAllCurriculumRows();
       const standards = await storage.getAllStandards();
       const navigationTabs = await storage.getAllNavigationTabs();
@@ -309,6 +169,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const tableConfigs = await storage.getAllTableConfigs();
       const schoolYear = await storage.getSchoolYear();
       
+      // Create complete export data
       const exportData = {
         curriculumRows: allRows,
         standards,
@@ -323,25 +184,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
           totalDropdownItems: dropdownItems.length,
           totalTableConfigs: tableConfigs.length,
           exportDate: new Date().toISOString(),
-          version: "2.0",
-          description: "Complete database export including all navigation structure and relationships"
+          version: "3.0",
+          description: "Complete database export with all data and relationships"
         }
       };
       
+      // Set headers for JSON download
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', `attachment; filename=complete-curriculum-export-${new Date().toISOString().split('T')[0]}.json`);
+      res.setHeader('Content-Disposition', `attachment; filename=curriculum-database-${new Date().toISOString().split('T')[0]}.json`);
       res.json(exportData);
       
+      console.log('Database export completed successfully');
+      
     } catch (error) {
-      console.error('JSON export error:', error);
-      res.status(500).json({ message: "Failed to export database as JSON" });
+      console.error('Database export error:', error);
+      res.status(500).json({ message: "Failed to export database" });
     }
   });
 
-  // Alternative: JSON import with complete data (for compatibility)
-  app.post('/api/import/json', async (req, res) => {
+  // Simple, reliable database import - works with JSON files
+  app.post('/api/import/full-database', async (req, res) => {
     try {
-      console.log('Starting JSON import with complete data...');
+      console.log('Starting simple database import...');
       
       const { curriculumRows, standards, navigationTabs, dropdownItems, tableConfigs, schoolYear, metadata } = req.body;
       
@@ -362,7 +226,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       res.json({ 
-        message: "Database imported successfully from JSON",
+        message: "Database imported successfully",
         summary: {
           curriculumRows: curriculumRows.length,
           standards: standards.length,
@@ -373,10 +237,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
     } catch (error) {
-      console.error('JSON import error:', error);
-      res.status(500).json({ message: "Failed to import database from JSON" });
+      console.error('Database import error:', error);
+      res.status(500).json({ message: "Failed to import database" });
     }
   });
+
+
 
   // Get database statistics
   app.get("/api/stats", async (req, res) => {
