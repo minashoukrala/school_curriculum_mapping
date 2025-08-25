@@ -186,6 +186,34 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Geography
         subjectArea = 'Geography';
+      } else if (standard.code.startsWith('WA.ELA-LITERACY.RML')) {
+        subject = 'English Language Arts';
+        // Extract grade from WA.ELA-LITERACY.RML code (e.g., WA.ELA-LITERACY.RML1st.1 -> 1st, WA.ELA-LITERACY.RMLK.1 -> K, WA.ELA-LITERACY.RML6th.1 -> 6th)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.RML(\d+[a-z]+|K)\./);
+        if (gradeMatch) {
+          const gradeText = gradeMatch[1];
+          if (gradeText === 'K') {
+            grade = 'KG';
+          } else if (gradeText === '1st') {
+            grade = 'Grade 1';
+          } else if (gradeText === '2nd') {
+            grade = 'Grade 2';
+          } else if (gradeText === '3rd') {
+            grade = 'Grade 3';
+          } else if (gradeText === '4th') {
+            grade = 'Grade 4';
+          } else if (gradeText === '5th') {
+            grade = 'Grade 5';
+          } else if (gradeText === '6th') {
+            grade = 'Grade 6';
+          } else if (gradeText === '7th') {
+            grade = 'Grade 7';
+          } else if (gradeText === '8th') {
+            grade = 'Grade 8';
+          }
+        }
+        // Set subjectArea to Research & Media Literacy
+        subjectArea = 'Research & Media Literacy';
       } else if (standard.code.startsWith('WA.ELA-LITERACY.R')) {
         subject = 'English Language Arts';
         // Extract grade from WA.ELA-LITERACY.R code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st, WA.ELA-LITERACY.RK.1 -> K, WA.ELA-LITERACY.R6th.1 -> 6th)
@@ -298,34 +326,6 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         }
         // Set subjectArea to Language
         subjectArea = 'Language';
-      } else if (standard.code.startsWith('WA.ELA-LITERACY.RML')) {
-        subject = 'English Language Arts';
-        // Extract grade from WA.ELA-LITERACY.RML code (e.g., WA.ELA-LITERACY.RML1st.1 -> 1st, WA.ELA-LITERACY.RMLK.1 -> K, WA.ELA-LITERACY.RML6th.1 -> 6th)
-        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.RML(\d+[a-z]+|K)\./);
-        if (gradeMatch) {
-          const gradeText = gradeMatch[1];
-          if (gradeText === 'K') {
-            grade = 'KG';
-          } else if (gradeText === '1st') {
-            grade = 'Grade 1';
-          } else if (gradeText === '2nd') {
-            grade = 'Grade 2';
-          } else if (gradeText === '3rd') {
-            grade = 'Grade 3';
-          } else if (gradeText === '4th') {
-            grade = 'Grade 4';
-          } else if (gradeText === '5th') {
-            grade = 'Grade 5';
-          } else if (gradeText === '6th') {
-            grade = 'Grade 6';
-          } else if (gradeText === '7th') {
-            grade = 'Grade 7';
-          } else if (gradeText === '8th') {
-            grade = 'Grade 8';
-          }
-        }
-        // Set subjectArea to Research & Media Literacy
-        subjectArea = 'Research & Media Literacy';
       }
 
       return {
