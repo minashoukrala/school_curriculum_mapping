@@ -71,7 +71,7 @@ export default function CurriculumBuilder() {
   const queryClient = useQueryClient();
 
   // Fetch curriculum rows
-  const { data: curriculumRows = [], isLoading: isLoadingRows } = useQuery<
+  const { data: curriculumRows = [], isLoading: isLoadingRows, error: curriculumError } = useQuery<
     CurriculumRow[]
   >({
     queryKey: ["/api/curriculum", selectedGrade, selectedSubject],
@@ -86,6 +86,16 @@ export default function CurriculumBuilder() {
       return data;
     },
     enabled: selectedGrade !== "Admin" && Boolean(selectedGrade) && Boolean(selectedSubject), // Don't fetch for Admin section
+  });
+
+  // Debug logging
+  console.log('Curriculum query debug:', {
+    selectedGrade,
+    selectedSubject,
+    enabled: selectedGrade !== "Admin" && Boolean(selectedGrade) && Boolean(selectedSubject),
+    curriculumRows: curriculumRows.length,
+    isLoading: isLoadingRows,
+    error: curriculumError
   });
 
   // Fetch all curriculum rows for admin section
