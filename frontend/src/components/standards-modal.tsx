@@ -158,30 +158,49 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
       acc[standard.subject] = {};
     }
 
-    if (standard.grade) {
-      // Grade level standards
-      if (!acc[standard.subject][standard.grade]) {
-        acc[standard.subject][standard.grade] = {};
+    // Special handling for Social Studies to organize by category first
+    if (standard.subject === 'Social Studies') {
+      if (!acc[standard.subject][standard.subjectArea]) {
+        acc[standard.subject][standard.subjectArea] = {};
       }
-      if (!acc[standard.subject][standard.grade][standard.subjectArea]) {
-        acc[standard.subject][standard.grade][standard.subjectArea] = [];
+      if (standard.grade) {
+        if (!acc[standard.subject][standard.subjectArea][standard.grade]) {
+          acc[standard.subject][standard.subjectArea][standard.grade] = {};
+        }
+        // Use the original category for the final grouping
+        const originalCategory = standard.category;
+        if (!acc[standard.subject][standard.subjectArea][standard.grade][originalCategory]) {
+          acc[standard.subject][standard.subjectArea][standard.grade][originalCategory] = [];
+        }
+        acc[standard.subject][standard.subjectArea][standard.grade][originalCategory].push(standard);
       }
-      acc[standard.subject][standard.grade][standard.subjectArea].push(standard);
-    } else if (standard.subjectArea) {
-      // Subject areas without grade (like Mathematical Practices)
-      if (!acc[standard.subject].subjectAreas) {
-        acc[standard.subject].subjectAreas = {};
-      }
-      if (!acc[standard.subject].subjectAreas[standard.subjectArea]) {
-        acc[standard.subject].subjectAreas[standard.subjectArea] = [];
-      }
-      acc[standard.subject].subjectAreas[standard.subjectArea].push(standard);
     } else {
-      // Direct standards
-      if (!acc[standard.subject].standards) {
-        acc[standard.subject].standards = [];
+      // Original logic for other subjects
+      if (standard.grade) {
+        // Grade level standards
+        if (!acc[standard.subject][standard.grade]) {
+          acc[standard.subject][standard.grade] = {};
+        }
+        if (!acc[standard.subject][standard.grade][standard.subjectArea]) {
+          acc[standard.subject][standard.grade][standard.subjectArea] = [];
+        }
+        acc[standard.subject][standard.grade][standard.subjectArea].push(standard);
+      } else if (standard.subjectArea) {
+        // Subject areas without grade (like Mathematical Practices)
+        if (!acc[standard.subject].subjectAreas) {
+          acc[standard.subject].subjectAreas = {};
+        }
+        if (!acc[standard.subject].subjectAreas[standard.subjectArea]) {
+          acc[standard.subject].subjectAreas[standard.subjectArea] = [];
+        }
+        acc[standard.subject].subjectAreas[standard.subjectArea].push(standard);
+      } else {
+        // Direct standards
+        if (!acc[standard.subject].standards) {
+          acc[standard.subject].standards = [];
+        }
+        acc[standard.subject].standards.push(standard);
       }
-      acc[standard.subject].standards.push(standard);
     }
 
     return acc;
@@ -208,27 +227,35 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
   };
 
   const handleStandardToggle = (code: string) => {
-    const newSelected = localSelectedStandards.includes(code)
-      ? localSelectedStandards.filter(s => s !== code)
-      : [...localSelectedStandards, code];
-    setLocalSelectedStandards(newSelected);
+    const newSelected = new Set(localSelectedStandards);
+    if (newSelected.has(code)) {
+      newSelected.delete(code);
+    } else {
+      newSelected.add(code);
+    }
+    setLocalSelectedStandards(Array.from(newSelected));
   };
 
   const handleSubjectAreaToggle = (standards: Standard[]) => {
-    const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
-    const newSelected = allSelected
-      ? localSelectedStandards.filter(s => !standards.some(standard => standard.code === s))
-      : [...localSelectedStandards, ...standards.map(s => s.code).filter(code => !localSelectedStandards.includes(code))];
-    setLocalSelectedStandards(newSelected);
-  };
-
-  const handleSave = () => {
-    onSave(localSelectedStandards);
-    onClose();
+    const standardCodes = standards.map(s => s.code);
+    const allSelected = standardCodes.every(code => localSelectedStandards.includes(code));
+    
+    const newSelected = new Set(localSelectedStandards);
+    if (allSelected) {
+      standardCodes.forEach(code => newSelected.delete(code));
+    } else {
+      standardCodes.forEach(code => newSelected.add(code));
+    }
+    setLocalSelectedStandards(Array.from(newSelected));
   };
 
   const handleCancel = () => {
     setLocalSelectedStandards(selectedStandards);
+    onClose();
+  };
+
+  const handleSave = () => {
+    onSave(localSelectedStandards);
     onClose();
   };
 
@@ -265,12 +292,25 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             {Object.entries(standardsBySubject).map(([subject, subjectData]) => {
               const isExpanded = expandedSubjects.has(subject);
               
-              // Sort sections: KG, Grade 1-8, then others
-              const sortedSections = Object.entries(subjectData).sort(([a], [b]) => {
-                const gradeA = getGradeNumber(a);
-                const gradeB = getGradeNumber(b);
-                return gradeA - gradeB;
-              });
+              // Special sorting for Social Studies (by category first)
+              let sortedSections;
+              if (subject === 'Social Studies') {
+                // For Social Studies, sort by category first, then by grade
+                sortedSections = Object.entries(subjectData).sort(([a], [b]) => {
+                  // Define category order
+                  const categoryOrder = ['Social Studies Skills', 'Civics', 'Economy', 'Geography', 'History'];
+                  const indexA = categoryOrder.indexOf(a);
+                  const indexB = categoryOrder.indexOf(b);
+                  return indexA - indexB;
+                });
+              } else {
+                // For other subjects, sort by grade
+                sortedSections = Object.entries(subjectData).sort(([a], [b]) => {
+                  const gradeA = getGradeNumber(a);
+                  const gradeB = getGradeNumber(b);
+                  return gradeA - gradeB;
+                });
+              }
 
               return (
                 <div key={subject} className="border border-gray-200 rounded-lg">
@@ -361,76 +401,184 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
                           );
                         }
 
-                        // Grade level (Math)
-                        const gradeStandards = sectionData as Record<string, Standard[]>;
-                        const isGradeExpanded = expandedGrades.has(section);
-                        const allGradeStandards = Object.values(gradeStandards).flat();
-                        const allSelected = allGradeStandards.every(s => localSelectedStandards.includes(s.code));
-                        const someSelected = allGradeStandards.some(s => localSelectedStandards.includes(s.code));
+                        // Handle different structures based on subject
+                        if (subject === 'Social Studies') {
+                          // Social Studies: Category -> Grade -> Subject Areas -> Standards
+                          const categoryData = sectionData as Record<string, Record<string, Standard[]>>;
+                          const isCategoryExpanded = expandedGrades.has(section);
+                          const allCategoryStandards = Object.values(categoryData).flatMap(gradeData => 
+                            Object.values(gradeData).flat()
+                          );
+                          const allSelected = allCategoryStandards.every(s => localSelectedStandards.includes(s.code));
+                          const someSelected = allCategoryStandards.some(s => localSelectedStandards.includes(s.code));
 
-                        return (
-                          <div key={section} className="border-l-2 border-gray-200 pl-3">
-                            {/* Grade Header */}
-                            <div className="flex items-center space-x-2 mb-2">
-                              <Checkbox
-                                checked={allSelected}
-                                onCheckedChange={() => handleSubjectAreaToggle(allGradeStandards)}
-                                className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
-                              />
-                              <button
-                                onClick={() => toggleGradeExpanded(section)}
-                                className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600"
-                              >
-                                <span>{section}</span>
-                                <span>{isGradeExpanded ? '▼' : '▶'}</span>
-                              </button>
-                            </div>
-                            
-                            {/* Grade Content */}
-                            {isGradeExpanded && (
-                              <div className="space-y-3">
-                                {Object.entries(gradeStandards).map(([subjectArea, standards]) => {
-                                  const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
-                                  const someSelected = standards.some(s => localSelectedStandards.includes(s.code));
-
-                                  return (
-                                    <div key={subjectArea} className="border border-gray-100 rounded p-2">
-                                      {/* Subject Area Header */}
-                                      <div className="flex items-center space-x-2 mb-2">
-                                        <Checkbox
-                                          checked={allSelected}
-                                          onCheckedChange={() => handleSubjectAreaToggle(standards)}
-                                          className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
-                                        />
-                                        <h5 className="font-medium text-gray-700 text-sm">{subjectArea}</h5>
-                                      </div>
-                                      
-                                      {/* Standards */}
-                                      <div className="pl-4 space-y-1">
-                                        {standards.map((standard) => (
-                                          <label
-                                            key={standard.code}
-                                            className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
-                                          >
-                                            <Checkbox
-                                              checked={localSelectedStandards.includes(standard.code)}
-                                              onCheckedChange={() => handleStandardToggle(standard.code)}
-                                              className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
-                                            />
-                                            <div className="flex-1 min-w-0">
-                                              <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
-                                              <div className="text-xs text-gray-600 break-words">{standard.description}</div>
-                                            </div>
-                                          </label>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
+                          return (
+                            <div key={section} className="border-l-2 border-gray-200 pl-3">
+                              {/* Category Header */}
+                              <div className="flex items-center space-x-2 mb-2">
+                                <Checkbox
+                                  checked={allSelected}
+                                  onCheckedChange={() => handleSubjectAreaToggle(allCategoryStandards)}
+                                  className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                />
+                                <button
+                                  onClick={() => toggleGradeExpanded(section)}
+                                  className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600"
+                                >
+                                  <span>{section}</span>
+                                  <span>{isCategoryExpanded ? '▼' : '▶'}</span>
+                                </button>
                               </div>
-                            )}
-                          </div>
-                        );
+                              
+                              {/* Category Content */}
+                              {isCategoryExpanded && (
+                                <div className="space-y-3">
+                                  {Object.entries(categoryData).map(([grade, gradeData]) => {
+                                    const isGradeExpanded = expandedGrades.has(`${section}-${grade}`);
+                                    const allGradeStandards = Object.values(gradeData).flat();
+                                    const allSelected = allGradeStandards.every(s => localSelectedStandards.includes(s.code));
+                                    const someSelected = allGradeStandards.some(s => localSelectedStandards.includes(s.code));
+
+                                    return (
+                                      <div key={grade} className="border-l-2 border-gray-200 pl-3">
+                                        {/* Grade Header */}
+                                        <div className="flex items-center space-x-2 mb-2">
+                                          <Checkbox
+                                            checked={allSelected}
+                                            onCheckedChange={() => handleSubjectAreaToggle(allGradeStandards)}
+                                            className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                          />
+                                          <button
+                                            onClick={() => toggleGradeExpanded(`${section}-${grade}`)}
+                                            className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm hover:text-blue-600"
+                                          >
+                                            <span>{grade}</span>
+                                            <span>{isGradeExpanded ? '▼' : '▶'}</span>
+                                          </button>
+                                        </div>
+                                        
+                                        {/* Grade Content */}
+                                        {isGradeExpanded && (
+                                          <div className="space-y-3">
+                                            {Object.entries(gradeData).map(([subjectArea, standards]) => {
+                                              const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
+                                              const someSelected = standards.some(s => localSelectedStandards.includes(s.code));
+
+                                              return (
+                                                <div key={subjectArea} className="border border-gray-100 rounded p-2">
+                                                  {/* Subject Area Header */}
+                                                  <div className="flex items-center space-x-2 mb-2">
+                                                    <Checkbox
+                                                      checked={allSelected}
+                                                      onCheckedChange={() => handleSubjectAreaToggle(standards)}
+                                                      className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                                    />
+                                                    <h5 className="font-medium text-gray-700 text-sm">{subjectArea}</h5>
+                                                  </div>
+                                                  
+                                                  {/* Standards */}
+                                                  <div className="pl-4 space-y-1">
+                                                    {standards.map((standard) => (
+                                                      <label
+                                                        key={standard.code}
+                                                        className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
+                                                      >
+                                                        <Checkbox
+                                                          checked={localSelectedStandards.includes(standard.code)}
+                                                          onCheckedChange={() => handleStandardToggle(standard.code)}
+                                                          className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
+                                                        />
+                                                        <div className="flex-1 min-w-0">
+                                                          <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
+                                                          <div className="text-xs text-gray-600 break-words">{standard.description}</div>
+                                                        </div>
+                                                      </label>
+                                                    ))}
+                                                  </div>
+                                                </div>
+                                              );
+                                            })}
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        } else {
+                          // Grade level (Math, Science, etc.)
+                          const gradeStandards = sectionData as Record<string, Standard[]>;
+                          const isGradeExpanded = expandedGrades.has(section);
+                          const allGradeStandards = Object.values(gradeStandards).flat();
+                          const allSelected = allGradeStandards.every(s => localSelectedStandards.includes(s.code));
+                          const someSelected = allGradeStandards.some(s => localSelectedStandards.includes(s.code));
+
+                          return (
+                            <div key={section} className="border-l-2 border-gray-200 pl-3">
+                              {/* Grade Header */}
+                              <div className="flex items-center space-x-2 mb-2">
+                                <Checkbox
+                                  checked={allSelected}
+                                  onCheckedChange={() => handleSubjectAreaToggle(allGradeStandards)}
+                                  className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                />
+                                <button
+                                  onClick={() => toggleGradeExpanded(section)}
+                                  className="flex items-center space-x-2 text-left font-medium text-gray-800 text-sm sm:text-base hover:text-blue-600"
+                                >
+                                  <span>{section}</span>
+                                  <span>{isGradeExpanded ? '▼' : '▶'}</span>
+                                </button>
+                              </div>
+                              
+                              {/* Grade Content */}
+                              {isGradeExpanded && (
+                                <div className="space-y-3">
+                                  {Object.entries(gradeStandards).map(([subjectArea, standards]) => {
+                                    const allSelected = standards.every(s => localSelectedStandards.includes(s.code));
+                                    const someSelected = standards.some(s => localSelectedStandards.includes(s.code));
+
+                                    return (
+                                      <div key={subjectArea} className="border border-gray-100 rounded p-2">
+                                        {/* Subject Area Header */}
+                                        <div className="flex items-center space-x-2 mb-2">
+                                          <Checkbox
+                                            checked={allSelected}
+                                            onCheckedChange={() => handleSubjectAreaToggle(standards)}
+                                            className={`min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px] ${someSelected && !allSelected ? "data-[state=checked]:bg-blue-600" : ""}`}
+                                          />
+                                          <h5 className="font-medium text-gray-700 text-sm">{subjectArea}</h5>
+                                        </div>
+                                        
+                                        {/* Standards */}
+                                        <div className="pl-4 space-y-1">
+                                          {standards.map((standard) => (
+                                            <label
+                                              key={standard.code}
+                                              className="flex items-start space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded touch-manipulation"
+                                            >
+                                              <Checkbox
+                                                checked={localSelectedStandards.includes(standard.code)}
+                                                onCheckedChange={() => handleStandardToggle(standard.code)}
+                                                className="mt-1 min-w-[16px] min-h-[16px] sm:min-w-[18px] sm:min-h-[18px]"
+                                              />
+                                              <div className="flex-1 min-w-0">
+                                                <div className="font-medium text-xs sm:text-sm break-words">{standard.code}</div>
+                                                <div className="text-xs text-gray-600 break-words">{standard.description}</div>
+                                              </div>
+                                            </label>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        }
                       })}
                     </div>
                   )}
