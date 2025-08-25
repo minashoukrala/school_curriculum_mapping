@@ -188,11 +188,13 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
         subjectArea = 'Geography';
       } else if (standard.code.startsWith('WA.ELA-LITERACY')) {
         subject = 'English Language Arts';
-        // Extract grade from WA.ELA-LITERACY code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st)
-        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.R(\d+[a-z]+)\./);
+        // Extract grade from WA.ELA-LITERACY code (e.g., WA.ELA-LITERACY.R1st.1 -> 1st, WA.ELA-LITERACY.RK.1 -> K, WA.ELA-LITERACY.R6th.1 -> 6th)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.R(\d+[a-z]+|K)\./);
         if (gradeMatch) {
           const gradeText = gradeMatch[1];
-          if (gradeText === '1st') {
+          if (gradeText === 'K') {
+            grade = 'KG';
+          } else if (gradeText === '1st') {
             grade = 'Grade 1';
           } else if (gradeText === '2nd') {
             grade = 'Grade 2';
@@ -202,17 +204,25 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             grade = 'Grade 4';
           } else if (gradeText === '5th') {
             grade = 'Grade 5';
+          } else if (gradeText === '6th') {
+            grade = 'Grade 6';
+          } else if (gradeText === '7th') {
+            grade = 'Grade 7';
+          } else if (gradeText === '8th') {
+            grade = 'Grade 8';
           }
         }
         // Set subjectArea to Reading
         subjectArea = 'Reading';
       } else if (standard.code.startsWith('WA.ELA-LITERACY.W')) {
         subject = 'English Language Arts';
-        // Extract grade from WA.ELA-LITERACY.W code (e.g., WA.ELA-LITERACY.W1st.1 -> 1st)
-        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.W(\d+[a-z]+)\./);
+        // Extract grade from WA.ELA-LITERACY.W code (e.g., WA.ELA-LITERACY.W1st.1 -> 1st, WA.ELA-LITERACY.WK.1 -> K, WA.ELA-LITERACY.W6th.1 -> 6th)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.W(\d+[a-z]+|K)\./);
         if (gradeMatch) {
           const gradeText = gradeMatch[1];
-          if (gradeText === '1st') {
+          if (gradeText === 'K') {
+            grade = 'KG';
+          } else if (gradeText === '1st') {
             grade = 'Grade 1';
           } else if (gradeText === '2nd') {
             grade = 'Grade 2';
@@ -222,17 +232,25 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             grade = 'Grade 4';
           } else if (gradeText === '5th') {
             grade = 'Grade 5';
+          } else if (gradeText === '6th') {
+            grade = 'Grade 6';
+          } else if (gradeText === '7th') {
+            grade = 'Grade 7';
+          } else if (gradeText === '8th') {
+            grade = 'Grade 8';
           }
         }
         // Set subjectArea to Writing
         subjectArea = 'Writing';
       } else if (standard.code.startsWith('WA.ELA-LITERACY.SLDF')) {
         subject = 'English Language Arts';
-        // Extract grade from WA.ELA-LITERACY.SLDF code (e.g., WA.ELA-LITERACY.SLDF1st.1 -> 1st)
-        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.SLDF(\d+[a-z]+)\./);
+        // Extract grade from WA.ELA-LITERACY.SLDF code (e.g., WA.ELA-LITERACY.SLDF1st.1 -> 1st, WA.ELA-LITERACY.SLDFK.1 -> K, WA.ELA-LITERACY.SLDF6th.1 -> 6th)
+        const gradeMatch = standard.code.match(/WA\.ELA-LITERACY\.SLDF(\d+[a-z]+|K)\./);
         if (gradeMatch) {
           const gradeText = gradeMatch[1];
-          if (gradeText === '1st') {
+          if (gradeText === 'K') {
+            grade = 'KG';
+          } else if (gradeText === '1st') {
             grade = 'Grade 1';
           } else if (gradeText === '2nd') {
             grade = 'Grade 2';
@@ -242,6 +260,12 @@ export function StandardsModal({ isOpen, onClose, onSave, selectedStandards }: S
             grade = 'Grade 4';
           } else if (gradeText === '5th') {
             grade = 'Grade 5';
+          } else if (gradeText === '6th') {
+            grade = 'Grade 6';
+          } else if (gradeText === '7th') {
+            grade = 'Grade 7';
+          } else if (gradeText === '8th') {
+            grade = 'Grade 8';
           }
         }
         // Set subjectArea to Speaking/Listening
